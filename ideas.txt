@@ -6,3 +6,5 @@ Proposte di funzionalità progetto
 (4) postare foto
 (5) includere nuovi amici nel gruppo.
 (6) chat fra membri dello stesso gruppo e persone appartenenti a gruppi diversi
+(7) notifiche appropriate al dispositivo (push, ecc.)
+(8) ricerca utenti e gruppi in base a nome e zona 
