@@ -1,0 +1,8 @@
+Proposte di funzionalità progetto
+
+(1) possibilità di avere gruppi (compagnie) di utenti che si comportano come un singolo.
+(2) creare post
+(3) organizzare eventi (anche condivisi con altre compagnie)
+(4) postare foto
+(5) includere nuovi amici nel gruppo.
+(6) chat fra membri dello stesso gruppo e persone appartenenti a gruppi diversi
