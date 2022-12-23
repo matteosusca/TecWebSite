@@ -3,7 +3,7 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 20 2021              
--- * Generation date: Fri Dec 23 14:29:46 2022 
+-- * Generation date: Fri Dec 23 16:21:30 2022 
 -- * LUN file: /home/panini/Documents/scuola/web/TecWebSite/TecWeb.lun 
 -- * Schema: TecWeb-logico/1-1-1 
 -- ********************************************* 
@@ -20,87 +20,97 @@ use TecWeb-logico;
 -- _____________ 
 
 create table amicizia (
-     Ric_username char(1) not null,
-     username char(1) not null,
-     constraint IDamicizia primary key (username, Ric_username));
+     user1 varchar(30) not null,
+     user2 varchar(30) not null,
+     constraint IDamicizia primary key (user2, user1));
 
 create table COMMENTO (
-     id_commento char(1) not null,
-     corpo -- Compound attribute -- not null,
-     timestamp char(1) not null,
-     username_autore char(1) not null,
-     id_post char(1) not null,
+     id_commento int not null auto_increment,
+     corpo varchar(100) not null,
+     timestamp date not null,
+     username_autore varchar(30) not null,
+     id_post int not null auto_increment,
      constraint IDCOMMENTO primary key (id_commento),
      constraint IDCOMMENTO_1 unique (timestamp, username_autore));
 
 create table COMPAGNIA (
-     id_compagnia char(1) not null,
-     nome char(1) not null,
-     descrizione char(1) not null,
-     username_creatore char(1) not null,
+     id_compagnia int not null auto_increment,
+     nome varchar(30) not null,
+     descrizione varchar(100) not null,
+     username_creatore varchar(30) not null,
      constraint IDCOMPAGNIA_ID primary key (id_compagnia));
 
 create table EVENTO (
-     id_evento char(1) not null,
-     nome char(1) not null,
-     descrizione char(1) not null,
-     data_creazione char(1) not null,
-     data_evento char(1) not null,
-     durata char(1) not null,
-     tipo_evento char(1) not null,
-     id_compagnia_organizzatrice char(1),
-     username_organizzatore char(1),
+     id_evento int not null auto_increment,
+     nome varchar(50) not null,
+     descrizione varchar(300) not null,
+     data_creazione date not null,
+     data_evento date not null,
+     data_fine date not null,
+     is_evento_utente char not null,
+     id_compagnia_organizzatrice int auto_increment,
+     username_organizzatore int auto_increment,
      constraint IDEVENTO primary key (id_evento));
 
-create table iscrizione_c (
-     id_compagnia char(1) not null,
-     id_evento char(1) not null,
+create table INVITO_COMPAGNIA (
+     id_evento int not null auto_increment,
+     id_compagnia int not null auto_increment,
+     constraint IDinvito_compagnia primary key (id_evento, id_compagnia));
+
+create table INVITO_UTENTE (
+     id_evento int not null auto_increment,
+     username varchar(30) not null,
+     constraint IDinvito_utente primary key (id_evento, username));
+
+create table ISCRIZIONE_COMPAGNIA (
+     id_compagnia int not null auto_increment,
+     id_evento int not null auto_increment,
      constraint IDiscrizione_c primary key (id_evento, id_compagnia));
 
-create table iscrizione_u (
-     id_evento char(1) not null,
-     username char(1) not null,
+create table ISCRIZIONE_UTENTE (
+     id_evento int not null auto_increment,
+     username varchar(30) not null,
      constraint IDiscrizione_u primary key (id_evento, username));
 
 create table LIKE (
-     id_post char(1) not null,
-     username char(1) not null,
-     timestamp char(1) not null,
+     id_post int not null auto_increment,
+     username varchar(30) not null,
+     timestamp date not null,
      constraint IDLIKE primary key (username, id_post));
 
 create table LOGIN (
-     username char(1) not null,
-     mail char(1) not null,
-     password char(1) not null,
+     username varchar(30) not null,
+     mail varchar(30) not null,
+     password varchar(50) not null,
      constraint FKlogin_ID primary key (username));
 
 create table MEDIA (
-     id_media char(1) not null,
-     url char(1) not null,
-     tipo_media char(1) not null,
+     id_media int not null auto_increment,
+     url varchar(100) not null,
+     tipo_media varchar(50) not null,
      constraint IDMEDIA_ID primary key (id_media));
 
+create table partecipazione (
+     username_membro varchar(30) not null,
+     id_compagnia int not null auto_increment,
+     ruolo_membro varchar(10) not null,
+     constraint IDpartecipazione primary key (id_compagnia, username_membro));
+
 create table POST (
-     id_post char(1) not null,
-     id_media char(1),
-     descrizione char(1) not null,
-     timestamp char(1) not null,
-     username_autore char(1) not null,
+     id_post int not null auto_increment,
+     id_media bigint auto_increment,
+     descrizione varchar(100) not null,
+     timestamp date not null,
+     username_autore varchar(30) not null,
      constraint IDPOST primary key (id_post),
      constraint FKcontenuto_ID unique (id_media));
 
-create table partecipazione (
-     username_membro char(1) not null,
-     id_compagnia char(1) not null,
-     ruolo_membro char(1) not null,
-     constraint IDpartecipazione primary key (id_compagnia, username_membro));
-
 create table UTENTE (
-     username char(1) not null,
-     mail char(1) not null,
-     data nascita char(1) not null,
-     nome  char(1) not null,
-     cognome char(1) not null,
+     username varchar(30) not null,
+     mail varchar(30) not null,
+     data nascita date not null,
+     nome  varchar(30) not null,
+     cognome varchar(30) not null,
      constraint IDUTENTE_ID primary key (username));
 
 
@@ -108,11 +118,11 @@ create table UTENTE (
 -- ___________________ 
 
 alter table amicizia add constraint FKaccettante
-     foreign key (username)
+     foreign key (user2)
      references UTENTE (username);
 
 alter table amicizia add constraint FKrichiedente
-     foreign key (Ric_username)
+     foreign key (user1)
      references UTENTE (username);
 
 alter table COMMENTO add constraint FKper
@@ -140,19 +150,35 @@ alter table EVENTO add constraint FKorganizzazione_u
      foreign key (username_organizzatore)
      references UTENTE (username);
 
-alter table iscrizione_c add constraint FKisc_EVE
-     foreign key (id_evento)
-     references EVENTO (id_evento);
-
-alter table iscrizione_c add constraint FKisc_COM
+alter table INVITO_COMPAGNIA add constraint FKinv_COM
      foreign key (id_compagnia)
      references COMPAGNIA (id_compagnia);
 
-alter table iscrizione_u add constraint FKisc_UTE
+alter table INVITO_COMPAGNIA add constraint FKinv_EVE
+     foreign key (id_evento)
+     references EVENTO (id_evento);
+
+alter table INVITO_UTENTE add constraint FKinv_UTE
      foreign key (username)
      references UTENTE (username);
 
-alter table iscrizione_u add constraint FKisc_EVE
+alter table INVITO_UTENTE add constraint FKinv_EVE
+     foreign key (id_evento)
+     references EVENTO (id_evento);
+
+alter table ISCRIZIONE_COMPAGNIA add constraint FKisc_EVE
+     foreign key (id_evento)
+     references EVENTO (id_evento);
+
+alter table ISCRIZIONE_COMPAGNIA add constraint FKisc_COM
+     foreign key (id_compagnia)
+     references COMPAGNIA (id_compagnia);
+
+alter table ISCRIZIONE_UTENTE add constraint FKisc_UTE
+     foreign key (username)
+     references UTENTE (username);
+
+alter table ISCRIZIONE_UTENTE add constraint FKisc_EVE
      foreign key (id_evento)
      references EVENTO (id_evento);
 
@@ -173,20 +199,20 @@ alter table LOGIN add constraint FKlogin_FK
 --     check(exists(select * from POST
 --                  where POST.id_media = id_media)); 
 
-alter table POST add constraint FKcontenuto_FK
-     foreign key (id_media)
-     references MEDIA (id_media);
-
-alter table POST add constraint FKpubblicazione
-     foreign key (username_autore)
-     references UTENTE (username);
-
 alter table partecipazione add constraint FKpar_COM
      foreign key (id_compagnia)
      references COMPAGNIA (id_compagnia);
 
 alter table partecipazione add constraint FKpar_UTE
      foreign key (username_membro)
+     references UTENTE (username);
+
+alter table POST add constraint FKcontenuto_FK
+     foreign key (id_media)
+     references MEDIA (id_media);
+
+alter table POST add constraint FKpubblicazione
+     foreign key (username_autore)
      references UTENTE (username);
 
 -- Not implemented
