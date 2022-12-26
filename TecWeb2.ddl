@@ -3,7 +3,7 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 20 2021              
--- * Generation date: Mon Dec 26 12:51:51 2022 
+-- * Generation date: Mon Dec 26 12:53:43 2022 
 -- * LUN file: /home/sysosus/Documents/TecWebSite/TecWeb.lun 
 -- * Schema: TecWeb-logico/1-1-1 
 -- ********************************************* 
@@ -29,7 +29,7 @@ create table COMMENTO (
      corpo varchar(100) not null,
      timestamp date not null,
      username_autore varchar(30) not null,
-     id_post int not null auto_increment,
+     id_post int not null,
      constraint IDCOMMENTO primary key (id_commento),
      constraint IDCOMMENTO_1 unique (timestamp, username_autore));
 
