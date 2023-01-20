@@ -2,5 +2,5 @@
 session_start();
 define("UPLOAD_DIR", "./upload/");
 require_once("db/database.php");
-//$dbh = new DatabaseHelper("syso.ddns.net", "gruppoweb", "1234", "???", 3306);
+$dbh = new DatabaseHelper("sysosus.win", "gruppoweb", "pass123", "tw_db", 3306);
 ?>

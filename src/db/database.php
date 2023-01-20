@@ -5,11 +5,54 @@ class DatabaseHelper{
     public function __construct($servername, $username, $password, $dbname, $port){
         $this->db = new mysqli($servername, $username, $password, $dbname, $port);
         if ($this->db->connect_error) {
-            die("Connection failed: " . $db->connect_error);
+            die("Connection failed: " . $this->db->connect_error);
         }        
     }
 
-    public function getRandomPosts($n){
+    public function __destruct(){
+        $this->db->close();
+    }
+
+    public function checkLogin($username, $mail, $password){
+        $stmt = $this->db->prepare("SELECT * FROM login WHERE (username=? OR mail=?) AND password=?");
+        $stmt->bind_param('sss',$username, $mail, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $result = $result->fetch_all(MYSQLI_ASSOC);
+        if(count($result) > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function checkUserExists($username){
+        $stmt = $this->db->prepare("SELECT * FROM login WHERE username=?");
+        $stmt->bind_param('s',$username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return count($result->fetch_all(MYSQLI_ASSOC))>0;
+    }
+
+    public function signUpUser($username, $mail, $password, $name, $surname, $date_of_birth){
+        if($this->checkUserExists($username)){
+            return false;
+        }
+        $stmt = $this->db->prepare("INSERT INTO utente (username, mail, data_nascita, nome, cognome) VALUES (?,?,?,?,?)");
+        $stmt->bind_param('sssss',$username, $mail, $date_of_birth, $name, $surname);
+        $stmt->execute();
+        $stmt = $this->db->prepare("INSERT INTO login (username, mail, password) VALUES (?,?,?)");
+        $stmt->bind_param('sss',$username, $mail, $password);
+        $stmt->execute();
+        $stmt->close();
+
+        return true;
+    }
+        
+
+    /*public function getRandomPosts($n){
         $stmt = $this->db->prepare("SELECT idarticolo, titoloarticolo, imgarticolo FROM articolo ORDER BY RAND() LIMIT ?");
         $stmt->bind_param('i',$n);
         $stmt->execute();
@@ -127,7 +170,7 @@ class DatabaseHelper{
         $query = "DELETE FROM articolo_ha_categoria WHERE articolo = ? AND categoria = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ii',$articolo, $categoria);
-        return $stmt->execute();
+        return $stmt->eArticleOfAxecute();
     }
 
     public function deleteCategoriesOfArticle($articolo){
@@ -154,7 +197,7 @@ class DatabaseHelper{
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
-    }    
+    }*/   
 
 }
 ?>
