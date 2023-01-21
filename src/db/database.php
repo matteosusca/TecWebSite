@@ -21,11 +21,7 @@ class DatabaseHelper{
         $result = $stmt->get_result();
 
         $result = $result->fetch_all(MYSQLI_ASSOC);
-        if(count($result) > 0){
-            return true;
-        }else{
-            return false;
-        }
+        return count($result) > 0;
     }
 
     public function checkUserExists($username){

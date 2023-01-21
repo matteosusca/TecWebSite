@@ -53,3 +53,4 @@ class User{
         return $this->profile_picture;
     }
 }
+?>
