@@ -11,3 +11,5 @@ if($dbh->signUpUser($_POST['username'], $_POST['email'], $enc_passw, $_POST['nam
 }else{
     header("Location: signup.php?error=1");
 }
+
+?>
