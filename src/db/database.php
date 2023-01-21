@@ -71,5 +71,38 @@ class DatabaseHelper{
         }
     } 
 
+
+    public function checkSquadExists($name){
+        $stmt = $this->db->prepare("SELECT * FROM compagnia WHERE nome=?");
+        $stmt->bind_param('i',$name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return count($result->fetch_all(MYSQLI_ASSOC))>0;
+    }
+
+    public function createSquad($name, $description, $owner) {
+        $stmt = $this->db->prepare("INSERT INTO compagnia (nome, descrizione, creatore) VALUES (?,?,?)");
+        $stmt->bind_param('sss', $name, $description, $owner);
+        $stmt->execute();
+        $stmt->close();
+
+        return true;
+    }
+
+    public function getSquad($name) {
+        if(!$this->checkSquadExists($name)){
+            return false;
+        }
+        $stmt = $this->db->prepare("SELECT * FROM compagnia WHERE nome=?");
+        $stmt->bind_param('s',$name);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $squads = new array();
+        foreach($result as $row){
+            $squads[] = new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['creatore'], $row['profile_pic']);
+        }
+        return $squads;
+    }
+
 }
 ?>
