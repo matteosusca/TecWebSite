@@ -89,7 +89,7 @@ class DatabaseHelper{
         return true;
     }
 
-    public function getSquad($name) {
+    public function getSquads($name) {
         if(!$this->checkSquadExists($name)){
             return false;
         }
@@ -97,7 +97,7 @@ class DatabaseHelper{
         $stmt->bind_param('s',$name);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $squads = new array();
+        $squads = [];
         foreach($result as $row){
             $squads[] = new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['creatore'], $row['profile_pic']);
         }
