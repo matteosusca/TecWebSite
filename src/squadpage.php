@@ -1,7 +1,7 @@
 <?php
 require_once 'bootstrap.php';
-if(isset($_GET['squad'])){
-    $squad = $_GET['squad'];
+if(isset($_GET['name'])){
+    $squad = $_GET['name'];
     $squadProfile = $dbh->getSquads($squad)[0];
     if(!$squadProfile){
         $title = "Squad not found";
@@ -12,6 +12,7 @@ if(isset($_GET['squad'])){
 }
 else{
     $title = "Squad not found";
+    header("Location: signin.html");
 }
 ?>
 <!DOCTYPE html>
@@ -24,7 +25,11 @@ else{
 </head>
 <body>
     <div>
-        <img src=<?php echo $dbh->getMediaUrl($squadProfile->getPicture()); ?> alt="Profile picture">
+        <img src=<?php if($squadProfile->getPicture() != null) {
+            echo $dbh->getMediaUrl($squadProfile->getPicture());
+        } else {
+            echo "img/ciccio.jpg";
+        } ?> alt="Profile picture">
         <div>
             <h1><?php echo $squadProfile->getId(); ?></h1> //debug purupose
             <h2><?php echo $squadProfile->getName(); ?></h2>
