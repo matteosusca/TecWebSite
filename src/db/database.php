@@ -82,7 +82,7 @@ class DatabaseHelper{
 
     public function createSquad($name, $description, $owner) {
         $stmt = $this->db->prepare("INSERT INTO compagnia (nome, descrizione, creatore, profile_pic) VALUES (?,?,?,?)");
-        $stmt->bind_param('ssss', $name, $description, $owner, NULL);
+        $stmt->bind_param('ssss', $name, $description, $owner, null);
         $stmt->execute();
         $stmt->close();
 
