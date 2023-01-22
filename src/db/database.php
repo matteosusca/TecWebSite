@@ -81,8 +81,8 @@ class DatabaseHelper{
     }
 
     public function createSquad($name, $description, $owner) {
-        $stmt = $this->db->prepare("INSERT INTO compagnia (nome, descrizione, creatore) VALUES (?,?,?)");
-        $stmt->bind_param('sss', $name, $description, $owner);
+        $stmt = $this->db->prepare("INSERT INTO compagnia (nome, descrizione, creatore, profile_pic) VALUES (?,?,?,?)");
+        $stmt->bind_param('ssss', $name, $description, $owner, NULL);
         $stmt->execute();
         $stmt->close();
 
@@ -97,7 +97,7 @@ class DatabaseHelper{
         $stmt->bind_param('s',$name);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $squads = [];
+        $squads = array();
         foreach($result as $row){
             $squads[] = new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['creatore'], $row['profile_pic']);
         }
