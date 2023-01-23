@@ -11,7 +11,7 @@ require_once 'checkSession.php';
         <div>
             <?php $user = $dbh->getUser($_SESSION['username']); ?>
             <h1>Edit Profile</h1>
-            <form action="editprofilefun.php" method="post" enctype="multipart/form-data">
+            <form action="editprofile.php" method="post" enctype="multipart/form-data">
                 <div>
                     <label for="profilePicture">Profile Picture</label>
                     <input type="file" name="profilePicture" id="profilePicture">
@@ -37,4 +37,12 @@ require_once 'checkSession.php';
                 </div>
             </form>
         </div>
+<?php
+print("Daje fra");
+//check if file is uploaded
+if(isset($_FILES['profilePicture'])){
+    $dbh->setProfilePicture($_SESSION['username'], $_FILES['profilePicture']);
+}
+?>
     </body>
+</html>
