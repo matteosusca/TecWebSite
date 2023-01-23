@@ -5,14 +5,15 @@ if(isset($_GET['name'])){
     $squadProfile = $dbh->getSquads($squad)[0];
     if(!$squadProfile){
         $title = "Squad not found";
+        header("Location: createsquad.html?error=1");
     }
     else{
-        $title = $Squad."'s page";
+        $title = $squad."'s page";
     }
 }
 else{
     $title = "Squad not found";
-    header("Location: signin.html");
+    header("Location: createsquad.html?error=2");
 }
 ?>
 <!DOCTYPE html>
@@ -31,7 +32,7 @@ else{
             echo "img/ciccio.jpg";
         } ?> alt="Profile picture">
         <div>
-            <h1><?php echo $squadProfile->getId(); ?></h1> //debug purupose
+            <h1><?php echo $squadProfile->getId(); ?></h1> <!-- debug purupose -->
             <h2><?php echo $squadProfile->getName(); ?></h2>
             <h3><?php echo $squadProfile->getDescription(); ?></h3>
             <h3><?php echo $squadProfile->getOwner(); ?></h3>
