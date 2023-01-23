@@ -16,9 +16,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="d-flex flex-column vh-100" data-bs-theme="dark">
+<body class="d-flex flex-column vh-100 " data-bs-theme="dark">
 
-    <nav class="navbar navbar-icon-top navbar-expand-lg shadow-sm">
+    <nav class="navbar navbar-icon-top navbar-expand-lg shadow-sm bg-black navbar-dark">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
