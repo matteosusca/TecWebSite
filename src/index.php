@@ -25,24 +25,25 @@
                 aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <header class="navbar-brand">
+            <header class="navbar-brand mx-5">
                 <h1> SquadUp </h1>
             </header>
             <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="bi bi-house d-block mx-auto mb-1"
-                                style="font-size: 2rem;"></i> Home</a>
+
+                <ul class="navbar-nav mx-auto ">
+                    <li class="nav-item px-2">
+                        <a class="nav-link active " href="#"><i class="bi bi-house d-block"
+                                style="font-size: 1.5rem;"></i>Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-people d-block mx-auto mb-1"
-                                style="font-size: 2rem;"></i> Group</a>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="#"><i class="bi bi-people d-block"
+                                style="font-size: 1.5rem;"></i>Group</a>
                     </li>
                 </ul>
 
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="d-flex mx-5" role="search">
+                    <input class="form-control me-2 bg-transparent" type="search" placeholder="Search"
+                        aria-label="Search">
                 </form>
             </div>
         </div>
