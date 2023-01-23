@@ -16,9 +16,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="d-flex flex-column vh-100" data-bs-theme="light">
+<body class="d-flex flex-column vh-100" data-bs-theme="dark">
 
-    <nav class="navbar navbar-icon-top navbar-expand-lg ">
+    <nav class="navbar navbar-icon-top navbar-expand-lg shadow-sm">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -44,7 +44,7 @@
         </div>
     </nav>
     <main class=" container-fluid overflow-auto d-flex flex-row flex-start flex-wrap justify-content-center">
-        <aside class="m-0 col-2 p-3  shadow mh-100 d-none d-lg-block sticky-top">
+        <aside class="m-0 col-2 p-3 shadow mh-100 d-none d-lg-block sticky-top">
             <div class="list-group ">
                 <a href="#" class="list-group-item list-group-item-action list-group-item ">
                     Utente
@@ -118,7 +118,7 @@
                 </div>
             </div>
         </div>
-        <aside class="m-0 col-2 p-3  shadow mh-100 d-none d-lg-block sticky-top">
+        <aside class="m-0 col-2 p-3 shadow mh-100 d-none d-lg-block sticky-top">
             <div class="list-group ">
                 <a href="#" class="list-group-item list-group-item-action list-group-item">
                     amico1
