@@ -5,7 +5,7 @@ if(isset($_GET['name'])){
     $squadProfile = $dbh->getSquads($squad)[0];
     if(!$squadProfile){
         $title = "Squad not found";
-        header("Location: createsquad.html?error=1");
+        header("Location: squadpage.php?error=1");
     }
     else{
         $title = $squad."'s page";
@@ -13,7 +13,7 @@ if(isset($_GET['name'])){
 }
 else{
     $title = "Squad not found";
-    header("Location: createsquad.html?error=2");
+    header("Location: squadpage.php?error=2");
 }
 ?>
 <!DOCTYPE html>
