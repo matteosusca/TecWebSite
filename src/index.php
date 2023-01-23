@@ -62,7 +62,7 @@
                     © 2023 INSTAGRAM FROM META </p>
             </footer>
         </aside>
-        <div class="m-0 col-lg-4 col-md-12 p-3 shadow">
+        <div class="m-0  col-12 col-lg-4 p-3 shadow">
             <div class="card m-2">
                 <div class="card-body">
                     <h5 class="card-title"> Crea post</h5>
@@ -86,8 +86,8 @@
                 </div>
             </div>
             <div class="card m-2">
-                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg" class="card-img-top"
-                    alt="...">
+                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+                    class="object-fit-contain" alt="..." height="455" />
                 <div class="card-body">
                     <h5 class="card-title"> Utente</h5>
                     <p class="card-text">descrizione post</p>
@@ -102,8 +102,8 @@
                 </div>
             </div>
             <div class="card m-2">
-                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg" class="card-img-top"
-                    alt="...">
+                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+                    class="object-fit-contain" alt="..." height="455">
                 <div class="card-body">
                     <h5 class="card-title"> Utente</h5>
                     <p class="card-text">descrizione post</p>
