@@ -73,7 +73,6 @@ class DatabaseHelper{
         }
     } 
 
-
     public function checkSquadExists($name){
         $stmt = $this->db->prepare("SELECT * FROM compagnia WHERE nome=?");
         $stmt->bind_param('i',$name);
@@ -85,6 +84,11 @@ class DatabaseHelper{
     public function createSquad($name, $description, $owner) {
         $stmt = $this->db->prepare("INSERT INTO compagnia (nome, descrizione, creatore) VALUES (?,?,?)");
         $stmt->bind_param('sss', $name, $description, $owner);
+        $stmt->execute();
+        $id = mysqli_insert_id($this->db);
+        $role = 1;
+        $stmt = $this->db->prepare("INSERT INTO partecipazione (username, id_compagnia, ruolo) VALUES (?,?,?)");
+        $stmt->bind_param('sii', $owner, $id, $role);
         $stmt->execute();
         $stmt->close();
 
@@ -106,5 +110,24 @@ class DatabaseHelper{
         return $squads;
     }
 
+    public function getSquadsCreatedByUser($username) {
+        if(!$this->checkUserExists($username)){
+            return false;
+        }
+        $role = 1; 
+        $stmt = $this->db->prepare("SELECT c.* 
+                                    FROM compagnia c 
+                                    JOIN partecipazione p ON c.id_compagnia = p.id_compagnia 
+                                    JOIN utente u ON p.username = u.username 
+                                    WHERE u.username=? AND p.ruolo=?");
+        $stmt->bind_param('si',$username, $role);
+        $stmt->execute();   
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $squads = array();
+        foreach($result as $row){
+            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['profile_pic'], $row['creatore']));
+        }
+        return $squads;
+    }
 }
 ?>
