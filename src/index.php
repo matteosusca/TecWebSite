@@ -24,57 +24,48 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <header class="navbar-brand mx-5">
-            <h1> SquadUp </h1>
+            <h2> SquadUp </h2>
         </header>
         <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
             <ul class="navbar-nav mx-auto text-center">
-                <li class="nav-item px-2">
+                <li class="nav-item">
                     <a class="nav-link active " href="index.php"><i class="bi bi-house d-md-inline d-lg-block"
-                            style="font-size: 1.5rem;"></i>Home</a>
+                            style="font-size: 1rem;"></i>Home</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link " href="#"><i class="bi bi-people d-md-inline d-lg-block"
-                            style="font-size: 1.5rem;"></i>Group</a>
+                            style="font-size: 1rem;"></i>Group</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link " href="contacts.html"><i class="bi bi-people d-md-inline d-lg-block"
-                            style="font-size: 1.5rem;"></i>Contacts</a>
+                            style="font-size: 1rem;"></i>Contacts</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link " href="signin.html"><i class="bi bi-people d-md-inline d-lg-block"
-                            style="font-size: 1.5rem;"></i>Sign in</a>
+                            style="font-size: 1rem;"></i>Sign in</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link " href="signup.html"><i class="bi bi-people d-md-inline d-lg-block"
-                            style="font-size: 1.5rem;"></i>Sign up</a>
+                            style="font-size: 1rem;"></i>Sign up</a>
                 </li>
             </ul>
 
             <form class="mx-5" role="search">
-                <input class="form-control me-2 bg-body" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search">
             </form>
         </div>
     </nav>
     <main class=" container-fluid overflow-auto d-flex flex-row flex-start flex-wrap justify-content-center vh-100">
-        <aside class="m-0 col-2 p-3 shadow mh-100 d-none d-lg-block sticky-top">
+        <aside class="col-2 p-3 shadow mh-100 d-none d-lg-block sticky-top">
             <div class="list-group ">
-                <a href="#" class="list-group-item list-group-item-action list-group-item ">
+                <a href="#" class="list-group-item list-group-item-action list-group-item border-0">
                     Utente
                 </a>
-                <a href="#" class="list-group-item list-group-item-action list-group-item  ">
-                    Amici </a>
-                <a href="#" class="list-group-item list-group-item-action list-group-item ">
-                    Compagnie </a>
             </div>
-            <footer>
-                <p class="font-monospace text-center">
-                    Informazioni Assistenza Stampa API Lavora con
-                    noi Privacy Condizioni Luoghi Lingua
-                    Italiano
-                    © 2023 INSTAGRAM FROM META </p>
+            <footer class="bottom-0 position-absolute"> © 2023 INSTAGRAM FROM META
             </footer>
         </aside>
-        <div class="m-0  col-12 col-lg-4 p-3 shadow">
+        <div class="col-12 col-lg-4 p-3 shadow">
             <div class="card m-2">
                 <div class="card-header">
                     <h5 class="card-title"> Crea post</h5>
@@ -100,11 +91,12 @@
                 <div class="card-header">
                     <h5 class="card-title"> Utente</h5>
                 </div>
-                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-                    class="object-fit-contain" alt="..." height="455" />
                 <div class="card-body">
                     <p class="card-text">descrizione post</p>
                 </div>
+                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+                    class="object-fit-contain" alt="..." height="455" />
+
                 <div class="card-footer d-flex justify-content-around align-items-center">
                     <button type="button" class="btn btn-sm btn-outline-secondary border-0"><i class="bi bi-house"></i>
                         mi piace</button>
@@ -112,22 +104,39 @@
                             class="bi bi-pencil-square"></i> commento</button>
                     <button type="button" class="btn btn-sm btn-outline-secondary border-0"><i class="bi bi-share"></i>
                         condividi</button>
+                    <button class="btn btn-sm btn-outline-secondary border-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target=".multi-collapse" aria-expanded="false"
+                        aria-controls="multiCollapseExample1">mostra
+                        commenti</button>
+                </div>
+                <form role="commento">
+                    <input class="form-control bg-body" type="commento" placeholder="commento" aria-label="commento">
+                </form>
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="card m-2">
+                        <div class="card-header">
+                            <p class="card-text">Utente</p>
+                        </div>
+                        <div class="card card-body">
+                            <p class="card-text">commento</p>
+                        </div>
+                    </div>
+                    <div class="card m-2">
+                        <div class="card-header">
+                            <p class="card-text">Utente</p>
+                        </div>
+                        <div class="card card-body">
+                            <p class="card-text">commento</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <aside class="m-0 col-2 p-3 shadow mh-100 d-none d-lg-block sticky-top">
-            <div class="list-group ">
-                <a href="#" class="list-group-item list-group-item-action list-group-item">
+        <aside class="col-2 p-3 shadow mh-100 d-none d-lg-block sticky-top">
+            <div cla ss="list-group ">
+                <a href="#" class="list-group-item list-group-item-action list-group-item border-0">
                     amico1
                 </a>
-                <a href="#" class="list-group-item list-group-item-action list-group-item ">
-                    amico2 </a>
-                <a href="#" class="list-group-item list-group-item-action list-group-item ">
-                    amico3 </a>
-                <a href="#" class="list-group-item list-group-item-action list-group-item">
-                    amico4 </a>
-                <a href="#" class="list-group-item list-group-item-action list-group-item">
-                    amico5 </a>
             </div>
         </aside>
     </main>
