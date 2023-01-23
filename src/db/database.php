@@ -1,5 +1,7 @@
 <?php
 require_once 'user.php';
+require_once 'squad.php';
+
 class DatabaseHelper{
     private $db;
 
@@ -97,10 +99,9 @@ class DatabaseHelper{
         $stmt->bind_param('s',$name);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        print("merdacazzoculopalle");
         $squads = array();
         foreach($result as $row){
-            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['creatore'], $row['profile_pic']));
+            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['profile_pic'], $row['creatore']));
         }
         return $squads;
     }
