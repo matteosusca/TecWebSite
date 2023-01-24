@@ -128,22 +128,63 @@ class DatabaseHelper{
         if ($file["size"] > 500000) {
             //$uploadOk = 0;
         }
-        // Allow certain file formats
-        /*if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
-            $uploadOk = 0;
-        }*/
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
             return false;
         // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($file["tmp_name"], $target_file)) {
+                //update media table
+                $target_file = "https://squadup.sysosus.win/" . $target_file;
+                print($target_file);
+                $stmt = $this->db->prepare("INSERT INTO media (url, tipo_media) VALUES (?, 'img')");
+                $stmt->bind_param('s', $target_file);
+                $stmt->execute();
+                $stmt->close();
+                $media_id = $this->db->insert_id;
+                //update user table
+                $stmt = $this->db->prepare("UPDATE utente SET profile_pic=? WHERE username=?");
+                $stmt->bind_param('is', $media_id, $username);
+                $stmt->execute();
+                $stmt->close();
                 return true;
             } else {
                 return false;
             }
         }
+    }
+
+    public function setName($username, $name){
+        $stmt = $this->db->prepare("UPDATE utente SET nome=? WHERE username=?");
+        $stmt->bind_param('ss', $name, $username);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    public function setSurname($username, $surname){
+        $stmt = $this->db->prepare("UPDATE utente SET cognome=? WHERE username=?");
+        $stmt->bind_param('ss', $surname, $username);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    public function setMail($username, $mail){
+        //check if mail is already in use
+        $stmt = $this->db->prepare("SELECT * FROM utente WHERE mail=?");
+        $stmt->bind_param('s',$mail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if(count($result->fetch_all(MYSQLI_ASSOC))>0){
+            return false;
+        }
+        //update mail
+        $stmt = $this->db->prepare("UPDATE utente SET mail=? WHERE username=?");
+        $stmt->bind_param('ss', $mail, $username);
+        $stmt->execute();
+        $stmt->close();
+        return true;
     }
 
 }
