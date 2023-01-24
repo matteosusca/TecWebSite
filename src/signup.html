@@ -51,39 +51,34 @@
     </div>
   </nav>
   <main class="form-signin m-auto">
-    <form>
+    <form action="signup.php" method="post">
       <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
       <div class="form-floating">
-        <input type="name" class="form-control" id="floatingInput" placeholder="name">
+        <input type="text" class="form-control" id="name" placeholder="name" name="name">
         <label for="floatingInput">Name</label>
       </div>
       <div class="form-floating">
-        <input type="cognome" class="form-control" id="floatingInput" placeholder="Cognome">
+        <input type="text" class="form-control" id="surname" placeholder="Cognome" name="surname">
         <label for="floatingInput">Cognome</label>
       </div>
       <div class="form-floating">
-        <input type="data" class="form-control" id="floatingInput" placeholder="00/00/0000">
+        <input type="date" class="form-control" id="date_of_birth" placeholder="00/00/0000" name="date_of_birth">
         <label for="floatingInput">Data</label>
       </div>
       <div class="form-floating">
-        <input type="username" class="form-control" id="floatingInput" placeholder="username">
+        <input type="text" class="form-control" id="username" placeholder="username" name="username">
         <label for="floatingInput">Username</label>
       </div>
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <input type="text" class="form-control" id="email" placeholder="name@example.com" name="email">
         <label for="floatingInput">Email address</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <input type="text" class="form-control" id="password" placeholder="Password" name="password">
         <label for="floatingPassword">Password</label>
       </div>
 
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+      <button class="w-100 btn btn-lg btn-primary" type="submit" value="Registrati">Sign up</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
     </form>
   </main>

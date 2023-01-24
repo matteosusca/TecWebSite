@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
     <title>SquadUp</title>
+    <?php require_once 'checkSession.php'; ?>
 </head>
 
 <body class="d-flex flex-column vh-100 " data-bs-theme="dark">
