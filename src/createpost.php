@@ -45,11 +45,11 @@ if (!empty($_POST['submit'])) {
                             style="font-size: 1.5rem;"></i>Group</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="contacts.html"><i class="bi bi-people d-md-inline d-lg-block"
+                    <a class="nav-link " href="contacts.php"><i class="bi bi-people d-md-inline d-lg-block"
                             style="font-size: 1.5rem;"></i>Contacts</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link active " href="signin.html"><i class="bi bi-people d-md-inline d-lg-block"
+                    <a class="nav-link " href="signin.html"><i class="bi bi-people d-md-inline d-lg-block"
                             style="font-size: 1.5rem;"></i>Sign in</a>
                 </li>
                 <li class="nav-item ">
@@ -72,11 +72,11 @@ if (!empty($_POST['submit'])) {
                 <form action="createpost.php" method="post" enctype="multipart/form-data">
                     <input type=" text" class="form-control bg-body" id="description"
                         placeholder="a cosa stai pensando?" name="description" required>
-                    <button type="button" class="btn btn-sm btn-outline-secondary border-0 disabled">aggiungi al tuo
+                    <button type="button" class="btn btn-outline-secondary border-0 disabled">aggiungi al tuo
                         post</button>
-                    <input type="file" name="postfile" id="postfile" class="btn btn-sm btn-outline-secondary border-0"
+                    <input type="file" name="postfile" id="postfile" class="btn btn-outline-secondary border-0"
                         required></input>
-                    <button class="btn btn-sm btn-outline-secondary w-100" type="submit" value="Pubblica"
+                    <button class="btn btn-outline-secondary w-100" type="submit" value="Pubblica"
                         name="submit">Pubblica</button>
                 </form>
             </div>

@@ -33,7 +33,7 @@
                             style="font-size: 1rem;"></i>Group</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="contacts.html"><i class="bi bi-people d-md-inline d-lg-block"
+                    <a class="nav-link " href="contacts.php"><i class="bi bi-people d-md-inline d-lg-block"
                             style="font-size: 1rem;"></i>Contacts</a>
                 </li>
                 <li class="nav-item ">
@@ -54,8 +54,8 @@
     <main class=" container-fluid overflow-auto d-flex flex-row flex-start flex-wrap justify-content-center vh-100">
         <aside class="col-2 p-3 shadow mh-100 d-none d-lg-block sticky-top">
             <div class="list-group ">
-                <a href="#" class="list-group-item list-group-item-action list-group-item border-0">
-                    Utente
+                <a href="createpost.php" class="list-group-item list-group-item-action list-group-item border-0">
+                    Crea post
                 </a>
             </div>
             <footer class="bottom-0 position-absolute"> © 2023 INSTAGRAM FROM META
@@ -64,28 +64,7 @@
         <div class="col-12 col-lg-4 p-3 shadow">
             <div class="card m-2">
                 <div class="card-header">
-                    <h5 class="card-title"> Crea post</h5>
-                </div>
-                <div class="card-body">
-                    <form class="mb-3">
-                        <input type="email" class="form-control bg-body" id=" exampleFormControlInput1"
-                            placeholder="a cosa stai pensando?">
-                    </form>
-                </div>
-                <div class="card-footer d-flex justify-content-around align-items-center">
-                    <button type="button" class="btn btn-sm btn-outline-secondary border-0 disabled">aggiungi al tuo
-                        post</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary border-0"><i class="bi bi-house"></i>
-                        foto</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary border-0"><i
-                            class="bi bi-pencil-square"></i> video</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary border-0"><i class="bi bi-share"></i>
-                        altro</button>
-                </div>
-            </div>
-            <div class="card m-2">
-                <div class="card-header">
-                    <h5 class="card-title"> Utente</h5>
+                    <h5 class="card-title">Utente</h5>
                 </div>
                 <div class="card-body">
                     <p class="card-text">descrizione post</p>
@@ -105,9 +84,6 @@
                         aria-controls="multiCollapseExample1">mostra
                         commenti</button>
                 </div>
-                <form role="commento">
-                    <input class="form-control bg-body" type="commento" placeholder="commento" aria-label="commento">
-                </form>
                 <div class="collapse multi-collapse" id="multiCollapseExample1">
                     <div class="card m-2">
                         <div class="card-header">
