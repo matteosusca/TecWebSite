@@ -95,13 +95,14 @@ class DatabaseHelper{
         if(!$this->checkSquadExists($name)){
             return false;
         }
-        $stmt = $this->db->prepare("SELECT * FROM compagnia WHERE nome=?");
+
+        $stmt = $this->db->prepare("SELECT compagnia.*, GROUP_CONCAT(partecipazione.username) AS membri FROM compagnia LEFT JOIN partecipazione ON compagnia.id_compagnia = partecipazione.id_compagnia WHERE compagnia.nome = ? GROUP BY compagnia.id_compagnia");
         $stmt->bind_param('s',$name);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $squads = array();
         foreach($result as $row){
-            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['profile_pic'], $row['creatore']));
+            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['profile_pic'], $row['creatore'], explode(",", $row['membri'])));
         }
         return $squads;
     }

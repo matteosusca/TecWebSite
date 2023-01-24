@@ -36,6 +36,11 @@ else{
             <h2><?php echo $squadProfile->getName(); ?></h2>
             <h3><?php echo $squadProfile->getDescription(); ?></h3>
             <h3><?php echo $squadProfile->getOwner(); ?></h3>
+            <h3><ul><?php 
+            foreach($squadProfile->getMembers() as $member) {
+                echo "<li>".$member."</li>";
+            }
+            ?></ul></h3>
         </div>
     </div>
 </body>
