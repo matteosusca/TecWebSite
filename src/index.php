@@ -73,13 +73,13 @@
                     class="object-fit-contain" alt="..." height="455" />
 
                 <div class="card-footer d-flex justify-content-around align-items-center">
-                    <button type="button" class="btn btn-sm btn-outline-secondary border-0"><i class="bi bi-house"></i>
+                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-house"></i>
                         mi piace</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary border-0"><i
-                            class="bi bi-pencil-square"></i> commento</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary border-0"><i class="bi bi-share"></i>
+                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-pencil-square"></i>
+                        commento</button>
+                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-share"></i>
                         condividi</button>
-                    <button class="btn btn-sm btn-outline-secondary border-0" type="button" data-bs-toggle="collapse"
+                    <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse"
                         data-bs-target=".multi-collapse" aria-expanded="false"
                         aria-controls="multiCollapseExample1">mostra
                         commenti</button>
