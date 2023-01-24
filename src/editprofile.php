@@ -1,6 +1,28 @@
 <?php
 require_once 'bootstrap.php';
 require_once 'checkSession.php';
+//check if file is uploaded
+if(isset($_FILES['profilePicture']) && is_uploaded_file($_FILES['profilePicture']['tmp_name']) && $_FILES['profilePicture']['error'] == 0){
+    print("Immagine");
+    $dbh->setProfilePicture($_SESSION['username'], $_FILES['profilePicture']);
+}
+if(!empty($_POST['name'])){
+    print("Nome");
+    $dbh->setName($_SESSION['username'], $_POST['name']);
+}
+if(!empty($_POST['surname'])){
+    print("Cognome");
+    $dbh->setSurname($_SESSION['username'], $_POST['surname']);
+}
+if(!empty($_POST['email'])){
+    print("Email");
+    if(!$dbh->setMail($_SESSION['username'], $_POST['email'])){
+        header("Location: editprofile.php?error=1");
+    }
+    
+}
+
+$user = $dbh->getUser($_SESSION['username']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,9 +31,11 @@ require_once 'checkSession.php';
     </head>
     <body>
         <div>
-            <?php $user = $dbh->getUser($_SESSION['username']); ?>
+            <?php if(isset($_GET['error']) && $_GET['error'] == 1){ ?>
+                <p>Mail already in use</p>
+            <?php } ?>
             <h1>Edit Profile</h1>
-            <form action="editprofilefun.php" method="post" enctype="multipart/form-data">
+            <form action="editprofile.php" method="post" enctype="multipart/form-data">
                 <div>
                     <label for="profilePicture">Profile Picture</label>
                     <input type="file" name="profilePicture" id="profilePicture">
@@ -29,12 +53,9 @@ require_once 'checkSession.php';
                     <input type="email" name="email" id="email" placeholder="<?php echo $user->getEmail() ?>">
                 </div>
                 <div>
-                    <label for="age">Age</label>
-                    <input type="number" name="age" id="age" placeholder="<?php echo $user->getAge() ?>">
-                </div>
-                <div>
                     <input type="submit" value="Save">
                 </div>
             </form>
         </div>
     </body>
+</html>

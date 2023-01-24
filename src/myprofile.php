@@ -1,6 +1,6 @@
 <?php 
-require 'checkSession.php'; 
 require_once 'bootstrap.php';
+require_once 'checkSession.php';
 ?>
 <!DOCTYPE html>
 <html>
