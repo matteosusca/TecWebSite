@@ -4,7 +4,10 @@ require_once 'checkSession.php';
 
 //getuser
 $user = $dbh->getUser($_SESSION['username']);
+if (!empty($_POST['submit'])) {
+    $dbh->createPost($_SESSION['username'], $_POST['description'], $_FILES['postfile']);
 
+}
 
 ?>
 
@@ -66,21 +69,18 @@ $user = $dbh->getUser($_SESSION['username']);
                 <h5 class="card-title"> Crea post</h5>
             </div>
             <div class="card-body">
-                <form action="createpost.php" method="post">
-                    <input type="text" class="form-control bg-body" id="description" placeholder="a cosa stai pensando?"
-                        name="description">
+                <form action="createpost.php" method="post" enctype="multipart/form-data">
+                    <input type=" text" class="form-control bg-body" id="description"
+                        placeholder="a cosa stai pensando?" name="description" required>
+                    <button type="button" class="btn btn-sm btn-outline-secondary border-0 disabled">aggiungi al tuo
+                        post</button>
+                    <input type="file" name="postfile" id="postfile" class="btn btn-sm btn-outline-secondary border-0"
+                        required></input>
+                    <button class="btn btn-sm btn-outline-secondary w-100" type="submit" value="Pubblica"
+                        name="submit">Pubblica</button>
                 </form>
             </div>
-            <div class="card-footer d-flex justify-content-around align-items-center">
-                <button type="button" class="btn btn-sm btn-outline-secondary border-0 disabled">aggiungi al tuo
-                    post</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary border-0"><i class="bi bi-house"></i>
-                    foto</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary border-0"><i
-                        class="bi bi-pencil-square"></i> video</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary border-0"><i class="bi bi-share"></i>
-                    altro</button>
-            </div>
+
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
