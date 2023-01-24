@@ -19,34 +19,34 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <header class="navbar-brand mx-5">
-            <h1> SquadUp </h1>
+            <h2> SquadUp </h2>
         </header>
         <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
             <ul class="navbar-nav mx-auto text-center">
-                <li class="nav-item px-2">
+                <li class="nav-item">
                     <a class="nav-link  " href="index.php"><i class="bi bi-house d-md-inline d-lg-block"
-                            style="font-size: 1.5rem;"></i>Home</a>
+                            style="font-size: 1rem;"></i>Home</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link " href="#"><i class="bi bi-people d-md-inline d-lg-block"
-                            style="font-size: 1.5rem;"></i>Group</a>
+                            style="font-size: 1rem;"></i>Group</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link active " href="contacts.html"><i class="bi bi-people d-md-inline d-lg-block"
-                            style="font-size: 1.5rem;"></i>Contacts</a>
+                    <a class="nav-link active" href="contacts.php"><i class="bi bi-people d-md-inline d-lg-block"
+                            style="font-size: 1rem;"></i>Contacts</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="signin.html"><i class="bi bi-people d-md-inline d-lg-block"
-                            style="font-size: 1.5rem;"></i>Sign in</a>
+                    <a class="nav-link " href="signin.php"><i class="bi bi-people d-md-inline d-lg-block"
+                            style="font-size: 1rem;"></i>Sign in</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="signup.html"><i class="bi bi-people d-md-inline d-lg-block"
-                            style="font-size: 1.5rem;"></i>Sign up</a>
+                    <a class="nav-link " href="signup.php"><i class="bi bi-people d-md-inline d-lg-block"
+                            style="font-size: 1rem;"></i>Sign up</a>
                 </li>
             </ul>
 
             <form class="mx-5" role="search">
-                <input class="form-control me-2 bg-body" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search">
             </form>
         </div>
     </nav>

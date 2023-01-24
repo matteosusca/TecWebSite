@@ -37,11 +37,11 @@
                             style="font-size: 1rem;"></i>Contacts</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="signin.html"><i class="bi bi-people d-md-inline d-lg-block"
+                    <a class="nav-link " href="signin.php"><i class="bi bi-people d-md-inline d-lg-block"
                             style="font-size: 1rem;"></i>Sign in</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="signup.html"><i class="bi bi-people d-md-inline d-lg-block"
+                    <a class="nav-link " href="signup.php"><i class="bi bi-people d-md-inline d-lg-block"
                             style="font-size: 1rem;"></i>Sign up</a>
                 </li>
             </ul>
