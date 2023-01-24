@@ -135,7 +135,7 @@ class DatabaseHelper{
         } else {
             if (move_uploaded_file($file["tmp_name"], $target_file)) {
                 //update media table
-                $target_file = "https://squadup.sysosus.win/" . $target_file;
+                $target_file = $target_file;
                 print($target_file);
                 $stmt = $this->db->prepare("INSERT INTO media (url, tipo_media) VALUES (?, 'img')");
                 $stmt->bind_param('s', $target_file);
