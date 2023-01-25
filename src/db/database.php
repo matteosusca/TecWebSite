@@ -44,8 +44,8 @@ class DatabaseHelper{
         if ($this->checkUserExists($username)) {
             return false;
         }
-        $stmt = $this->db->prepare("INSERT INTO utente (username, mail, data_nascita, nome, cognome) VALUES (?,?,?,?,?)");
-        $stmt->bind_param('sssss', $username, $mail, $date_of_birth, $name, $surname);
+        $stmt = $this->db->prepare("INSERT INTO utente (username, data_nascita, nome, cognome, email) VALUES (?,?,?,?,?)");
+        $stmt->bind_param('sssss', $username, $date_of_birth, $name, $surname, $mail);
         $stmt->execute();
         $stmt = $this->db->prepare("INSERT INTO login (username, password) VALUES (?,?)");
         $stmt->bind_param('ss', $username, $password);
@@ -64,7 +64,8 @@ class DatabaseHelper{
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
-        return new User($result['username'], $result['mail'], $result['nome'], $result['cognome'], $result['data_nascita'], $result['profile_pic']);
+        return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $result['profile_pic']);
+        
     }
 
     public function getMediaUrl($idmedia)
@@ -137,16 +138,7 @@ class DatabaseHelper{
 
     public function setMail($username, $mail)
     {
-        //check if mail is already in use
-        $stmt = $this->db->prepare("SELECT * FROM utente WHERE mail=?");
-        $stmt->bind_param('s', $mail);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if (count($result->fetch_all(MYSQLI_ASSOC)) > 0) {
-            return false;
-        }
-        //update mail
-        $stmt = $this->db->prepare("UPDATE utente SET mail=? WHERE username=?");
+        $stmt = $this->db->prepare("UPDATE utente SET email=? WHERE username=?");
         $stmt->bind_param('ss', $mail, $username);
         $stmt->execute();
         $stmt->close();
@@ -220,6 +212,36 @@ class DatabaseHelper{
                 return false;
             }
         }
+    }
+
+    public function isUserMember($username, $squadId){
+        $stmt = $this->db->prepare("SELECT * FROM partecipazione WHERE username=? AND id_compagnia=?");
+        $stmt->bind_param('si', $username, $squadId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return count($result->fetch_all(MYSQLI_ASSOC))>0;
+    }
+
+    public function checkUserPermissions($username, $squadId) {
+        $stmt = $this->db->prepare("SELECT ruolo FROM partecipazione WHERE username=? AND id_compagnia=?");
+        $stmt->bind_param('si', $username, $squadId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $row['ruolo'] != 3;
+    }
+
+    public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role) {
+        if(!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)){
+            return false;
+        }
+        if(isUserMember($inviteeUser, $squadId)){
+            return false;
+        }
+        $stmt = $this->db->prepare("INSERT INTO partecipazione (username, id_compagnia, ruolo) VALUES (?, ?, ?)");
+        $stmt->bind_param('sii', $inviteeUser, $squadId, $role);
+        $stmt->execute();
+        $stmt->close();
+        return true;
     }
 
 }
