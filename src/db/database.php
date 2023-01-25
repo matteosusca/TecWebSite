@@ -18,10 +18,10 @@ class DatabaseHelper{
         $this->db->close();
     }
 
-    public function checkLogin($username, $mail, $password)
+    public function checkLogin($email, $password)
     {
-        $stmt = $this->db->prepare("SELECT * FROM login WHERE (username=? OR mail=?) AND password=?");
-        $stmt->bind_param('sss', $username, $mail, $password);
+        $stmt = $this->db->prepare("SELECT * FROM login WHERE username=? AND password=?");
+        $stmt->bind_param('ss', $email, $password);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -47,8 +47,8 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("INSERT INTO utente (username, mail, data_nascita, nome, cognome) VALUES (?,?,?,?,?)");
         $stmt->bind_param('sssss', $username, $mail, $date_of_birth, $name, $surname);
         $stmt->execute();
-        $stmt = $this->db->prepare("INSERT INTO login (username, mail, password) VALUES (?,?,?)");
-        $stmt->bind_param('sss', $username, $mail, $password);
+        $stmt = $this->db->prepare("INSERT INTO login (username, password) VALUES (?,?)");
+        $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
         $stmt->close();
 
@@ -220,36 +220,6 @@ class DatabaseHelper{
                 return false;
             }
         }
-    }
-
-    public function isUserMember($username, $squadId){
-        $stmt = $this->db->prepare("SELECT * FROM partecipazione WHERE username=? AND id_compagnia=?");
-        $stmt->bind_param('si', $username, $squadId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return count($result->fetch_all(MYSQLI_ASSOC))>0;
-    }
-
-    public function checkUserPermissions($username, $squadId) {
-        $stmt = $this->db->prepare("SELECT ruolo FROM partecipazione WHERE username=? AND id_compagnia=?");
-        $stmt->bind_param('si', $username, $squadId);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-        return $row['ruolo'] != 3;
-    }
-
-    public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role) {
-        if(!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)){
-            return false;
-        }
-        if(isUserMember($inviteeUser, $squadId)){
-            return false;
-        }
-        $stmt = $this->db->prepare("INSERT INTO partecipazione (username, id_compagnia, ruolo) VALUES (?, ?, ?)");
-        $stmt->bind_param('sii', $inviteeUser, $squadId, $role);
-        $stmt->execute();
-        $stmt->close();
-        return true;
     }
 
 }

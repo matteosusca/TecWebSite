@@ -3,10 +3,8 @@ require_once 'bootstrap.php';
 
 if (!empty($_POST['submit'])) {
     $enc_passw = md5($_POST['password']);
-    if ($dbh->checkLogin($_POST['username'], $_POST['email'], $enc_passw)) {
-        $_SESSION['username'] = $_POST['username'];
-        $_SESSION['email'] = $_POST['email'];
-        $_SESSION['password'] = $enc_passw;
+    if ($dbh->checkLogin($_POST['user'], $enc_passw)) {
+        $_SESSION['username'] = $_POST['user'];
         header("Location: index.php");
     } else {
         header("Location: login.php?error=1");
@@ -77,8 +75,8 @@ if (!empty($_POST['submit'])) {
             <div class="card-body">
                 <form action="signin.php" method="post">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="username" placeholder="username" name="username">
-                        <label for="floatingInput">username</label>
+                        <input type="text" class="form-control" id="user" placeholder="User" name="user">
+                        <label for="floatingInput">User</label>
                     </div>
                     <div class="form-floating">
                         <input type="text" class="form-control" id="password" placeholder="Password" name="password">
