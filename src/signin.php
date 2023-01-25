@@ -2,11 +2,9 @@
 require_once 'bootstrap.php';
 
 if (!empty($_POST['submit'])) {
-    $enc_passw = md5($_POST['password']);
-    if ($dbh->checkLogin($_POST['username'], $_POST['email'], $enc_passw)) {
-        $_SESSION['username'] = $_POST['username'];
-        $_SESSION['email'] = $_POST['email'];
-        $_SESSION['password'] = $enc_passw;
+    $enc_passw = md5($_POST['password'].$salt);
+    if ($dbh->checkLogin($_POST['user'], $enc_passw)) {
+        $_SESSION['username'] = $_POST['user'];
         header("Location: index.php");
     } else {
         header("Location: login.php?error=1");
@@ -38,7 +36,7 @@ if (!empty($_POST['submit'])) {
             <span class="navbar-toggler-icon"></span>
         </button>
         <header class="navbar-brand mx-5">
-            <h2> SquadUp </h2>
+            <h2> SquadUp</h2>
         </header>
         <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
             <ul class="navbar-nav mx-auto text-center">
@@ -77,8 +75,8 @@ if (!empty($_POST['submit'])) {
             <div class="card-body">
                 <form action="signin.php" method="post">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="username" placeholder="username" name="username">
-                        <label for="floatingInput">username</label>
+                        <input type="text" class="form-control" id="user" placeholder="User" name="user">
+                        <label for="floatingInput">User</label>
                     </div>
                     <div class="form-floating">
                         <input type="text" class="form-control" id="password" placeholder="Password" name="password">

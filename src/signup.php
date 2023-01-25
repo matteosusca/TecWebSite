@@ -1,7 +1,7 @@
 <?php
 require_once 'bootstrap.php';
 if (!empty($_POST['submit'])) {
-    $enc_passw = md5($_POST['password']);
+    $enc_passw = md5($_POST['password'].$salt);
 
     if ($dbh->signUpUser($_POST['username'], $_POST['email'], $enc_passw, $_POST['name'], $_POST['surname'], $_POST['date_of_birth'])) {
         $_SESSION['username'] = $_POST['username'];
