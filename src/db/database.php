@@ -221,7 +221,6 @@ class DatabaseHelper{
             }
         }
     }
-<<<<<<< HEAD
 
     public function setName($username, $name){
         $stmt = $this->db->prepare("UPDATE utente SET nome=? WHERE username=?");
@@ -286,7 +285,5 @@ class DatabaseHelper{
         return true;
     }
 
-=======
->>>>>>> main
 }
 ?>
