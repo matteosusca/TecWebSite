@@ -53,39 +53,31 @@
             </form>
         </div>
     </nav>
-    <main class="m-auto">
+    <main class="m-auto col-5">
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">Crea Evento</h5>
             </div>
             <div class="card-body">
                 <form action="createevent.php" method="post" enctype="multipart/form-data">
-                    <input type=" text" class="form-control bg-body" id="name"
+                    <input type=" text" class="form-control bg-body mb-2" id="name"
                         placeholder="Nome evento" name="name" required>
-                    <textarea class="form-control bg-body" id="description" rows="3"
+                    <textarea class="form-control bg-body mb-2" id="description" rows="3"
                         placeholder="Descrizione" name="description" required></textarea>
                     <label for="floatingInput">Data Inizio Evento</label>
-                    <input type="date" class="form-control" id="event_begin_date" placeholder=<?php echo date('d-m-Y'); ?>
-                        name="event_begin_date">
+                    <input type="date" class="form-control mb-2" id="event_begin_date" name="event_begin_date">
                     <label for="floatingInput">Data Fine Evento</label>
-                    <input type="date" class="form-control" id="event_end_date" placeholder=<?php echo date('d-m-Y'); ?>
-                        name="event_end_date">
-                    <select class="form-select" aria-label="Tipo Evento">
+                    <input type="date" class="form-control mb-2" id="event_end_date" name="event_end_date">
+                    <label for="floatingInput">Tipo Evento</label>
+                    <select class="form-select mb-4" aria-label="Tipo Evento">
                         <?php 
                             foreach($dbh->getEventTypes() as $key => $name) {
                                 echo "<option value='".$key."'>".$name."</option>";
                             } 
                         ?>
                     </select>
-
-
-
-                    <button type="button" class="btn btn-outline-secondary border-0 disabled">aggiungi al tuo
-                        post</button>
-                    <input type="file" name="postfile" id="postfile" class="btn btn-outline-secondary border-0"
-                        required></input>
-                    <button class="btn btn-outline-secondary w-100" type="submit" value="Pubblica"
-                        name="submit">Pubblica</button>
+                    <button class="btn btn-outline-secondary w-100" type="submit" value="Crea"
+                        name="submit">Crea</button>
                 </form>
             </div>
 
