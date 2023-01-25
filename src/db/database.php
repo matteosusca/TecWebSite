@@ -2,7 +2,8 @@
 require_once 'user.php';
 require_once 'squad.php';
 
-class DatabaseHelper{
+class DatabaseHelper
+{
     private $db;
 
     public function __construct($servername, $username, $password, $dbname, $port)
@@ -65,7 +66,6 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
         return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $result['profile_pic']);
-        
     }
 
     public function getMediaUrl($idmedia)
@@ -108,11 +108,11 @@ class DatabaseHelper{
         }
 
         $stmt = $this->db->prepare("SELECT compagnia.*, GROUP_CONCAT(partecipazione.username) AS membri FROM compagnia LEFT JOIN partecipazione ON compagnia.id_compagnia = partecipazione.id_compagnia WHERE compagnia.nome = ? GROUP BY compagnia.id_compagnia");
-        $stmt->bind_param('s',$name);
+        $stmt->bind_param('s', $name);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $squads = array();
-        foreach($result as $row){
+        foreach ($result as $row) {
             array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['profile_pic'], $row['creatore'], explode(",", $row['membri'])));
         }
         return $squads;
@@ -214,15 +214,17 @@ class DatabaseHelper{
         }
     }
 
-    public function isUserMember($username, $squadId){
+    public function isUserMember($username, $squadId)
+    {
         $stmt = $this->db->prepare("SELECT * FROM partecipazione WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
         $result = $stmt->get_result();
-        return count($result->fetch_all(MYSQLI_ASSOC))>0;
+        return count($result->fetch_all(MYSQLI_ASSOC)) > 0;
     }
 
-    public function checkUserPermissions($username, $squadId) {
+    public function checkUserPermissions($username, $squadId)
+    {
         $stmt = $this->db->prepare("SELECT ruolo FROM partecipazione WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
@@ -230,11 +232,12 @@ class DatabaseHelper{
         return $row['ruolo'] != 3;
     }
 
-    public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role) {
-        if(!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)){
+    public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
+    {
+        if (!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)) {
             return false;
         }
-        if(isUserMember($inviteeUser, $squadId)){
+        if (isUserMember($inviteeUser, $squadId)) {
             return false;
         }
         $stmt = $this->db->prepare("INSERT INTO partecipazione (username, id_compagnia, ruolo) VALUES (?, ?, ?)");
@@ -243,6 +246,4 @@ class DatabaseHelper{
         $stmt->close();
         return true;
     }
-
 }
-?>
