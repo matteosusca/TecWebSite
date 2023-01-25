@@ -1,5 +1,5 @@
 <?php
-if (!empty($_POST['submit'])) {
+if (!empty($_POST['esci'])) {
     session_destroy();
     header("Location: ../signin.php");
 }
@@ -24,7 +24,7 @@ if (!empty($_POST['submit'])) {
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><form action="templates/navbar.php" method="post"><button class="btn dropdown-item" type="submit" value="Accedi" name="submit">Sign out</button></form></li>
+                <li><form action="templates/navbar.php" method="post"><button class="btn dropdown-item" type="submit" value="Accedi" name="esci">Sign out</button></form></li>
             </ul>
         </div>';
         } else {

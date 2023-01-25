@@ -16,10 +16,3 @@ function checkSession()
         exit();
     }
 }
-
-function signOut()
-{
-    header("Location: signin.php");
-    session_destroy();
-    header("Location: signin.php");
-}
