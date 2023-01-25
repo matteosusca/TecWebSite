@@ -222,39 +222,6 @@ class DatabaseHelper{
         }
     }
 
-    public function setName($username, $name){
-        $stmt = $this->db->prepare("UPDATE utente SET nome=? WHERE username=?");
-        $stmt->bind_param('ss', $name, $username);
-        $stmt->execute();
-        $stmt->close();
-        return true;
-    }
-
-    public function setSurname($username, $surname){
-        $stmt = $this->db->prepare("UPDATE utente SET cognome=? WHERE username=?");
-        $stmt->bind_param('ss', $surname, $username);
-        $stmt->execute();
-        $stmt->close();
-        return true;
-    }
-
-    public function setMail($username, $mail){
-        //check if mail is already in use
-        $stmt = $this->db->prepare("SELECT * FROM utente WHERE mail=?");
-        $stmt->bind_param('s',$mail);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if(count($result->fetch_all(MYSQLI_ASSOC))>0){
-            return false;
-        }
-        //update mail
-        $stmt = $this->db->prepare("UPDATE utente SET mail=? WHERE username=?");
-        $stmt->bind_param('ss', $mail, $username);
-        $stmt->execute();
-        $stmt->close();
-        return true;
-    }
-
     public function isUserMember($username, $squadId){
         $stmt = $this->db->prepare("SELECT * FROM partecipazione WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);
