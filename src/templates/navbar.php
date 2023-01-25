@@ -21,13 +21,13 @@
         <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
             <ul class="navbar-nav text-center w-100 mx-2 d-flex flex-row flex-wrap justify-content-lg-center justify-content-evenly">
                 <li class="nav-item">
-                    <a class="nav-link  <?php isActive(" index.php"); ?>" href="index.php"><i class="bi bi-house d-block " style="font-size: 1rem;"></i>Home</a>
+                    <a class="nav-link  <?php isActive("index.php"); ?>" href="index.php"><i class="bi bi-house d-block " style="font-size: 1rem;"></i>Home</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="squadpage.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Squad</a>
+                    <a class="nav-link <?php isActive("squadpage.php"); ?>" href="squadpage.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Squad</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="contacts.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Contacts</a>
+                    <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Contacts</a>
                 </li>
             </ul>
             <form class="mx-2" role="search">
