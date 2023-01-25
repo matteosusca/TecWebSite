@@ -246,4 +246,20 @@ class DatabaseHelper
         $stmt->close();
         return true;
     }
+    public function getFriends($username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM amicizia WHERE username1=? OR username2=?");
+        $stmt->bind_param('ss', $username, $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $friends = array();
+        foreach ($result as $row) {
+            if ($row['username1'] == $username) {
+                array_push($friends, $row['username2']);
+            } else {
+                array_push($friends, $row['username1']);
+            }
+        }
+        return $friends;
+    }
 }

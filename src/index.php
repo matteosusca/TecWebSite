@@ -1,6 +1,6 @@
 <?php
 require_once 'bootstrap.php';
-require_once 'checkSession.php';
+checkSession();
 require 'templates/head.php';
 ?>
 

@@ -1,6 +1,6 @@
 <?php
 require_once 'bootstrap.php';
-require_once 'checkSession.php';
+checkSession();
 
 session_destroy();
 header("Location: signin.php");
