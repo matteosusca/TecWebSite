@@ -2,7 +2,7 @@
 require_once 'bootstrap.php';
 
 if (!empty($_POST['submit'])) {
-    $enc_passw = md5($_POST['password']);
+    $enc_passw = md5($_POST['password'].$salt);
     if ($dbh->checkLogin($_POST['user'], $enc_passw)) {
         $_SESSION['username'] = $_POST['user'];
         header("Location: index.php");
@@ -36,7 +36,7 @@ if (!empty($_POST['submit'])) {
             <span class="navbar-toggler-icon"></span>
         </button>
         <header class="navbar-brand mx-5">
-            <h2> SquadUp </h2>
+            <h2> SquadUp</h2>
         </header>
         <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
             <ul class="navbar-nav mx-auto text-center">
