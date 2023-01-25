@@ -8,7 +8,9 @@
         <?php if (isset($_SESSION['username'])) {
             echo '<div class="dropdown order-lg-1">
             <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle">';
+                <img src="';
+            echo $dbh->getMediaUrl($dbh->getUser($_SESSION['username'])->getProfilePicture());
+            echo '" alt="" width="32" height="32" class="rounded-circle">';
             echo $dbh->getUser($_SESSION['username'])->getUsername();
             echo '</a>
             <ul class="dropdown-menu dropdown-menu-end text-small shadow ">
@@ -22,7 +24,6 @@
         } else {
             echo '<a class="btn btn-outline-light order-lg-1" href="signin.php">Sign in/sign up</a>';
         }
-
         ?>
 
 
