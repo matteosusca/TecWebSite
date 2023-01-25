@@ -18,7 +18,7 @@
 <body class="d-flex flex-column vh-100 " data-bs-theme="dark">
 
     <nav class="navbar navbar-icon-top navbar-expand-lg shadow-sm bg-black navbar-dark">
-        <div class="container ">
+        <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
                 aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -26,34 +26,7 @@
             <a class="navbar-brand" href="index.php">
                 <h2> SquadUp </h2>
             </a>
-            <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
-                <ul class="navbar-nav mx-auto text-center d-flex flex-row justify-content-around sticky-top">
-                    <li class="nav-item">
-                        <a class="nav-link active " href="index.php"><i class="bi bi-house d-block "
-                                style="font-size: 1rem;"></i>Home</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="#"><i class="bi bi-people d-block"
-                                style="font-size: 1rem;"></i>Group</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="contacts.php"><i class="bi bi-people d-block"
-                                style="font-size: 1rem;"></i>Contacts</a>
-                    </li>
-                    <li class="nav-item my-auto">
-
-                    </li>
-
-                </ul>
-
-                <form class="mx-5" role="search">
-                    <input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search">
-                </form>
-
-
-            </div>
-
-            <div class="dropdown z-2">
+            <div class="dropdown z-2 order-lg-1 ">
                 <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle">utente
@@ -68,6 +41,32 @@
                     <li><a class="dropdown-item" href="#">Sign out</a></li>
                 </ul>
             </div>
+            <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
+                <ul
+                    class="navbar-nav text-center w-100 mx-2 d-flex flex-row justify-content-lg-center justify-content-around">
+                    <li class="nav-item">
+                        <a class="nav-link active " href="index.php"><i class="bi bi-house d-block "
+                                style="font-size: 1rem;"></i>Home</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="#"><i class="bi bi-people d-block"
+                                style="font-size: 1rem;"></i>Group</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="contacts.php"><i class="bi bi-people d-block"
+                                style="font-size: 1rem;"></i>Contacts</a>
+                    </li>
+
+                </ul>
+
+                <form class="mx-2" role="search">
+                    <input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search">
+                </form>
+
+
+            </div>
+
+
         </div>
 
     </nav>
@@ -75,7 +74,8 @@
 
 
     <main class="d-lg-flex flex-wrap justify-content-center overflow-auto ">
-        <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto d-flex flex-lg-column text-nowrap">
+        <aside
+            class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto d-flex flex-lg-column text-nowrap z-1">
             <a class="btn btn-secondary m-2" href="createpost.php" type="button">Crea post</a>
             <button class="btn btn-secondary m-2 d-lg-none" type="button" data-bs-scroll="true"
                 data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
