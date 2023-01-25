@@ -1,5 +1,6 @@
 ::-webkit-scrollbar {
     width: .5rem;
+    height: 0;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -9,12 +10,4 @@
 
 ::-webkit-scrollbar-track {
     background: transparent;
-}
-
-div {
-    overflow: hidden;
-}
-
-div:hover {
-    overflow: auto;
 }

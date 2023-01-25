@@ -90,7 +90,7 @@ if (!empty($_POST['submit'])) {
                 </form>
             </div>
             <div class="card-footer ">
-                <p class="text-muted">&copy; 2017–2022</p>
+                <a class="btn btn-outline-secondary w-100" href="signup.php" type="button">sign up</a>
             </div>
         </div>
     </main>
