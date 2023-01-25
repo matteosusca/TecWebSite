@@ -19,10 +19,10 @@ class DatabaseHelper
         $this->db->close();
     }
 
-    public function checkLogin($username, $mail, $password)
+    public function checkLogin($username, $password)
     {
-        $stmt = $this->db->prepare("SELECT * FROM login WHERE (username=? OR mail=?) AND password=?");
-        $stmt->bind_param('sss', $username, $mail, $password);
+        $stmt = $this->db->prepare("SELECT * FROM login WHERE username=? AND password=?");
+        $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -48,8 +48,8 @@ class DatabaseHelper
         $stmt = $this->db->prepare("INSERT INTO utente (username, mail, data_nascita, nome, cognome) VALUES (?,?,?,?,?)");
         $stmt->bind_param('sssss', $username, $mail, $date_of_birth, $name, $surname);
         $stmt->execute();
-        $stmt = $this->db->prepare("INSERT INTO login (username, mail, password) VALUES (?,?,?)");
-        $stmt->bind_param('sss', $username, $mail, $password);
+        $stmt = $this->db->prepare("INSERT INTO login (username, password) VALUES (?,?)");
+        $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
         $stmt->close();
 
