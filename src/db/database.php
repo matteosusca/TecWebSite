@@ -252,5 +252,16 @@ class DatabaseHelper{
         return true;
     }
 
+    public function getEventTypes() {
+        $stmt = $this->db->prepare("SELECT * FROM tipo_evento");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $types = array();
+        while ($row = $result->fetch_assoc()) {
+            $types[$row['id_tipo']] = $row['nome_tipo'];
+        }
+        return $types;
+    }
+
 }
 ?>
