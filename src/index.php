@@ -1,3 +1,4 @@
+<?php require_once 'checkSession.php'; ?>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -12,7 +13,6 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
     <title>SquadUp</title>
-    <?php require_once 'checkSession.php'; ?>
 </head>
 
 <body class="d-flex flex-column vh-100 " data-bs-theme="dark">
