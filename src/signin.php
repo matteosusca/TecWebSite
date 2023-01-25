@@ -1,5 +1,5 @@
 <?php
-require 'bootstrap.php';
+require_once 'bootstrap.php';
 
 if (!empty($_POST['submit'])) {
     $enc_passw = md5($_POST['password']);
