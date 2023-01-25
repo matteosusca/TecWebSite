@@ -94,12 +94,13 @@
             <div class="card m-2">
                 <div class="card-header">
                     <h5 class="card-title">Utente</h5>
-                </div>
-                <div class="card-body">
                     <p class="card-text">descrizione post</p>
                 </div>
-                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-                    class="object-fit-contain" alt="..." height="455" />
+                <div class="card-body p-0 mx-auto">
+                    <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+                        class="object-fit-contain" alt="..." height="455" />
+                </div>
+
 
                 <div class="card-footer d-flex justify-content-around align-items-center">
                     <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-house"></i>
@@ -112,35 +113,18 @@
                         data-bs-target=".multi-collapse" aria-expanded="false"
                         aria-controls="multiCollapseExample1">mostra
                         commenti</button>
-                </div>
-                <div class="collapse multi-collapse" id="multiCollapseExample1">
-                    <div class="card m-2">
-                        <div class="card-header">
-                            <p class="card-text">Utente</p>
-                        </div>
-                        <div class="card card-body">
-                            <p class="card-text">commento</p>
-                        </div>
-                    </div>
-                    <div class="card m-2">
-                        <div class="card-header">
-                            <p class="card-text">Utente</p>
-                        </div>
-                        <div class="card card-body">
-                            <p class="card-text">commento</p>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="card m-2">
                 <div class="card-header">
                     <h5 class="card-title">Utente</h5>
-                </div>
-                <div class="card-body">
                     <p class="card-text">descrizione post</p>
                 </div>
-                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-                    class="object-fit-contain" alt="..." height="455" />
+                <div class="card-body p-0 mx-auto">
+                    <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+                        class="object-fit-contain" alt="..." height="455" />
+                </div>
+
 
                 <div class="card-footer d-flex justify-content-around align-items-center">
                     <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-house"></i>
@@ -154,34 +138,18 @@
                         aria-controls="multiCollapseExample1">mostra
                         commenti</button>
                 </div>
-                <div class="collapse multi-collapse" id="multiCollapseExample1">
-                    <div class="card m-2">
-                        <div class="card-header">
-                            <p class="card-text">Utente</p>
-                        </div>
-                        <div class="card card-body">
-                            <p class="card-text">commento</p>
-                        </div>
-                    </div>
-                    <div class="card m-2">
-                        <div class="card-header">
-                            <p class="card-text">Utente</p>
-                        </div>
-                        <div class="card card-body">
-                            <p class="card-text">commento</p>
-                        </div>
-                    </div>
-                </div>
+
             </div>
             <div class="card m-2">
                 <div class="card-header">
                     <h5 class="card-title">Utente</h5>
-                </div>
-                <div class="card-body">
                     <p class="card-text">descrizione post</p>
                 </div>
-                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-                    class="object-fit-contain" alt="..." height="455" />
+                <div class="card-body p-0 mx-auto">
+                    <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+                        class="object-fit-contain" alt="..." height="455" />
+                </div>
+
 
                 <div class="card-footer d-flex justify-content-around align-items-center">
                     <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-house"></i>
@@ -195,106 +163,7 @@
                         aria-controls="multiCollapseExample1">mostra
                         commenti</button>
                 </div>
-                <div class="collapse multi-collapse" id="multiCollapseExample1">
-                    <div class="card m-2">
-                        <div class="card-header">
-                            <p class="card-text">Utente</p>
-                        </div>
-                        <div class="card card-body">
-                            <p class="card-text">commento</p>
-                        </div>
-                    </div>
-                    <div class="card m-2">
-                        <div class="card-header">
-                            <p class="card-text">Utente</p>
-                        </div>
-                        <div class="card card-body">
-                            <p class="card-text">commento</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card m-2">
-                <div class="card-header">
-                    <h5 class="card-title">Utente</h5>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">descrizione post</p>
-                </div>
-                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-                    class="object-fit-contain" alt="..." height="455" />
 
-                <div class="card-footer d-flex justify-content-around align-items-center">
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-house"></i>
-                        mi piace</button>
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-pencil-square"></i>
-                        commento</button>
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-share"></i>
-                        condividi</button>
-                    <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse"
-                        data-bs-target=".multi-collapse" aria-expanded="false"
-                        aria-controls="multiCollapseExample1">mostra
-                        commenti</button>
-                </div>
-                <div class="collapse multi-collapse" id="multiCollapseExample1">
-                    <div class="card m-2">
-                        <div class="card-header">
-                            <p class="card-text">Utente</p>
-                        </div>
-                        <div class="card card-body">
-                            <p class="card-text">commento</p>
-                        </div>
-                    </div>
-                    <div class="card m-2">
-                        <div class="card-header">
-                            <p class="card-text">Utente</p>
-                        </div>
-                        <div class="card card-body">
-                            <p class="card-text">commento</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card m-2">
-                <div class="card-header">
-                    <h5 class="card-title">Utente</h5>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">descrizione post</p>
-                </div>
-                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-                    class="object-fit-contain" alt="..." height="455" />
-
-                <div class="card-footer d-flex justify-content-around align-items-center">
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-house"></i>
-                        mi piace</button>
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-pencil-square"></i>
-                        commento</button>
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-share"></i>
-                        condividi</button>
-                    <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse"
-                        data-bs-target=".multi-collapse" aria-expanded="false"
-                        aria-controls="multiCollapseExample1">mostra
-                        commenti</button>
-                </div>
-                <div class="collapse multi-collapse" id="multiCollapseExample1">
-                    <div class="card m-2">
-                        <div class="card-header">
-                            <p class="card-text">Utente</p>
-                        </div>
-                        <div class="card card-body">
-                            <p class="card-text">commento</p>
-                        </div>
-                    </div>
-                    <div class="card m-2">
-                        <div class="card-header">
-                            <p class="card-text">Utente</p>
-                        </div>
-                        <div class="card card-body">
-                            <p class="card-text">commento</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <aside class="col-2 p-3 shadow sticky-top mh-100 z-1 overflow-auto offcanvas-lg offcanvas-start" tabindex="-1"
