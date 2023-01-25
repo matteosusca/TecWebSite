@@ -18,10 +18,10 @@ class DatabaseHelper{
         $this->db->close();
     }
 
-    public function checkLogin($email, $password)
+    public function checkLogin($username, $password)
     {
         $stmt = $this->db->prepare("SELECT * FROM login WHERE username=? AND password=?");
-        $stmt->bind_param('ss', $email, $password);
+        $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
         $result = $stmt->get_result();
 
