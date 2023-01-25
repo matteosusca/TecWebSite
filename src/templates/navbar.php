@@ -5,7 +5,6 @@
         </button>
         <a class="navbar-brand" href="index.php">SquadUp
         </a>
-        //voglio che se l'utente è loggato venga mostrato il dropdownmenu se no un pulsante signin
         <?php if (isset($_SESSION['username'])) {
             echo '<div class="dropdown order-lg-1">
             <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
