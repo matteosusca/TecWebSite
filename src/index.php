@@ -90,20 +90,6 @@
             <a class="btn btn-secondary m-2" href="createpost.php" type="button">Crea post</a>
         </aside>
         <div class="col-12 col-lg-4 p-3 shadow">
-            <div class="row">
-                <div class="col-4">
-                    <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-                        class="object-fit-contain" alt="..." height="255" />
-                </div>
-                <div class="col r">
-                    <div class="row">
-                        utente
-                    </div>
-                    <div class="row">
-                        sdff
-                    </div>
-                </div>
-            </div>
             <div class="card m-2">
                 <div class="card-header">
                     <h5 class="card-title">Utente</h5>
