@@ -13,6 +13,11 @@ if (isset($_GET['name'])) {
     $title = "Squad not found";
     header("Location: squadpage.php?error=2");
 }
+
+if(isset($_POST['edit_squad'])){
+    header("Location: editsquad.php?id=".$squadProfile->getId());
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +48,12 @@ if (isset($_GET['name'])) {
                     }
                     ?></ul>
             </h3>
+        </div>
+        <div>
+            <h2>
+                <form action="squadpage.php" method="post">
+                    <input type="submit" name="edit_squad" value="Edit Squad">
+            </h2>
         </div>
     </div>
 </body>
