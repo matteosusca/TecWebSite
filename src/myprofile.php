@@ -1,29 +1,34 @@
 <?php
 require_once 'bootstrap.php';
 checkSession();
+$user = $dbh->getUser($_SESSION['username']);
+
+require 'templates/head.php';
+
 ?>
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title>My Profile</title>
-</head>
+<body class="d-flex flex-column vh-100 " data-bs-theme="dark">
 
-<body>
-    <div>
-        <?php $user = $dbh->getUser($_SESSION['username']); ?>
-        <h1>My Profile</h1>
-        <div>
-            <img src="<?php echo $dbh->getMediaUrl($user->getProfilePicture()) ?>" alt="Profile Picture" width="200" height="200">
+    <?php require 'templates/navbar.php'; ?>
+
+    <main class="d-lg-flex flex-wrap justify-content-center overflow-auto ">
+        <aside
+            class="col-12 col-lg-3 p-3 shadow sticky-lg-top mh-100 m-0 overflow-auto  text-nowrap z-1 container-fluid">
+            <div class="d-flex">
+                <img src=<?php echo $dbh->getMediaUrl($user->getProfilePicture()); ?> class="object-fit-contain rounded-circle p-2" alt="..." width="20%"/>
+                <div class="d-flex flex-column justify-content-evenly">
+                    <h5 class="mx-4"><?php echo $user->getUsername()." (".$user->getFullName()."), ".$user->getAge(); ?></h5>
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                <a class="btn btn-secondary m-2" href="" type="button">Amici</a>
+                <a class="btn btn-secondary m-2" href="" type="button">Foto</a>                
+            </div>
+            
+        </aside>
+        <div class="col-12 col-lg-5 p-3 shadow">
+            <?php require 'templates/post.php'; ?>                            
         </div>
-        <div>
-            <p>Username: <?php echo $user->getUsername() ?></p>
-            <p>Full Name: <?php echo $user->getFullName() ?></p>
-            <p>Email: <?php echo $user->getEmail() ?></p>
-            <p>Age: <?php echo $user->getAge() ?></p>
-        </div>
-        <div>
-            <a href="editprofile.php">Edit Profile</a>
-        </div>
-    </div>
+    </main>
 </body>
+</html>
