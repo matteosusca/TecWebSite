@@ -1,6 +1,6 @@
 <?php
 require_once 'bootstrap.php';
-require_once 'checkSession.php';
+checkSession();
 
 $squad_id = $_POST['id'];
 if(!$dbh->checkUserPermissionsForSquad($_SESSION['username'], $squad_id)){
@@ -68,7 +68,7 @@ $squad = $dbh->getSquad($squad_id);
                 </div>
                 <div>
                     <label for="description">Description</label>
-                    <input type="text" name="description" id="description" placeholder="<?php echo $squad->getDescription() ?>">
+                    <textarea name="description" rows = 4 cols=50"><?php echo $squad->getDescription() ?></textarea>
                 </div>
                 <div>
                     <label for="user">User</label>
