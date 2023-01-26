@@ -1,10 +1,6 @@
 <?php
 require_once 'templates/head.php';
 checkSession();
-$user = $dbh->getUser($_SESSION['username']);
-if (!empty($_POST['submit'])) {
-    $dbh->createPost($_SESSION['username'], $_POST['description'], $_FILES['postfile']);
-}
 ?>
 
 <body class="d-flex flex-column vh-100 vw-100" data-bs-theme="dark">
