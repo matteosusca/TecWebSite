@@ -31,6 +31,7 @@ if (!empty($_POST['submit'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <?php require_once 'templates/friend.php'; ?>
+            <?php require_once 'templates/squads.php'; ?>
         </aside>
     </div>
 

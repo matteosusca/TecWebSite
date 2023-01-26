@@ -262,6 +262,20 @@ class DatabaseHelper
         }
         return $friends;
     }
+    public function getSquadsByUser($username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM partecipazione WHERE username=?");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $squads = array();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        foreach ($result as $row) {
+            array_push($squads, $row['id_compagnia']);
+        }
+        return $squads;
+    }
+
+
     public function addFriend($username, $friend)
     {
         $stmt = $this->db->prepare("INSERT INTO amicizia (richiedente, accettante) VALUES (?, ?)");
