@@ -248,18 +248,26 @@ class DatabaseHelper
     }
     public function getFriends($username)
     {
-        $stmt = $this->db->prepare("SELECT * FROM amicizia WHERE username1=? OR username2=?");
+        $stmt = $this->db->prepare("SELECT * FROM amicizia WHERE richiedente=? OR accettante=?");
         $stmt->bind_param('ss', $username, $username);
         $stmt->execute();
-        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $friends = array();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         foreach ($result as $row) {
-            if ($row['username1'] == $username) {
-                array_push($friends, $row['username2']);
+            if ($row['richiedente'] == $username) {
+                array_push($friends, $row['accettante']);
             } else {
-                array_push($friends, $row['username1']);
+                array_push($friends, $row['richiedente']);
             }
         }
         return $friends;
+    }
+    public function addFriend($username, $friend)
+    {
+        $stmt = $this->db->prepare("INSERT INTO amicizia (richiedente, accettante) VALUES (?, ?)");
+        $stmt->bind_param('ss', $username, $friend);
+        $stmt->execute();
+        $stmt->close();
+        return true;
     }
 }
