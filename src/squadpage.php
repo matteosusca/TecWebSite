@@ -1,5 +1,5 @@
 <?php
-require_once 'bootstrap.php';
+require_once 'templates/head.php';
 checkSession();
 if (isset($_GET['name'])) {
     $squad = $_GET['name'];
@@ -14,18 +14,9 @@ if (isset($_GET['name'])) {
     $title = "Squad not found";
     header("Location: squadpage.php?error=2");
 }
-    
+
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title><?php echo $title; ?></title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
 
 <body>
     <div>

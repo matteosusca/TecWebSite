@@ -14,11 +14,7 @@ if (!empty($_POST['esci'])) {
         <?php if (isset($_SESSION['username'])) {
             echo '<div class="dropdown order-lg-1">
             <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="';
-            echo $dbh->getMediaUrl($dbh->getUser($_SESSION['username'])->getProfilePicture());
-            echo '" alt="" width="32" height="32" class="rounded-circle">';
-            echo $dbh->getUser($_SESSION['username'])->getUsername();
-            echo '</a>
+                <img src="' . $dbh->getMediaUrl($dbh->getUser($_SESSION['username'])->getProfilePicture()) . '" alt="" width="32" height="32" class="rounded-circle">' . $dbh->getUser($_SESSION['username'])->getUsername() . '</a>
             <ul class="dropdown-menu dropdown-menu-end text-small shadow ">
                 <li><a class="dropdown-item" href="myprofile.php">Profile</a></li>
                 <li>

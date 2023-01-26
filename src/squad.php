@@ -1,14 +1,16 @@
 <?php
-    require_once 'bootstrap.php';    
-    class Squad {
-        private $id;
-        private $name;
-        private $description;
-        private $picture;
-        private $owner;
-        private $members;
+require_once 'templates/head.php';
+class Squad
+{
+    private $id;
+    private $name;
+    private $description;
+    private $picture;
+    private $owner;
+    private $members;
 
-    public function __construct($id, $name, $description, $picture, $owner, $members){
+    public function __construct($id, $name, $description, $picture, $owner, $members)
+    {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
@@ -17,29 +19,33 @@
         $this->members = $members;
     }
 
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getDescription(){
+    public function getDescription()
+    {
         return $this->description;
     }
 
-    public function getPicture(){
+    public function getPicture()
+    {
         return $this->picture;
     }
 
-    public function getOwner(){
+    public function getOwner()
+    {
         return $this->owner;
     }
 
-    public function getMembers(){
+    public function getMembers()
+    {
         return $this->members;
     }
-
-    }
-?>
+}

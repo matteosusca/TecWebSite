@@ -1,5 +1,5 @@
 <?php
-require_once 'bootstrap.php';
+require_once 'templates/head.php';
 if (isset($_GET['user'])) {
     $user = $_GET['user'];
     $userProfile = $dbh->getUser($user);
@@ -17,15 +17,6 @@ if (isset($_GET['user'])) {
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title><?php echo $title; ?></title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
 
 <body>
     <div>
