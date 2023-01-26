@@ -1,5 +1,6 @@
 <?php
 require_once 'bootstrap.php';
+checkSession();
 if (isset($_GET['name'])) {
     $squad = $_GET['name'];
     $squadProfile = $dbh->getSquads($squad)[0];
@@ -13,8 +14,6 @@ if (isset($_GET['name'])) {
     $title = "Squad not found";
     header("Location: squadpage.php?error=2");
 }
-
-echo "Location: editsquad.php?id=".$squadProfile->getId();
     
 
 ?>
