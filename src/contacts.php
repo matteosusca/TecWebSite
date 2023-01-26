@@ -9,7 +9,7 @@ require_once 'templates/head.php';
     require_once 'templates/navbar.php'
     ?>
     <main class=" w-100">
-        <div class="card m-auto w-50 mt-5">
+        <div class="card m-auto container mt-5">
             <div class="card-header">
                 <h5 class="card-title">Contatti</h5>
             </div>
