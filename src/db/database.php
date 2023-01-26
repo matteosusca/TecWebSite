@@ -1,7 +1,8 @@
 <?php
 require_once 'user.php';
-class DatabaseHelper
-{
+require_once 'squad.php';
+
+class DatabaseHelper{
     private $db;
 
     public function __construct($servername, $username, $password, $dbname, $port)
@@ -17,10 +18,10 @@ class DatabaseHelper
         $this->db->close();
     }
 
-    public function checkLogin($username, $mail, $password)
+    public function checkLogin($username, $password)
     {
-        $stmt = $this->db->prepare("SELECT * FROM login WHERE (username=? OR mail=?) AND password=?");
-        $stmt->bind_param('sss', $username, $mail, $password);
+        $stmt = $this->db->prepare("SELECT * FROM login WHERE username=? AND password=?");
+        $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -46,8 +47,8 @@ class DatabaseHelper
         $stmt = $this->db->prepare("INSERT INTO utente (username, mail, data_nascita, nome, cognome) VALUES (?,?,?,?,?)");
         $stmt->bind_param('sssss', $username, $mail, $date_of_birth, $name, $surname);
         $stmt->execute();
-        $stmt = $this->db->prepare("INSERT INTO login (username, mail, password) VALUES (?,?,?)");
-        $stmt->bind_param('sss', $username, $mail, $password);
+        $stmt = $this->db->prepare("INSERT INTO login (username, password) VALUES (?,?)");
+        $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
         $stmt->close();
 
@@ -104,13 +105,14 @@ class DatabaseHelper
         if (!$this->checkSquadExists($name)) {
             return false;
         }
-        $stmt = $this->db->prepare("SELECT * FROM compagnia WHERE nome=?");
-        $stmt->bind_param('s', $name);
+
+        $stmt = $this->db->prepare("SELECT compagnia.*, GROUP_CONCAT(partecipazione.username) AS membri FROM compagnia LEFT JOIN partecipazione ON compagnia.id_compagnia = partecipazione.id_compagnia WHERE compagnia.nome = ? GROUP BY compagnia.id_compagnia");
+        $stmt->bind_param('s',$name);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $squads = [];
-        foreach ($result as $row) {
-            $squads[] = new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['creatore'], $row['profile_pic']);
+        $squads = array();
+        foreach($result as $row){
+            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['profile_pic'], $row['creatore'], explode(",", $row['membri'])));
         }
         return $squads;
     }
@@ -219,5 +221,6 @@ class DatabaseHelper
             }
         }
     }
+
 }
 ?>

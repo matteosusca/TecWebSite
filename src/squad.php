@@ -1,13 +1,12 @@
 <?php
     require_once 'bootstrap.php';    
-    class Squad{
+    class Squad {
         private $id;
         private $name;
         private $description;
         private $picture;
         private $owner;
-        //private $members;
-    }
+        private $members;
 
     public function __construct($id, $name, $description, $picture, $owner, $members){
         $this->id = $id;
@@ -38,7 +37,9 @@
         return $this->owner;
     }
 
-    // public function getMembers(){
-    //     return $this->members;
-    // }
+    public function getMembers(){
+        return $this->members;
+    }
+
+    }
 ?>

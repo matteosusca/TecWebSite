@@ -1,4 +1,6 @@
-<?php require_once 'checkSession.php'; ?>
+<?php 
+require_once 'bootstrap.php';
+require_once 'checkSession.php';?>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -16,7 +18,6 @@
 </head>
 
 <body class="d-flex flex-column vh-100 " data-bs-theme="dark">
-
     <nav class="navbar navbar-icon-top navbar-expand-lg shadow-sm bg-black navbar-dark">
         <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
@@ -38,7 +39,7 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    <li><a class="dropdown-item" href="signout.php">Sign out</a></li>
                 </ul>
             </div>
             <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
@@ -96,13 +97,10 @@
                     <h5 class="card-title">Utente</h5>
                     <p class="card-text">descrizione post</p>
                 </div>
-                <div class="card-body p-0 mx-auto">
-                    <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-                        class="object-fit-contain" alt="..." height="455" />
-                </div>
+                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+                    class="object-fit-contain" alt="..." height="455" />
 
-
-                <div class="card-footer d-flex justify-content-around align-items-center">
+                <div class="card-footer d-flex justify-content-around">
                     <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-house"></i>
                         mi piace</button>
                     <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-pencil-square"></i>
@@ -115,56 +113,8 @@
                         commenti</button>
                 </div>
             </div>
-            <div class="card m-2">
-                <div class="card-header">
-                    <h5 class="card-title">Utente</h5>
-                    <p class="card-text">descrizione post</p>
-                </div>
-                <div class="card-body p-0 mx-auto">
-                    <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-                        class="object-fit-contain" alt="..." height="455" />
-                </div>
 
-
-                <div class="card-footer d-flex justify-content-around align-items-center">
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-house"></i>
-                        mi piace</button>
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-pencil-square"></i>
-                        commento</button>
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-share"></i>
-                        condividi</button>
-                    <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse"
-                        data-bs-target=".multi-collapse" aria-expanded="false"
-                        aria-controls="multiCollapseExample1">mostra
-                        commenti</button>
-                </div>
-
-            </div>
-            <div class="card m-2">
-                <div class="card-header">
-                    <h5 class="card-title">Utente</h5>
-                    <p class="card-text">descrizione post</p>
-                </div>
-                <div class="card-body p-0 mx-auto">
-                    <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-                        class="object-fit-contain" alt="..." height="455" />
-                </div>
-
-
-                <div class="card-footer d-flex justify-content-around align-items-center">
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-house"></i>
-                        mi piace</button>
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-pencil-square"></i>
-                        commento</button>
-                    <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-share"></i>
-                        condividi</button>
-                    <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse"
-                        data-bs-target=".multi-collapse" aria-expanded="false"
-                        aria-controls="multiCollapseExample1">mostra
-                        commenti</button>
-                </div>
-
-            </div>
+        </div>
         </div>
         <aside class="col-2 p-3 shadow sticky-top mh-100 z-1 overflow-auto offcanvas-lg offcanvas-start" tabindex="-1"
             id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel" data-bs-scroll="true"
