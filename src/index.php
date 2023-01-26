@@ -1,7 +1,7 @@
 <?php
 require_once 'bootstrap.php';
-require_once 'checkSession.php';
-require 'templates/head.php';
+checkSession();
+require_once 'templates/head.php';
 ?>
 
 <body class="d-flex flex-column vh-100 vw-100" data-bs-theme="dark">

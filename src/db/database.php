@@ -270,6 +270,32 @@ class DatabaseHelper
         return true;
     }
 
+    public function getFriends($username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM amicizia WHERE richiedente=? OR accettante=?");
+        $stmt->bind_param('ss', $username, $username);
+        $stmt->execute();
+        $friends = array();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        foreach ($result as $row) {
+            if ($row['richiedente'] == $username) {
+                array_push($friends, $row['accettante']);
+            } else {
+                array_push($friends, $row['richiedente']);
+            }
+        }
+        return $friends;
+    }
+
+    public function addFriend($username, $friend)
+    {
+        $stmt = $this->db->prepare("INSERT INTO amicizia (richiedente, accettante) VALUES (?, ?)");
+        $stmt->bind_param('ss', $username, $friend);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
     public function setUserAdmin($username, $squadId) {
         $stmt = $this->db->prepare("UPDATE partecipazione SET ruolo=2 WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);

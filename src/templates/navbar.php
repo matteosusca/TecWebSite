@@ -1,3 +1,9 @@
+<?php
+if (!empty($_POST['esci'])) {
+    session_destroy();
+    header("Location: ../signin.php");
+}
+?>
 <header class="navbar navbar-icon-top navbar-expand-lg shadow-sm bg-black navbar-dark ">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +24,7 @@
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="signout.php">Sign out</a></li>
+                <li><form action="templates/navbar.php" method="post"><button class="btn dropdown-item" type="submit" value="Accedi" name="esci">Sign out</button></form></li>
             </ul>
         </div>';
         } else {
