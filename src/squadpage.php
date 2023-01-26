@@ -1,20 +1,22 @@
 <?php
 require_once 'bootstrap.php';
-if(isset($_GET['name'])){
+if (isset($_GET['name'])) {
     $squad = $_GET['name'];
     $squadProfile = $dbh->getSquads($squad)[0];
-    if(!$squadProfile){
+    if (!$squadProfile) {
         $title = "Squad not found";
         header("Location: squadpage.php?error=1");
+    } else {
+        $title = $squad . "'s page";
     }
-    else{
-        $title = $squad."'s page";
-    }
-}
-else{
+} else {
     $title = "Squad not found";
     header("Location: squadpage.php?error=2");
 }
+
+echo "Location: editsquad.php?id=".$squadProfile->getId();
+    
+
 ?>
 
 
@@ -22,7 +24,7 @@ else{
 
 <?php require_once 'checkSession.php'; ?>
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
