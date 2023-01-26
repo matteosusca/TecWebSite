@@ -15,26 +15,18 @@ require 'templates/head.php';
         <aside
             class="col-12 col-lg-3 p-3 shadow sticky-lg-top mh-100 m-0 overflow-auto  text-nowrap z-1 container-fluid">
             <div class="d-flex">
-                <img src=<?php echo $dbh->getMediaUrl($user->getProfilePicture()); ?> class="object-fit-contain" alt="..." width="20%"/>
+                <img src=<?php echo $dbh->getMediaUrl($user->getProfilePicture()); ?> class="object-fit-contain rounded-circle p-2" alt="..." width="20%"/>
                 <div class="d-flex flex-column justify-content-evenly">
-                    <p class="mx-4">12 Stronzi</p>
-                    <p class="mx-4">17 Foto di merda</p>
+                    <h5 class="mx-4"><?php echo $user->getUsername()." (".$user->getFullName()."), ".$user->getAge(); ?></h5>
                 </div>
             </div>
             <div class="d-flex flex-column">
-                <p class="mx-4"><?php echo $user->getUsername()." (".$user->getFullName()."), ".$user->getAge(); ?></p>
+                <a class="btn btn-secondary m-2" href="" type="button">Amici</a>
+                <a class="btn btn-secondary m-2" href="" type="button">Foto</a>                
             </div>
             
         </aside>
         <div class="col-12 col-lg-5 p-3 shadow">
-            <div class="card m-2">
-                <div class="card-header">
-                    <?php echo "<h3>".$user->getUsername()."</h3>"; ?>
-                    <?php echo "<h5>".$user->getFullName().", ".$user->getAge()."</h5>"; ?>
-                </div>
-                <img src=<?php echo $dbh->getMediaUrl($user->getProfilePicture()); ?>
-                        class="object-fit-contain" alt="..."/>
-            </div>
             <div class="card m-2">
                 <div class="card-header">
                     <h5 class="card-title">Utente</h5>
