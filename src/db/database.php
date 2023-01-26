@@ -101,6 +101,15 @@ class DatabaseHelper
         return true;
     }
 
+    public function getSquad($id)
+    {
+        $stmt = $this->db->prepare("SELECT compagnia.*, GROUP_CONCAT(partecipazione.username) AS membri FROM compagnia LEFT JOIN partecipazione ON compagnia.id_compagnia = partecipazione.id_compagnia WHERE compagnia.id_compagnia = ? GROUP BY compagnia.id_compagnia");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        return new Squad($result['id_compagnia'], $result['nome'], $result['descrizione'], $result['profile_pic'], $result['creatore'], explode(",", $result['membri']));
+    }
+
     public function getSquads($name)
     {
         if (!$this->checkSquadExists($name)) {
@@ -172,6 +181,20 @@ class DatabaseHelper
         return false;
     }
 
+    public function setSquadPicture($id_squad, $file)
+    {
+        //upload file to img folder
+        $id_pic = $this->uploadMedia($file);
+        if ($id_pic) {
+            $stmt = $this->db->prepare("UPDATE compagnia SET profile_pic=? WHERE id_compagnia=?");
+            $stmt->bind_param('ii', $id_pic, $id_squad);
+            $stmt->execute();
+            $stmt->close();
+            return true;
+        }
+        return false;
+    }
+
     public function uploadMedia($file)
     {
         //upload file to img folder
@@ -223,29 +246,33 @@ class DatabaseHelper
         return count($result->fetch_all(MYSQLI_ASSOC)) > 0;
     }
 
-    public function checkUserPermissions($username, $squadId)
+    public function checkUserPermissionsForSquad($username, $squadId)
     {
         $stmt = $this->db->prepare("SELECT ruolo FROM partecipazione WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
-        return $row['ruolo'] != 3;
+        return $result['ruolo'] != 3;
     }
 
-    public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
+    public function setSquadName($id, $name)
     {
-        if (!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)) {
-            return false;
-        }
-        if (isUserMember($inviteeUser, $squadId)) {
-            return false;
-        }
-        $stmt = $this->db->prepare("INSERT INTO partecipazione (username, id_compagnia, ruolo) VALUES (?, ?, ?)");
-        $stmt->bind_param('sii', $inviteeUser, $squadId, $role);
+        $stmt = $this->db->prepare("UPDATE compagnia SET nome=? WHERE id_compagnia=?");
+        $stmt->bind_param('si', $name, $id);
         $stmt->execute();
         $stmt->close();
         return true;
     }
+
+    public function setSquadDescription($id, $description)
+    {
+        $stmt = $this->db->prepare("UPDATE compagnia SET descrizione=? WHERE id_compagnia=?");
+        $stmt->bind_param('si', $description, $id);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
     public function getFriends($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM amicizia WHERE richiedente=? OR accettante=?");
@@ -262,6 +289,42 @@ class DatabaseHelper
         }
         return $friends;
     }
+
+    public function addFriend($username, $friend)
+    {
+        $stmt = $this->db->prepare("INSERT INTO amicizia (richiedente, accettante) VALUES (?, ?)");
+        $stmt->bind_param('ss', $username, $friend);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    public function setUserAdmin($username, $squadId)
+    {
+        $stmt = $this->db->prepare("UPDATE partecipazione SET ruolo=2 WHERE username=? AND id_compagnia=?");
+        $stmt->bind_param('si', $username, $squadId);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    public function setUserMember($username, $squadId)
+    {
+        $stmt = $this->db->prepare("UPDATE partecipazione SET ruolo=3 WHERE username=? AND id_compagnia=?");
+        $stmt->bind_param('si', $username, $squadId);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    public function removeUserFromSquad($username, $squadId)
+    {
+        $stmt = $this->db->prepare("DELETE FROM partecipazione WHERE username=? AND id_compagnia=?");
+        $stmt->bind_param('si', $username, $squadId);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
     public function getSquadsByUser($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM partecipazione WHERE username=?");
@@ -274,14 +337,18 @@ class DatabaseHelper
         }
         return $squads;
     }
-
-
-    public function addFriend($username, $friend)
-    {
-        $stmt = $this->db->prepare("INSERT INTO amicizia (richiedente, accettante) VALUES (?, ?)");
-        $stmt->bind_param('ss', $username, $friend);
-        $stmt->execute();
-        $stmt->close();
-        return true;
-    }
+    // public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
+    // {
+    //     if (!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)) {
+    //         return false;
+    //     }
+    //     if (isUserMember($inviteeUser, $squadId)) {
+    //         return false;
+    //     }
+    //     $stmt = $this->db->prepare("INSERT INTO partecipazione (username, id_compagnia, ruolo) VALUES (?, ?, ?)");
+    //     $stmt->bind_param('sii', $inviteeUser, $squadId, $role);
+    //     $stmt->execute();
+    //     $stmt->close();
+    //     return true;
+    // }
 }

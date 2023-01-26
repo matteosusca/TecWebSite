@@ -30,8 +30,16 @@ if (!empty($_POST['submit'])) {
                 <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Friends </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <?php require_once 'templates/friend.php'; ?>
-            <?php require_once 'templates/squads.php'; ?>
+
+            <div class=" h-50 overflow-auto">
+                <?php require_once 'templates/friend.php'; ?>
+            </div>
+            <div class=" h-50 overflow-auto">
+                <?php require_once 'templates/squads.php'; ?>
+            </div>
+
+
+
         </aside>
     </div>
 

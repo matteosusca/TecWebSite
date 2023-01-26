@@ -39,9 +39,6 @@ if (!empty($_POST['esci'])) {
                     <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><i class="bi bi-house d-block " style="font-size: 1rem;"></i>Home</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link <?php isActive("squadpage.php"); ?>" href="squadpage.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Squad</a>
-                </li>
-                <li class="nav-item ">
                     <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Contacts</a>
                 </li>
             </ul>
