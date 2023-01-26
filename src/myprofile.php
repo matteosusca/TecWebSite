@@ -2,90 +2,39 @@
 require_once 'bootstrap.php';
 require_once 'checkSession.php';
 $user = $dbh->getUser($_SESSION['username']);
-?>
-<!DOCTYPE html>
-<html lang="it">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <title>SquadUp</title>
-</head>
+require 'templates/head.php';
+
+?>
 
 <body class="d-flex flex-column vh-100 " data-bs-theme="dark">
 
-    <nav class="navbar navbar-icon-top navbar-expand-lg shadow-sm bg-black navbar-dark">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
-                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="index.php">
-                <h2> SquadUp </h2>
-            </a>
-            <div class="dropdown z-2 order-lg-1 ">
-                <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle">utente
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end text-small shadow ">
-                    <li><a class="dropdown-item" href="signin.php">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
-            </div>
-            <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
-                <ul
-                    class="navbar-nav text-center w-100 mx-2 d-flex flex-row justify-content-lg-center justify-content-around">
-                    <li class="nav-item">
-                        <a class="nav-link active " href="index.php"><i class="bi bi-house d-block "
-                                style="font-size: 1rem;"></i>Home</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="#"><i class="bi bi-people d-block"
-                                style="font-size: 1rem;"></i>Group</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="contacts.php"><i class="bi bi-people d-block"
-                                style="font-size: 1rem;"></i>Contacts</a>
-                    </li>
-
-                </ul>
-
-                <form class="mx-2" role="search">
-                    <input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search">
-                </form>
-
-
-            </div>
-
-
-        </div>
-
-    </nav>
-
-
+    <?php require 'templates/navbar.php'; ?>
 
     <main class="d-lg-flex flex-wrap justify-content-center overflow-auto ">
         <aside
-            class="col-12 col-lg-3 p-3 shadow sticky-lg-top mh-100 overflow-auto d-flex flex-lg-column text-nowrap z-1">
-            <?php echo "<h3>".$user->getUsername().", ".$user->getAge()."</h3>"; ?>
-            <img src=<?php echo $dbh->getMediaUrl($user->getProfilePicture()); ?> 
-                        class="object-fit-contain" alt="..." height="200" />
-            <a class="btn btn-secondary m-2" href="createpost.php" type="button">Crea post</a>
+            class="col-12 col-lg-3 p-3 shadow sticky-lg-top mh-100 m-0 overflow-auto  text-nowrap z-1 container-fluid">
+            <div class="d-flex">
+                <img src=<?php echo $dbh->getMediaUrl($user->getProfilePicture()); ?> class="object-fit-contain" alt="..." width="20%"/>
+                <div class="d-flex flex-column justify-content-evenly">
+                    <p class="mx-4">12 Stronzi</p>
+                    <p class="mx-4">17 Foto di merda</p>
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                <p class="mx-4"><?php echo $user->getUsername()." (".$user->getFullName()."), ".$user->getAge(); ?></p>
+            </div>
+            
         </aside>
         <div class="col-12 col-lg-5 p-3 shadow">
+            <div class="card m-2">
+                <div class="card-header">
+                    <?php echo "<h3>".$user->getUsername()."</h3>"; ?>
+                    <?php echo "<h5>".$user->getFullName().", ".$user->getAge()."</h5>"; ?>
+                </div>
+                <img src=<?php echo $dbh->getMediaUrl($user->getProfilePicture()); ?>
+                        class="object-fit-contain" alt="..."/>
+            </div>
             <div class="card m-2">
                 <div class="card-header">
                     <h5 class="card-title">Utente</h5>
