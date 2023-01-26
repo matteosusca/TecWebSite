@@ -1,6 +1,6 @@
 <?php
 require_once 'bootstrap.php';
-require_once 'checkSession.php';
+checkSession();
 
 $squad_id = $_POST['id'];
 if(!$dbh->checkUserPermissionsForSquad($_SESSION['username'], $squad_id)){
