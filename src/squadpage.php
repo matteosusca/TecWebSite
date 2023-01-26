@@ -14,9 +14,8 @@ if (isset($_GET['name'])) {
     header("Location: squadpage.php?error=2");
 }
 
-if(isset($_POST['edit_squad'])){
-    header("Location: editsquad.php?id=".$squadProfile->getId());
-}
+echo "Location: editsquad.php?id=".$squadProfile->getId();
+    
 
 ?>
 <!DOCTYPE html>
@@ -51,8 +50,10 @@ if(isset($_POST['edit_squad'])){
         </div>
         <div>
             <h2>
-                <form action="squadpage.php" method="post">
+                <form action="editsquad.php" method="post">
+                    <input type="hidden" name="id" value=<?php echo $squadProfile->getId(); ?>>
                     <input type="submit" name="edit_squad" value="Edit Squad">
+                </form>
             </h2>
         </div>
     </div>
