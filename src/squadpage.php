@@ -48,7 +48,7 @@ if (isset($_GET['name'])) {
                     <?php
                         //get members of the squad and echo them
                         foreach ($squadProfile->getMembers() as $member) {
-                            echo '<li class="list-group-item list-group-item-action">' . $$member . '</li>';
+                            echo '<li class="list-group-item list-group-item-action">' . $member . '</li>';
                         }
                     ?>
                 </ul>
