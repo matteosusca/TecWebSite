@@ -68,7 +68,7 @@ $squad = $dbh->getSquad($squad_id);
                 </div>
                 <div>
                     <label for="description">Description</label>
-                    <input type="text" name="description" id="description" placeholder="<?php echo $squad->getDescription() ?>">
+                    <textarea name="description" placeholder="<?php echo $squad->getDescription() ?>" rows = 4 cols=50></textarea>
                 </div>
                 <div>
                     <label for="user">User</label>

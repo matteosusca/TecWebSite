@@ -1,3 +1,4 @@
+<h5>Friends</h5>
 <ul class="list-group list-group-flush offcanvas-body">
     <?php
 
