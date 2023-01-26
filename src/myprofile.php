@@ -11,7 +11,7 @@ require 'templates/head.php';
 
     <?php require 'templates/navbar.php'; ?>
 
-    <main class="d-lg-flex flex-wrap justify-content-center overflow-auto ">
+    <main class="d-lg-flex flex-wrap justify-content-center overflow-auto vh-100">
         <aside
             class="col-12 col-lg-3 p-3 shadow sticky-lg-top mh-100 m-0 overflow-auto  text-nowrap z-1 container-fluid">
             <div class="d-flex">
@@ -26,7 +26,7 @@ require 'templates/head.php';
             </div>
             
         </aside>
-        <div class="col-12 col-lg-5 p-3 shadow">
+        <div class="col-12 col-lg-5 p-3 shadow mh-100">
             <?php require 'templates/post.php'; ?>                            
         </div>
     </main>
