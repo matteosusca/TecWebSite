@@ -180,6 +180,20 @@ class DatabaseHelper
         return false;
     }
 
+    public function setSquadPicture($id_squad, $file)
+    {
+        //upload file to img folder
+        $id_pic = $this->uploadMedia($file);
+        if ($id_pic) {
+            $stmt = $this->db->prepare("UPDATE compagnia SET profile_pic=? WHERE id_compagnia=?");
+            $stmt->bind_param('ii', $id_pic, $id_squad);
+            $stmt->execute();
+            $stmt->close();
+            return true;
+        }
+        return false;
+    }
+
     public function uploadMedia($file)
     {
         //upload file to img folder
