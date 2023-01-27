@@ -3,7 +3,7 @@ require_once 'templates/head.php';
 checkSession();
 ?>
 
-<body class="d-flex flex-column vh-100 vw-100" data-bs-theme="dark">
+<body class="d-flex flex-column vh-100" data-bs-theme="dark">
     <?php require_once 'templates/navbar.php'; ?>
     <div class="d-lg-flex flex-wrap justify-content-center overflow-auto ">
         <aside class="col-12 col-lg-2 p-3 mh-100 shadow sticky-lg-top overflow-auto d-flex flex-lg-column text-nowrap">
