@@ -33,23 +33,23 @@ if (!empty($_POST['esci'])) {
         <div class="collapse navbar-collapse flex-grow-0 col-lg-6" id="navbarsExample11">
             <ul class="navbar-nav col-lg-8 text-center d-flex flex-row justify-content-around">
                 <li class="nav-item">
-                    <a class="nav-link <?php isActive(" index.php"); ?>" href="index.php"><i
+                    <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><i
                             class="bi bi-house d-block " style="font-size: 1rem;"></i>Home</a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i
+                <li class="nav-item">
+                    <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><i
                             class="bi bi-people d-block" style="font-size: 1rem;"></i>Contacts</a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link <?php isActive(" squads.php"); ?>" href="squads.php"><i
+                <li class="nav-item">
+                    <a class="nav-link <?php isActive("squads.php"); ?>" href="squads.php"><i
                             class="bi bi-people d-block" style="font-size: 1rem;"></i>Squads</a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link <?php isActive(" friends.php"); ?>" href="friends.php"><i
+                <li class="nav-item">
+                    <a class="nav-link <?php isActive("friends.php"); ?>" href="friends.php"><i
                             class="bi bi-people d-block" style="font-size: 1rem;"></i>Friends</a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link <?php isActive(" event.php"); ?>" href="event.php"><i
+                <li class="nav-item">
+                    <a class="nav-link <?php isActive("event.php"); ?>" href="event.php"><i
                             class="bi bi-people d-block" style="font-size: 1rem;"></i>Events</a>
                 </li>
             </ul>
