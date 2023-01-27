@@ -10,13 +10,13 @@ if (!empty($_POST['esci'])) {
             aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand col-lg-2 m-0 d-flex justify-content-end" href="#">SquadUp</a>
+        <a class="navbar-brand col-lg-4 m-0 px-2 d-flex justify-content-end" href="index.php">SquadUp</a>
 
         <?php if (isset($_SESSION['username'])) {
-            echo '<div class="dropdown order-lg-1 col-lg-2 d-flex justify-content-start px-5">
+            echo '<div class="dropdown order-lg-1 col-lg-2 d-flex justify-content-start px-2">
             <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="' . $dbh->getMediaUrl($dbh->getUser($_SESSION['username'])->getProfilePicture()) . '" alt="" width="32" height="32" class="rounded-circle">' . $dbh->getUser($_SESSION['username'])->getUsername() . '</a>
-            <ul class="dropdown-menu dropdown-menu mx-5 ">
+            <ul class="dropdown-menu dropdown-menu mx-2 ">
                 <li><a class="dropdown-item" href="myprofile.php">Profile</a></li>
                 <li>
                     <hr class="dropdown-divider">
@@ -29,8 +29,8 @@ if (!empty($_POST['esci'])) {
         }
         ?>
 
-        <div class="collapse navbar-collapse flex-grow-0 col-lg-4" id="navbarsExample11">
-            <ul class="navbar-nav col-lg-12 text-center d-flex flex-row justify-content-around">
+        <div class="collapse navbar-collapse flex-grow-0 col-lg-6" id="navbarsExample11">
+            <ul class="navbar-nav col-lg-8 text-center d-flex flex-row justify-content-around">
                 <li class="nav-item">
                     <a class="nav-link <?php isActive(" index.php"); ?>" href="index.php"><i
                             class="bi bi-house d-block " style="font-size: 1rem;"></i>Home</a>
@@ -48,6 +48,11 @@ if (!empty($_POST['esci'])) {
                             class="bi bi-people d-block" style="font-size: 1rem;"></i>Friends</a>
                 </li>
             </ul>
+            <div class="col-lg-4">
+                <form class="m-2" role="search">
+                    <input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search">
+                </form>
+            </div>
         </div>
     </div>
 </nav>
