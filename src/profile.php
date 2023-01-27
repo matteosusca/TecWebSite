@@ -25,7 +25,7 @@ require 'templates/head.php';
 
     <?php require 'templates/navbar.php'; ?>
 
-    
+
 
     <main class="d-lg-flex flex-wrap justify-content-center overflow-auto vh-100">
         <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">
@@ -52,10 +52,11 @@ require 'templates/head.php';
         </aside>
 
         <div class="col-12 col-lg-4 p-3 shadow mh-100">
+            <?php require 'templates/createpost.php'; ?>
             <?php
-                foreach($dbh->getUsersPosts($user->getUsername()) as $post){
-                    echo $post->showPost();
-                }
+            foreach ($dbh->getUsersPosts($user->getUsername()) as $post) {
+                echo $post->showPost();
+            }
             ?>
         </div>
         <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">
