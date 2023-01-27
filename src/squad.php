@@ -49,9 +49,9 @@ if (!empty($_POST['submit'])) {
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0"> <?php require 'templates/createpost.php';
-                                                                                                                                   showPosts($dbh->getPostOrderByDate($_SESSION['username'])) ?></div>
+                                                                                                                                   showPosts($dbh->getSquadPosts($squadProfile->getID())) ?></div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0"> <?php require 'templates/createevent.php';
-                                                                                                                             showEvents($dbh->getEventsOrderByDate($_SESSION['username'])); ?></div>
+                                                                                                                             showEvents($dbh->getSquadEvents($squadProfile->getID())); ?></div>
             </div>
         </div>
         <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">

@@ -71,18 +71,7 @@ class DatabaseHelper
         return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $result['profile_pic']);
     }
 
-    public function getPostComments($id_post)
-    {
-        $stmt = $this->db->prepare("SELECT * FROM commento WHERE id_post=?");
-        $stmt->bind_param('i', $id_post);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $comments = array();
-        foreach ($result as $row) {
-            array_push($comments, new Comment($row['id_commento'], $row['id_post'], $row['username'], $row['corpo'], $row['data_pubblicazione']));
-        }
-        return $comments;
-    }
+ 
 
     public function getMediaUrl($idmedia)
     {
@@ -95,28 +84,6 @@ class DatabaseHelper
         } else {
             return false;
         }
-    }
-
-    public function getUsersPosts($username)
-    {
-        $stmt = $this->db->prepare("SELECT * FROM post WHERE username=?");
-        $stmt->bind_param('s', $username);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        $posts = array();
-        foreach ($result as $row) {
-            array_push($posts, new Post($row['id_post'], $this->getMediaUrl($row['id_media']), $row['username'], $row['descrizione'], $row['data_pubblicazione'], $this->getPostComments($row['id_post'])));
-        }
-        return $posts;
-    }
-
-    public function getPost($id_post)
-    {
-        $stmt = $this->db->prepare("SELECT * FROM post WHERE id_post=?");
-        $stmt->bind_param('i', $id_post);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
-        return new Post($result['id_post'], $this->getMediaUrl($result['id_media']), $result['username'], $result['descrizione'], $result['data_pubblicazione'], $this->getPostComments($result['id_post']));
     }
 
 
@@ -190,19 +157,6 @@ class DatabaseHelper
         $stmt->execute();
         $stmt->close();
         return true;
-    }
-
-    public function createPost($username, $text, $media_id)
-    {
-        $id = $this->uploadMedia($media_id);
-        if ($id) {
-            $stmt = $this->db->prepare("INSERT INTO post (id_media, descrizione, data_pubblicazione, username) VALUES (?,?, NOW(),?)");
-            $stmt->bind_param('iss', $id, $text, $username);
-            $stmt->execute();
-            $stmt->close();
-            return true;
-        }
-        return false;
     }
 
     public function setProfilePicture($username, $file)
@@ -302,26 +256,7 @@ class DatabaseHelper
         return true;
     }
 
-    public function getEventTypes()
-    {
-        $stmt = $this->db->prepare("SELECT * FROM tipo_evento");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $types = array();
-        while ($row = $result->fetch_assoc()) {
-            $types[$row['id_tipo']] = $row['nome_tipo'];
-        }
-        return $types;
-    }
-    public function createEvent($id_squad, $name, $description, $date_of_event_start, $date_of_event_end, $type, $username)
-    {
-        $stmt = $this->db->prepare("INSERT INTO evento (id_compagnia, nome, descrizione, data_creazione, data_evento, data_fine, id_tipo, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $date_of_creation = date("Y-m-d H:i:s");
-        $stmt->bind_param('isssssis', $id_squad, $name, $description, $date_of_creation, $date_of_event_start, $date_of_event_end, $type, $username);
-        $stmt->execute();
-        $stmt->close();
-        return true;
-    }
+   
     public function setSquadDescription($id, $description)
     {
         $stmt = $this->db->prepare("UPDATE compagnia SET descrizione=? WHERE id_compagnia=?");
@@ -414,6 +349,55 @@ class DatabaseHelper
         }
         return $squads;
     }
+
+    public function createPost($username, $text, $media_id)
+    {
+        $id = $this->uploadMedia($media_id);
+        if ($id) {
+            $stmt = $this->db->prepare("INSERT INTO post (id_media, descrizione, data_pubblicazione, username) VALUES (?,?, NOW(),?)");
+            $stmt->bind_param('iss', $id, $text, $username);
+            $stmt->execute();
+            $stmt->close();
+            return true;
+        }
+        return false;
+    }
+    public function getUserPosts($username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username=?");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $posts = array();
+        foreach ($result as $row) {
+            array_push($posts, new Post($row['id_post'], $this->getMediaUrl($row['id_media']), $row['username'], $row['descrizione'], $row['data_pubblicazione'], $this->getPostComments($row['id_post'])));
+        }
+        return $posts;
+    }
+
+    public function getPost($id_post)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE id_post=?");
+        $stmt->bind_param('i', $id_post);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        return new Post($result['id_post'], $this->getMediaUrl($result['id_media']), $result['username'], $result['descrizione'], $result['data_pubblicazione'], $this->getPostComments($result['id_post']));
+    }
+
+
+    public function getPostComments($id_post)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM commento WHERE id_post=?");
+        $stmt->bind_param('i', $id_post);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $comments = array();
+        foreach ($result as $row) {
+            array_push($comments, new Comment($row['id_commento'], $row['id_post'], $row['username'], $row['corpo'], $row['data_pubblicazione']));
+        }
+        return $comments;
+    }
+
     public function getPostOrderByDate($username)
     {
         $friends = $this->getFriends($username);
@@ -429,6 +413,44 @@ class DatabaseHelper
         }
         return $posts;
     }
+   
+    public function getSquadPosts($squadId)
+    {
+        $squad = $this->getSquad($squadId);
+        $members = $squad->getMembers();
+        $members = implode("','", $members);
+        $members = "'" . $members . "'";
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN ($members) ORDER BY data_pubblicazione DESC");
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $posts = array();
+        foreach ($result as $row) {
+            array_push($posts, new Post($row['id_post'], $this->getMediaUrl($row['id_media']), $row['username'], $row['descrizione'], $row['data_pubblicazione'], $this->getPostComments($row['id_post'])));
+        }
+        return $posts;
+    }
+
+    public function getEventTypes()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM tipo_evento");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $types = array();
+        while ($row = $result->fetch_assoc()) {
+            $types[$row['id_tipo']] = $row['nome_tipo'];
+        }
+        return $types;
+    }
+    public function createEvent($id_squad, $name, $description, $date_of_event_start, $date_of_event_end, $type, $username)
+    {
+        $stmt = $this->db->prepare("INSERT INTO evento (id_compagnia, nome, descrizione, data_creazione, data_evento, data_fine, id_tipo, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $date_of_creation = date("Y-m-d H:i:s");
+        $stmt->bind_param('isssssis', $id_squad, $name, $description, $date_of_creation, $date_of_event_start, $date_of_event_end, $type, $username);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
     public function getEvents($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM evento WHERE username=?");
@@ -442,6 +464,18 @@ class DatabaseHelper
         return $events;
     }
 
+    public function getUserEvents($username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM evento WHERE (username=? or  (Isc_username=?))");
+        $stmt->bind_param('ss', $username,$username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $events = array();
+        foreach ($result as $row) {
+            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia'], $row['Isc_username']));
+        }
+        return $events;
+    }
     public function getEvent($eventId)
     {
         $stmt = $this->db->prepare("SELECT * FROM evento WHERE id_evento=?");
@@ -454,6 +488,18 @@ class DatabaseHelper
     public function getEventsOrderByDate($username) {
         $stmt = $this->db->prepare("SELECT * FROM evento WHERE username=? ORDER BY data_evento DESC");
         $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $events = array();
+        foreach ($result as $row) {
+            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia'], $row['Isc_username']));
+        }
+        return $events;
+    }
+
+    public function getSquadEvents($squadId) {
+        $stmt = $this->db->prepare("SELECT * FROM evento WHERE id_compagnia=?");
+        $stmt->bind_param('i', $squadId);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $events = array();
