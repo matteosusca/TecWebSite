@@ -1,6 +1,6 @@
 <?php
-require_once 'user.php';
-require_once 'squad.php';
+require_once 'class/user.php';
+require_once 'class/squad.php';
 
 class DatabaseHelper
 {

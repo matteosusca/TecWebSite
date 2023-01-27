@@ -4,7 +4,7 @@ checkSession();
 
 $squad_id = $_POST['id'];
 if (!$dbh->checkUserPermissionsForSquad($_SESSION['username'], $squad_id)) {
-    header("Location: squadpage.php?name=" . $dbh->getSquad($squad_id)->getName() . "");
+    header("Location: squad.php?name=" . $dbh->getSquad($squad_id)->getName() . "");
 }
 
 if (!empty($_POST['save'])) {
