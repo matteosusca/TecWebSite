@@ -11,7 +11,7 @@ if (isset($_GET['user'])) {
         $title = $user->getUsername() . "'s profile";
     }
     if (isset($_POST['aggiungi'])) {
-        $dbh->addFriend($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
+        $dbh->addFriend($dbh->getUser($_SESSION['username'])->getUsername(), $user->getUsername());
     }
 } else {
     $title = "Profile not found";
@@ -36,10 +36,18 @@ require 'templates/head.php';
                 </div>
             </div>
             <div class="d-flex flex-lg-column">
-                <form action="" method="post">
+                <?php
+                if ($user->getUsername() == $_SESSION['username']) {
+                    echo '<form action="editprofile.php" method="post">
+                    <input type="submit" class="btn btn-outline-secondary border-0" value="Modifica profilo">
+                </form>';
+                } else {
+                    echo '<form action="profile.php?user=' . $user->getUsername() . '" method="post">
                     <input type="hidden" name="aggiungi" value="Aggiungi">
                     <input class="btn btn-outline-secondary border-0" type="submit" value="Aggiungi">
-                </form>
+                </form>';
+                }
+                ?>
             </div>
         </aside>
 
