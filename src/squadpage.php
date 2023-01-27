@@ -1,6 +1,8 @@
 <?php
+require_once 'bootstrap.php';
 require_once 'templates/head.php';
 checkSession();
+
 if (isset($_GET['name'])) {
     $squad = $_GET['name'];
     $squadProfile = $dbh->getSquads($squad)[0];
@@ -15,38 +17,35 @@ if (isset($_GET['name'])) {
     header("Location: squadpage.php?error=2");
 }
 
-
 ?>
 
-<body>
-    <div>
-        <img src=<?php if ($squadProfile->getPicture() != null) {
-                        echo $dbh->getMediaUrl($squadProfile->getPicture());
-                    } else {
-                        echo "img/ciccio.jpg";
-                    } ?> alt="Profile picture">
-        <div>
-            <h1><?php echo $squadProfile->getId(); ?></h1> <!-- debug purupose -->
-            <h2><?php echo $squadProfile->getName(); ?></h2>
-            <h3><?php echo $squadProfile->getDescription(); ?></h3>
-            <h3><?php echo $squadProfile->getOwner(); ?></h3>
-            <h3>
-                <ul><?php
-                    foreach ($squadProfile->getMembers() as $member) {
-                        echo "<li>" . $member . "</li>";
-                    }
-                    ?></ul>
-            </h3>
-        </div>
-        <div>
-            <h2>
+<body class="d-flex flex-column vh-100 " data-bs-theme="dark">
+    <?php require_once 'templates/navbar.php'; ?>
+    <main class="d-lg-flex flex-wrap justify-content-center overflow-auto vh-100">
+        <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">
+            <div class="d-flex">
+                <img src=<?php echo $dbh->getMediaUrl($squadProfile->getPicture()); ?> class="object-fit-contain rounded-circle p-2" alt="..." width="20%" />
+                <div class="d-flex flex-column justify-content-evenly">
+                    <h5 class="mx-4"><?php echo $squadProfile->getName() ?></h5>
+                    <p class="mx-4"><?php echo $squadProfile->getDescription() ?></p>
+                </div>
+            </div>
+            <div class="d-flex flex-lg-column">
                 <form action="editsquad.php" method="post">
                     <input type="hidden" name="id" value=<?php echo $squadProfile->getId(); ?>>
-                    <input type="submit" name="edit_squad" value="Edit Squad">
+                    <input class="btn btn-outline-secondary border-0" type="submit" name="edit_squad" value="Edit Squad">
                 </form>
-            </h2>
+            </div>
+        </aside>
+
+        <div class="col-12 col-lg-4 p-3 shadow mh-100">
+            <?php require 'templates/post.php'; ?>
         </div>
-    </div>
+        <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">
+            <?php require 'templates/members.php'; ?>
+        </aside>
+    </main>
 </body>
+
 
 </html>
