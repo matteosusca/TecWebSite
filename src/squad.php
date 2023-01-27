@@ -73,9 +73,6 @@ if (!empty($_POST['submit'])) {
                     </div>
                 </div>
             </div>
-
-
-            <?php require 'templates/post.php'; ?>
         </div>
         <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">
             <?php require 'templates/members.php'; ?>
