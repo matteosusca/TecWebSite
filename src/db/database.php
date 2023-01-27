@@ -3,6 +3,7 @@ require_once 'class/post.php';
 require_once 'class/comment.php';
 require_once 'class/user.php';
 require_once 'class/squad.php';
+require_once 'class/event.php';
 
 class DatabaseHelper
 {
@@ -413,9 +414,12 @@ class DatabaseHelper
         }
         return $squads;
     }
-    public function getPostOrderByDate()
+    public function getPostOrderByDate($username)
     {
-        $stmt = $this->db->prepare("SELECT * FROM post ORDER BY data_pubblicazione DESC");
+        $friends = $this->getFriends($username);
+        $friends = implode("','", $friends);
+        $friends = "'" . $friends . "'";
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN ($friends) ORDER BY data_pubblicazione DESC");
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $posts = array();
@@ -423,6 +427,39 @@ class DatabaseHelper
             array_push($posts, new Post($row['id_post'], $this->getMediaUrl($row['id_media']), $row['username'], $row['descrizione'], $row['data_pubblicazione'], $this->getPostComments($row['id_post'])));
         }
         return $posts;
+    }
+    public function getEvents($username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM evento WHERE username=?");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $events = array();
+        foreach ($result as $row) {
+            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia'], $row['Isc_username']));
+        }
+        return $events;
+    }
+
+    public function getEvent($eventId)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM evento WHERE id_evento=?");
+        $stmt->bind_param('i', $eventId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        return new Event($result['id_evento'], $result['nome'], $result['descrizione'], $result['data_creazione'], $result['data_evento'], $result['data_fine'], $result['id_tipo'], $result['username'], $result['id_compagnia'], $result['Isc_username']);
+    }
+
+    public function getEventsOrderByDate($username) {
+        $stmt = $this->db->prepare("SELECT * FROM evento WHERE username=? ORDER BY data_evento DESC");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $events = array();
+        foreach ($result as $row) {
+            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia'], $row['Isc_username']));
+        }
+        return $events;
     }
     // public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
     // {

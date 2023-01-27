@@ -24,11 +24,14 @@ checkSession();
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
 
-            <div class=" h-50 overflow-auto">
+            <div class=" h-25 overflow-auto">
                 <?php require_once 'templates/friends.php'; ?>
             </div>
-            <div class=" h-50 overflow-auto">
+            <div class=" h-25 overflow-auto">
                 <?php require_once 'templates/squads.php'; ?>
+            </div>
+            <div class=" h-25 overflow-auto">
+                <?php require_once 'templates/events.php'; ?>
             </div>
 
 
