@@ -15,11 +15,18 @@ if (isset($_GET['name'])) {
 } else {
     $title = "Squad not found";
     header("Location: squadpage.php?error=2");
+}
+
 ?>
 
 <body class="d-flex flex-column vh-100 " data-bs-theme="dark">
     <?php require_once 'templates/navbar.php'; ?>
-
+    <main class="d-lg-flex flex-wrap justify-content-center overflow-auto vh-100">
+        <aside
+            class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">
+            <div class="d-flex">
+                <img src=<?php echo $dbh->getMediaUrl($squadProfile->getPicture()); ?> class="object-fit-contain rounded-circle p-2" alt="..." width="20%"/>
+                <div class="d-flex flex-column justify-content-evenly">
                     <h5 class="mx-4"><?php echo $squadProfile->getName()?></h5>
                     <p class="mx-4"><?php echo $squadProfile->getDescription()?></p>
                 </div>
@@ -47,7 +54,6 @@ if (isset($_GET['name'])) {
                 </ul>
             </aside>
     </main>
-
 </body>
 
 
