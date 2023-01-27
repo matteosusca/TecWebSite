@@ -1,5 +1,6 @@
 <?php
 if (!empty($_POST['esci'])) {
+    session_start();
     session_destroy();
     header("Location: ../signin.php");
 }
