@@ -299,8 +299,21 @@ class DatabaseHelper
         return true;
     }
 
+
+    public function checkIsUserCreator($username, $squadId) {
+        $stmt = $this->db->prepare("SELECT * FROM partecipazione WHERE id_compagnia=? AND username=?");
+        $stmt->bind_param('is', $squadId, $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result['ruolo'] == 1;
+    }
+
     public function setUserAdmin($username, $squadId)
     {
+        if ($this->checkIsUserCreator($username, $squadId)) 
+        {
+            return false;
+        }
         $stmt = $this->db->prepare("UPDATE partecipazione SET ruolo=2 WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
@@ -310,6 +323,10 @@ class DatabaseHelper
 
     public function setUserMember($username, $squadId)
     {
+        if ($this->checkIsUserCreator($username, $squadId)) 
+        {
+            return false;
+        }
         $stmt = $this->db->prepare("UPDATE partecipazione SET ruolo=3 WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
@@ -319,6 +336,10 @@ class DatabaseHelper
 
     public function removeUserFromSquad($username, $squadId)
     {
+        if ($this->checkIsUserCreator($username, $squadId)) 
+        {
+            return false;
+        }
         $stmt = $this->db->prepare("DELETE FROM partecipazione WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
