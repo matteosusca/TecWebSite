@@ -13,10 +13,10 @@ if (!empty($_POST['esci'])) {
         <a class="navbar-brand col-lg-2 m-0 d-flex justify-content-end" href="#">SquadUp</a>
 
         <?php if (isset($_SESSION['username'])) {
-            echo '<div class="dropdown order-lg-1 col-lg-2 d-flex justify-content-start">
+            echo '<div class="dropdown order-lg-1 col-lg-2 d-flex justify-content-start px-5">
             <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="' . $dbh->getMediaUrl($dbh->getUser($_SESSION['username'])->getProfilePicture()) . '" alt="" width="32" height="32" class="rounded-circle">' . $dbh->getUser($_SESSION['username'])->getUsername() . '</a>
-            <ul class="dropdown-menu dropdown-menu shadow ">
+            <ul class="dropdown-menu dropdown-menu mx-5 ">
                 <li><a class="dropdown-item" href="myprofile.php">Profile</a></li>
                 <li>
                     <hr class="dropdown-divider">
