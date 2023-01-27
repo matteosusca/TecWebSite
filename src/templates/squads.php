@@ -5,7 +5,11 @@
     //get squads of user from database and echo them
     $squads = $dbh->getSquadsByUser($_SESSION['username']);
     foreach ($squads as $squad) {
-        echo '<li class="list-group-item list-group-item-action">' . $dbh->getSquad($squad)->getName() . '</li>';
+        echo '<a class="list-group-item list-group-item-action" href="squadpage.php?name=' . $dbh->getSquad($squad)->getName() . '">
+        
+        <img src="' . $dbh->getMediaUrl($dbh->getSquad($squad)->getPicture()) . '" alt="" width="32" height="32" class="rounded-circle">'
+
+            . $dbh->getSquad($squad)->getName() . '</a>';
     }
 
 

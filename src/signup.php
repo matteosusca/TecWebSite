@@ -1,5 +1,4 @@
 <?php
-require_once 'bootstrap.php';
 require_once 'templates/head.php';
 if (!empty($_POST['submit'])) {
     $enc_passw = md5($_POST['password'] . $salt);
