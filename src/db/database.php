@@ -413,6 +413,17 @@ class DatabaseHelper
         }
         return $squads;
     }
+    public function getPostOrderByDate()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM post ORDER BY data_pubblicazione DESC");
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $posts = array();
+        foreach ($result as $row) {
+            array_push($posts, new Post($row['id_post'], $this->getMediaUrl($row['id_media']), $row['username'], $row['descrizione'], $row['data_pubblicazione'], $this->getPostComments($row['id_post'])));
+        }
+        return $posts;
+    }
     // public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
     // {
     //     if (!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)) {
