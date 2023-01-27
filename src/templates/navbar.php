@@ -7,8 +7,7 @@ if (!empty($_POST['esci'])) {
 ?>
 <nav class="navbar navbar-expand-lg shadow" aria-label="Thirteenth navbar example">
     <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11"
-            aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand col-lg-4 m-0 px-2 d-flex justify-content-end" href="index.php">SquadUp</a>
@@ -33,20 +32,19 @@ if (!empty($_POST['esci'])) {
         <div class="collapse navbar-collapse flex-grow-0 col-lg-6" id="navbarsExample11">
             <ul class="navbar-nav col-lg-8 text-center d-flex flex-row justify-content-around">
                 <li class="nav-item">
-                    <a class="nav-link <?php isActive(" index.php"); ?>" href="index.php"><i
-                            class="bi bi-house d-block " style="font-size: 1rem;"></i>Home</a>
+                    <a class="nav-link <?php isActive(" index.php"); ?>" href="index.php"><i class="bi bi-house d-block " style="font-size: 1rem;"></i>Home</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i
-                            class="bi bi-people d-block" style="font-size: 1rem;"></i>Contacts</a>
+                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Contacts</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i
-                            class="bi bi-people d-block" style="font-size: 1rem;"></i>Squads</a>
+                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Squads</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i
-                            class="bi bi-people d-block" style="font-size: 1rem;"></i>Friends</a>
+                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Friends</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="event.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Events</a>
                 </li>
             </ul>
             <div class="col-lg-4">

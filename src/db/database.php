@@ -1,8 +1,8 @@
 <?php
-require_once 'user.php';
 require_once 'templates/post.php';
 require_once 'templates/comment.php';
-require_once 'squad.php';
+require_once 'class/user.php';
+require_once 'class/squad.php';
 
 class DatabaseHelper
 {
@@ -300,6 +300,26 @@ class DatabaseHelper
         return true;
     }
 
+    public function getEventTypes()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM tipo_evento");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $types = array();
+        while ($row = $result->fetch_assoc()) {
+            $types[$row['id_tipo']] = $row['nome_tipo'];
+        }
+        return $types;
+    }
+    public function createEvent($id_squad, $name, $description, $date_of_event_start, $date_of_event_end, $type, $username)
+    {
+        $stmt = $this->db->prepare("INSERT INTO evento (id_compagnia, nome, descrizione, data_creazione, data_evento, data_fine, id_tipo, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $date_of_creation = date("Y-m-d H:i:s");
+        $stmt->bind_param('isssssis', $id_squad, $name, $description, $date_of_creation, $date_of_event_start, $date_of_event_end, $type, $username);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
     public function setSquadDescription($id, $description)
     {
         $stmt = $this->db->prepare("UPDATE compagnia SET descrizione=? WHERE id_compagnia=?");
@@ -335,8 +355,21 @@ class DatabaseHelper
         return true;
     }
 
+
+    public function checkIsUserCreator($username, $squadId)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM partecipazione WHERE id_compagnia=? AND username=?");
+        $stmt->bind_param('is', $squadId, $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result['ruolo'] == 1;
+    }
+
     public function setUserAdmin($username, $squadId)
     {
+        if ($this->checkIsUserCreator($username, $squadId)) {
+            return false;
+        }
         $stmt = $this->db->prepare("UPDATE partecipazione SET ruolo=2 WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
@@ -346,6 +379,9 @@ class DatabaseHelper
 
     public function setUserMember($username, $squadId)
     {
+        if ($this->checkIsUserCreator($username, $squadId)) {
+            return false;
+        }
         $stmt = $this->db->prepare("UPDATE partecipazione SET ruolo=3 WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
@@ -355,6 +391,9 @@ class DatabaseHelper
 
     public function removeUserFromSquad($username, $squadId)
     {
+        if ($this->checkIsUserCreator($username, $squadId)) {
+            return false;
+        }
         $stmt = $this->db->prepare("DELETE FROM partecipazione WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
