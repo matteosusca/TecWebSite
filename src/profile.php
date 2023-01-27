@@ -4,11 +4,11 @@ checkSession();
 
 if (isset($_GET['user'])) {
     $user = $_GET['user'];
-    $userProfile = $dbh->getUser($user);
-    if (!$userProfile) {
+    $user = $dbh->getUser($user);
+    if (!$user) {
         $title = "Profile not found";
     } else {
-        $title = $user . "'s profile";
+        $title = $user->getUsername() . "'s profile";
     }
     if (isset($_POST['aggiungi'])) {
         $dbh->addFriend($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
@@ -16,8 +16,6 @@ if (isset($_GET['user'])) {
 } else {
     $title = "Profile not found";
 }
-
-$user = $dbh->getUser($_SESSION['username']);
 
 require 'templates/head.php';
 
