@@ -29,9 +29,3 @@ function showPosts($posts)
         echo $post->showPost();
     }
 }
-function showUserPosts($posts)
-{
-    foreach ($posts as $post) {
-        echo $post->showPost();
-    }
-}
