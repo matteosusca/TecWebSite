@@ -63,7 +63,7 @@ $squad = $dbh->getSquad($squad_id);
     <main class="m-auto">
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title">Edit <?php echo $dbh->getSquad($squad_id)->getName() ?> squad</h5>
+            <h5 class="card-title">Edit <?php echo $squad->getName() ?> squad</h5>
         </div>
         <div class="card-body">
             <form action="editsquad.php" method="post" enctype="multipart/form-data">

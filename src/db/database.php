@@ -63,11 +63,16 @@ class DatabaseHelper
         if (!$this->checkUserExists($username)) {
             return false;
         }
-        $stmt = $this->db->prepare("SELECT * FROM utente WHERE username=?");
+        $stmt = $this->db->prepare("SELECT u.*, GROUP_CONCAT(f.username) AS amici
+                                    FROM utente u
+                                    INNER JOIN amicizia a ON u.username = a.richiedente OR u.username = a.accettante
+                                    INNER JOIN utente f ON f.username = IF(u.username = a.richiedente, a.accettante, a.richiedente)
+                                    WHERE u.username = ?
+                                    GROUP BY u.username");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
-        return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $result['profile_pic']);
+        return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $result['profile_pic'], $result['amici']);
     }
 
     public function getPostComments($id_post)
@@ -413,18 +418,19 @@ class DatabaseHelper
         }
         return $squads;
     }
-    // public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
-    // {
-    //     if (!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)) {
-    //         return false;
-    //     }
-    //     if (isUserMember($inviteeUser, $squadId)) {
-    //         return false;
-    //     }
-    //     $stmt = $this->db->prepare("INSERT INTO partecipazione (username, id_compagnia, ruolo) VALUES (?, ?, ?)");
-    //     $stmt->bind_param('sii', $inviteeUser, $squadId, $role);
-    //     $stmt->execute();
-    //     $stmt->close();
-    //     return true;
-    // }
+
+    public function addUserToGroup($squadId, $hostUser, $inviteeUser, $role)
+    {
+        if (!$this->isUserMember($hostUser, $squadId)) {
+            return false;
+        }
+        if ($this->isUserMember($inviteeUser, $squadId)) {
+            return false;
+        }
+        $stmt = $this->db->prepare("INSERT INTO partecipazione (username, id_compagnia, ruolo) VALUES (?, ?, ?)");
+        $stmt->bind_param('sii', $inviteeUser, $squadId, $role);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
 }

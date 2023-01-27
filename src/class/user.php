@@ -8,8 +8,9 @@ class User
     private $surname;
     private $date_of_birth;
     private $profile_picture;
+    private $friends;
 
-    public function __construct($username, $email, $name, $surname, $date_of_birth, $profile_picture)
+    public function __construct($username, $email, $name, $surname, $date_of_birth, $profile_picture, $friends)
     {
         $this->username = $username;
         $this->email = $email;
@@ -17,6 +18,7 @@ class User
         $this->surname = $surname;
         $this->date_of_birth = $date_of_birth;
         $this->profile_picture = $profile_picture;
+        $this->friends = $friends;
     }
 
     public function getUsername()
@@ -61,5 +63,10 @@ class User
     public function getProfilePicture()
     {
         return $this->profile_picture;
+    }
+
+    public function getFriends()
+    {
+        return $this->friends;
     }
 }

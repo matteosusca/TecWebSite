@@ -37,6 +37,10 @@ if (!empty($_POST['submit'])) {
                     <input type="hidden" name="id" value=<?php echo $squadProfile->getId(); ?>>
                     <input class="btn btn-outline-secondary border-0" type="submit" name="edit_squad" value="Edit Squad">
                 </form>
+                <form action="addusertosquad.php" method="post">
+                    <input type="hidden" name="id" value=<?php echo $squadProfile->getId(); ?>>
+                    <input class="btn btn-outline-secondary border-0" type="submit" name="add_user" value="Add User">
+                </form>
             </div>
         </aside>
 
