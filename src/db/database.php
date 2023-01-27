@@ -417,6 +417,7 @@ class DatabaseHelper
     public function getPostOrderByDate($username)
     {
         $friends = $this->getFriends($username);
+        array_push($friends, $username);
         $friends = implode("','", $friends);
         $friends = "'" . $friends . "'";
         $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN ($friends) ORDER BY data_pubblicazione DESC");

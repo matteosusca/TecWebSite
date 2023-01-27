@@ -77,15 +77,16 @@ class Event
     {
         return $this->sign_up_username;
     }
-    public function showEvent(){
+    public function showEvent()
+    {
         return '
             <div class="card m-2">
                 <div class="card-header">
-                    <h5 class="card-title">'.$this->getName().'</h5>
-                    <p class="card-text">'.$this->getUsername().'</p>
-                    <p class="card-text">'.$this->getDescription().'</p>
-                    <p class="card-text">'.$this->getDateOfEventStart().'</p>
-                    <p class="card-text">'.$this->getDateOfEventEnd().'</p>
+                    <h5 class="card-title">' . $this->getName() . '</h5>
+                    <p class="card-text">' . $this->getUsername() . '</p>
+                    <p class="card-text">' . $this->getDescription() . '</p>
+                    <p class="card-text">' . $this->getDateOfEventStart() . '</p>
+                    <p class="card-text">' . $this->getDateOfEventEnd() . '</p>
                 </div>
             </div>';
     }
