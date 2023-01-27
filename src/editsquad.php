@@ -1,4 +1,5 @@
 <?php
+require_once 'bootstrap.php';
 require_once 'templates/head.php';
 checkSession();
 
@@ -57,43 +58,50 @@ if (!empty($_POST['save'])) {
 $squad = $dbh->getSquad($squad_id);
 ?>
 
-<body>
-    <div>
-        <h1>Edit Squad</h1>
-        <form action="editsquad.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id" value=<?php echo $squad_id; ?>>
-            <div>
-                <label for="squadPicture">Squad Picture</label>
-                <input type="file" name="squadPicture" id="squadPicture">
-            </div>
-            <div>
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" placeholder="<?php echo $squad->getName() ?>">
-            </div>
-            <div>
-                <label for="description">Description</label>
-                <textarea name="description" placeholder="<?php echo $squad->getDescription() ?>" rows=4 cols=50></textarea>
-            </div>
-            <div>
-                <label for="user">User</label>
-                <select name="user" id="user">
-                    <option value="" disabled selected>Seleziona un utente</option>
-                    <?php
-                    foreach ($squad->getMembers() as $user) {
-                        echo "<option value='" . $user . "' >" . $user . "</option>";
-                    }
-                    ?>
-                </select>
-
-                <label for="action">Action</label>
-                <select name="action" id="action">
-                    <option value="admin">Make admin</option>
-                    <option value="member">Make member</option>
-                    <option value="remove">Remove from squad</option>
-            </div>
-            <input type="submit" name="save" value="Save">
-        </form>
+<body class="d-flex flex-column vh-100 " data-bs-theme="dark">
+    <?php require_once 'templates/navbar.php'; ?>
+    <main class="m-auto">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Edit <?php echo $dbh->getSquad($squad_id)->getName() ?> squad</h5>
+        </div>
+        <div class="card-body">
+            <form action="editsquad.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" class="form-control" name="id" value=<?php echo $squad_id; ?>>
+                <div class="form-floating">
+                    <button type="button" class="btn btn-outline-secondary border-0 disabled">Squad Picture</button>
+                    <input type="file" class="btn btn-outline-secondary" name="squadPicture" id="squadPicture">
+                </div>
+                <div class="form-floating">
+                    <!-- placeholder not working -->
+                    <input type="text" class="form-control bg-body" name="name" id="name" placeholder="<?php echo $squad->getName() ?>">
+                    <label for="name">Name</label>
+                </div>
+                <div class="form-floating">
+                    <!-- placeholder not working -->
+                    <textarea name="description" class="form-control bg-body" placeholder="<?php echo $squad->getDescription() ?>"></textarea>
+                    <label class="form-label" for="description">Description</label>
+                </div>
+                <div class="row mx-0">
+                    <select name="user" class="btn btn-outline-secondary col-6" id="user">
+                        <option value="" disabled selected>Seleziona un utente</option>
+                        <?php
+                        foreach ($squad->getMembers() as $user) {
+                            echo "<option value='" . $user . "' >" . $user . "</option>";
+                        }
+                        ?>
+                    </select>
+                    <select name="action" class="btn btn-outline-secondary col-6" id="action">
+                        <option value="admin">Make admin</option>
+                        <option value="member">Make member</option>
+                        <option value="remove">Remove from squad</option>
+                    </select>
+                </div>
+                <input class="btn btn-outline-secondary w-100" href="editsquad.php" type="submit" name="save" value="Save"></input>
+            </form>
+        </div>
     </div>
+    </main>
 </body>
 
 </html>
