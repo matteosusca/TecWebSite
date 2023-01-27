@@ -1,3 +1,9 @@
+<?php
+$user = $dbh->getUser($_SESSION['username']);
+if (!empty($_POST['submit'])) {
+    $dbh->createPost($_SESSION['username'], $_POST['description'], $_FILES['postfile']);
+}
+?>
 <div class="card m-2">
     <div class="card-header ">
         <h5 class="card-title"> Crea post</h5>

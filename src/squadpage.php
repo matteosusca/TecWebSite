@@ -1,5 +1,6 @@
 <?php
-require_once 'bootstrap.php';
+require_once 'templates/head.php';
+checkSession();
 if (isset($_GET['name'])) {
     $squad = $_GET['name'];
     $squadProfile = $dbh->getSquads($squad)[0];
@@ -13,16 +14,9 @@ if (isset($_GET['name'])) {
     $title = "Squad not found";
     header("Location: squadpage.php?error=2");
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title><?php echo $title; ?></title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
+
+?>
 
 <body>
     <div>
@@ -43,6 +37,14 @@ if (isset($_GET['name'])) {
                     }
                     ?></ul>
             </h3>
+        </div>
+        <div>
+            <h2>
+                <form action="editsquad.php" method="post">
+                    <input type="hidden" name="id" value=<?php echo $squadProfile->getId(); ?>>
+                    <input type="submit" name="edit_squad" value="Edit Squad">
+                </form>
+            </h2>
         </div>
     </div>
 </body>
