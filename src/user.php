@@ -1,6 +1,7 @@
 <?php
-require_once 'bootstrap.php';
-class User{
+require_once 'templates/head.php';
+class User
+{
     private $username;
     private $email;
     private $name;
@@ -8,7 +9,8 @@ class User{
     private $date_of_birth;
     private $profile_picture;
 
-    public function __construct($username, $email, $name, $surname, $date_of_birth, $profile_picture){
+    public function __construct($username, $email, $name, $surname, $date_of_birth, $profile_picture)
+    {
         $this->username = $username;
         $this->email = $email;
         $this->name = $name;
@@ -17,31 +19,38 @@ class User{
         $this->profile_picture = $profile_picture;
     }
 
-    public function getUsername(){
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function getEmail(){
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getSurname(){
+    public function getSurname()
+    {
         return $this->surname;
     }
 
-    public function getDateOfBirth(){
+    public function getDateOfBirth()
+    {
         return $this->date_of_birth;
     }
 
-    public function getFullName(){
+    public function getFullName()
+    {
         return $this->name . " " . $this->surname;
     }
 
-    public function getAge(){
+    public function getAge()
+    {
         //print($this->date_of_birth);
         $date = new DateTime($this->date_of_birth);
         $now = new DateTime();
@@ -49,8 +58,8 @@ class User{
         return $interval->y;
     }
 
-    public function getProfilePicture(){
+    public function getProfilePicture()
+    {
         return $this->profile_picture;
     }
 }
-?>
