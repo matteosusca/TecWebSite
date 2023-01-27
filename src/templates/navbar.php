@@ -1,5 +1,6 @@
 <?php
 if (!empty($_POST['esci'])) {
+    session_start();
     session_destroy();
     header("Location: ../signin.php");
 }
@@ -40,12 +41,16 @@ if (!empty($_POST['esci'])) {
                             class="bi bi-people d-block" style="font-size: 1rem;"></i>Contacts</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i
+                    <a class="nav-link <?php isActive(" squads.php"); ?>" href="squads.php"><i
                             class="bi bi-people d-block" style="font-size: 1rem;"></i>Squads</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i
+                    <a class="nav-link <?php isActive(" friends.php"); ?>" href="friends.php"><i
                             class="bi bi-people d-block" style="font-size: 1rem;"></i>Friends</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link <?php isActive(" event.php"); ?>" href="event.php"><i
+                            class="bi bi-people d-block" style="font-size: 1rem;"></i>Events</a>
                 </li>
             </ul>
             <div class="col-lg-4">

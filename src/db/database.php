@@ -1,6 +1,8 @@
 <?php
-require_once 'user.php';
-require_once 'squad.php';
+require_once 'class/post.php';
+require_once 'class/comment.php';
+require_once 'class/user.php';
+require_once 'class/squad.php';
 
 class DatabaseHelper
 {
@@ -68,6 +70,19 @@ class DatabaseHelper
         return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $result['profile_pic']);
     }
 
+    public function getPostComments($id_post)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM commento WHERE id_post=?");
+        $stmt->bind_param('i', $id_post);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $comments = array();
+        foreach ($result as $row) {
+            array_push($comments, new Comment($row['id_commento'], $row['id_post'], $row['username'], $row['corpo'], $row['data_pubblicazione']));
+        }
+        return $comments;
+    }
+
     public function getMediaUrl($idmedia)
     {
         $stmt = $this->db->prepare("SELECT url FROM media WHERE id_media=?");
@@ -79,6 +94,28 @@ class DatabaseHelper
         } else {
             return false;
         }
+    }
+
+    public function getUsersPosts($username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username=?");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $posts = array();
+        foreach ($result as $row) {
+            array_push($posts, new Post($row['id_post'], $this->getMediaUrl($row['id_media']), $row['username'], $row['descrizione'], $row['data_pubblicazione'], $this->getPostComments($row['id_post'])));
+        }
+        return $posts;
+    }
+
+    public function getPost($id_post)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE id_post=?");
+        $stmt->bind_param('i', $id_post);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        return new Post($result['id_post'], $this->getMediaUrl($result['id_media']), $result['username'], $result['descrizione'], $result['data_pubblicazione'], $this->getPostComments($result['id_post']));
     }
 
 
@@ -264,6 +301,26 @@ class DatabaseHelper
         return true;
     }
 
+    public function getEventTypes()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM tipo_evento");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $types = array();
+        while ($row = $result->fetch_assoc()) {
+            $types[$row['id_tipo']] = $row['nome_tipo'];
+        }
+        return $types;
+    }
+    public function createEvent($id_squad, $name, $description, $date_of_event_start, $date_of_event_end, $type, $username)
+    {
+        $stmt = $this->db->prepare("INSERT INTO evento (id_compagnia, nome, descrizione, data_creazione, data_evento, data_fine, id_tipo, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $date_of_creation = date("Y-m-d H:i:s");
+        $stmt->bind_param('isssssis', $id_squad, $name, $description, $date_of_creation, $date_of_event_start, $date_of_event_end, $type, $username);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
     public function setSquadDescription($id, $description)
     {
         $stmt = $this->db->prepare("UPDATE compagnia SET descrizione=? WHERE id_compagnia=?");
@@ -300,7 +357,8 @@ class DatabaseHelper
     }
 
 
-    public function checkIsUserCreator($username, $squadId) {
+    public function checkIsUserCreator($username, $squadId)
+    {
         $stmt = $this->db->prepare("SELECT * FROM partecipazione WHERE id_compagnia=? AND username=?");
         $stmt->bind_param('is', $squadId, $username);
         $stmt->execute();
@@ -310,8 +368,7 @@ class DatabaseHelper
 
     public function setUserAdmin($username, $squadId)
     {
-        if ($this->checkIsUserCreator($username, $squadId)) 
-        {
+        if ($this->checkIsUserCreator($username, $squadId)) {
             return false;
         }
         $stmt = $this->db->prepare("UPDATE partecipazione SET ruolo=2 WHERE username=? AND id_compagnia=?");
@@ -323,8 +380,7 @@ class DatabaseHelper
 
     public function setUserMember($username, $squadId)
     {
-        if ($this->checkIsUserCreator($username, $squadId)) 
-        {
+        if ($this->checkIsUserCreator($username, $squadId)) {
             return false;
         }
         $stmt = $this->db->prepare("UPDATE partecipazione SET ruolo=3 WHERE username=? AND id_compagnia=?");
@@ -336,8 +392,7 @@ class DatabaseHelper
 
     public function removeUserFromSquad($username, $squadId)
     {
-        if ($this->checkIsUserCreator($username, $squadId)) 
-        {
+        if ($this->checkIsUserCreator($username, $squadId)) {
             return false;
         }
         $stmt = $this->db->prepare("DELETE FROM partecipazione WHERE username=? AND id_compagnia=?");

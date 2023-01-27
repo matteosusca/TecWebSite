@@ -5,7 +5,7 @@ checkSession();
 
 $squad_id = $_POST['id'];
 if (!$dbh->checkUserPermissionsForSquad($_SESSION['username'], $squad_id)) {
-    header("Location: squadpage.php?name=" . $dbh->getSquad($squad_id)->getName() . "");
+    header("Location: squad.php?name=" . $dbh->getSquad($squad_id)->getName() . "");
 }
 
 if (!empty($_POST['save'])) {
@@ -34,21 +34,21 @@ if (!empty($_POST['save'])) {
                 if ($dbh->setUserAdmin($_POST['user'], $squad_id)) {
                     print($_POST['user'] . " made admin");
                 } else {
-                    print("Unable to make ". $_POST['user'] . " admin");
+                    print("Unable to make " . $_POST['user'] . " admin");
                 }
                 break;
             case 'member':
                 if ($dbh->setUserMember($_POST['user'], $squad_id)) {
                     print($_POST['user'] . " made member");
                 } else {
-                    print("Unable to make ". $_POST['user'] . " member");
+                    print("Unable to make " . $_POST['user'] . " member");
                 }
                 break;
             case 'remove':
                 if ($dbh->removeUserFromSquad($_POST['user'], $squad_id)) {
                     print($_POST['user'] . " made admin");
                 } else {
-                    print("Unable to remove ". $_POST['user']);
+                    print("Unable to remove " . $_POST['user']);
                 }
                 break;
         }
