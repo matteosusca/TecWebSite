@@ -41,8 +41,41 @@ if (!empty($_POST['submit'])) {
         </aside>
 
         <div class="col-12 col-lg-4 p-3 shadow mh-100">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-outline-secondary w-100 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                post
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <?php require 'templates/createpost.php'; ?>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-outline-secondary w-100 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                event
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <?php require 'templates/createevent.php'; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <?php require 'templates/post.php'; ?>
-            <?php require 'templates/createevent.php'; ?>
         </div>
         <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">
             <?php require 'templates/members.php'; ?>
