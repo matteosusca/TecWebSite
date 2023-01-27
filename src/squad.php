@@ -41,7 +41,7 @@ if (!empty($_POST['submit'])) {
         </aside>
 
         <div class="col-12 col-lg-4 p-3 shadow mh-100">
-            <nav>
+        <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>
                     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">event</button>
@@ -49,9 +49,9 @@ if (!empty($_POST['submit'])) {
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0"> <?php require 'templates/createpost.php';
-                                                                                                                                    require 'templates/posts.php' ?></div>
+                                                                                                                                   showPosts($dbh->getPostOrderByDate($_SESSION['username'])) ?></div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0"> <?php require 'templates/createevent.php';
-                                                                                                                            require 'templates/events.php' ?></div>
+                                                                                                                             showEvents($dbh->getEventsOrderByDate($_SESSION['username'])); ?></div>
             </div>
         </div>
         <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">

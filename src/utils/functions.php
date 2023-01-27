@@ -16,3 +16,22 @@ function checkSession()
         exit();
     }
 }
+function showEvents($events)
+{
+    foreach ($events as $event) {
+        echo $event->showEvent();
+    }
+}
+
+function showPosts($posts)
+{
+    foreach ($posts as $post) {
+        echo $post->showPost();
+    }
+}
+function showUserPosts($posts)
+{
+    foreach ($posts as $post) {
+        echo $post->showPost();
+    }
+}

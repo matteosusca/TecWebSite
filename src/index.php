@@ -22,9 +22,9 @@ checkSession();
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0"> <?php require 'templates/createpost.php';
-                                                                                                                                    require 'templates/posts.php' ?></div>
+                                                                                                                                   showPosts($dbh->getPostOrderByDate($_SESSION['username'])) ?></div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0"> <?php require 'templates/createevent.php';
-                                                                                                                            require 'templates/events.php' ?></div>
+                                                                                                                             showEvents($dbh->getEventsOrderByDate($_SESSION['username'])); ?></div>
             </div>
         </main>
         <aside class="col-2 p-3 mh-100 shadow overflow-auto sticky-lg-top offcanvas-lg offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
