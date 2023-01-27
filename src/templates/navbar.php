@@ -40,6 +40,14 @@ if (!empty($_POST['esci'])) {
                     <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i
                             class="bi bi-people d-block" style="font-size: 1rem;"></i>Contacts</a>
                 </li>
+                <li class="nav-item ">
+                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i
+                            class="bi bi-people d-block" style="font-size: 1rem;"></i>Squads</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link <?php isActive(" contacts.php"); ?>" href="contacts.php"><i
+                            class="bi bi-people d-block" style="font-size: 1rem;"></i>Friends</a>
+                </li>
             </ul>
             <form class="col-lg-4" role="search">
                 <input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search">
