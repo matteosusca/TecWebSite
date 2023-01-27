@@ -39,12 +39,8 @@ require 'templates/head.php';
             </div>
             <div class="d-flex flex-lg-column">
                 <form action="" method="post">
-                    <input type="hidden" name="id" value=<?php echo $user->getUsername(); ?>>
-                    <input class="btn btn-outline-secondary border-0" type="submit" value="Edit Profile">
-                    <button class="btn dropdown-item" type="submit" value="Accedi" name="aggiungi">aggiungi</button></form>
-                <form action="editprofile.php" method="post">
-                    <input type="hidden" name="id" value=<?php echo $user->getUsername(); ?>>
-                    <input class="btn btn-outline-secondary border-0" type="submit" value="Edit Profile">
+                    <input type="hidden" name="aggiungi" value="Aggiungi">
+                    <input class="btn btn-outline-secondary border-0" type="submit" value="Aggiungi">
                 </form>
             </div>
         </aside>
