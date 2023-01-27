@@ -1,6 +1,6 @@
 <?php
-require_once 'templates/post.php';
-require_once 'templates/comment.php';
+require_once 'class/post.php';
+require_once 'class/comment.php';
 require_once 'class/user.php';
 require_once 'class/squad.php';
 
@@ -109,7 +109,8 @@ class DatabaseHelper
         return $posts;
     }
 
-    public function getPost($id_post){
+    public function getPost($id_post)
+    {
         $stmt = $this->db->prepare("SELECT * FROM post WHERE id_post=?");
         $stmt->bind_param('i', $id_post);
         $stmt->execute();
