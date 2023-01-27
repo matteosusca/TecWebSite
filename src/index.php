@@ -19,9 +19,6 @@ if (!empty($_POST['submit'])) {
         </aside>
         <main class="col-12 col-lg-4 p-3 shadow">
             <?php require 'templates/createpost.php'; ?>
-            <?php require 'templates/post.php'; ?>
-            <?php require 'templates/post.php'; ?>
-            <?php require 'templates/post.php'; ?>
         </main>
         <aside class="col-2 p-3 z-2 mh-100 shadow overflow-auto sticky-top offcanvas-lg offcanvas-start"
             data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"

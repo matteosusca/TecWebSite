@@ -27,7 +27,11 @@ require 'templates/head.php';
             
         </aside>
         <div class="col-12 col-lg-5 p-3 shadow mh-100">
-            <?php require 'templates/post.php'; ?>                            
+            <?php
+                foreach($dbh->getUsersPosts($user->getUsername()) as $post){
+                    echo $post->showPost();
+                }
+            ?>                            
         </div>
     </main>
 </body>

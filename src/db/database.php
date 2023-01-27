@@ -1,5 +1,7 @@
 <?php
 require_once 'user.php';
+require_once 'templates/post.php';
+require_once 'templates/comment.php';
 require_once 'squad.php';
 
 class DatabaseHelper
@@ -68,6 +70,19 @@ class DatabaseHelper
         return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $result['profile_pic']);
     }
 
+    public function getPostComments($id_post)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM commento WHERE id_post=?");
+        $stmt->bind_param('i', $id_post);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $comments = array();
+        foreach ($result as $row) {
+            array_push($comments, new Comment($row['id_commento'], $row['id_post'], $row['username'], $row['corpo'], $row['data_pubblicazione']));
+        }
+        return $comments;
+    }
+
     public function getMediaUrl($idmedia)
     {
         $stmt = $this->db->prepare("SELECT url FROM media WHERE id_media=?");
@@ -79,6 +94,27 @@ class DatabaseHelper
         } else {
             return false;
         }
+    }
+
+    public function getUsersPosts($username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username=?");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $posts = array();
+        foreach ($result as $row) {
+            array_push($posts, new Post($row['id_post'], $this->getMediaUrl($row['id_media']), $row['username'], $row['descrizione'], $row['data_pubblicazione'], $this->getPostComments($row['id_post'])));
+        }
+        return $posts;
+    }
+
+    public function getPost($id_post){
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE id_post=?");
+        $stmt->bind_param('i', $id_post);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        return new Post($result['id_post'], $this->getMediaUrl($result['id_media']), $result['username'], $result['descrizione'], $result['data_pubblicazione'], $this->getPostComments($result['id_post']));
     }
 
 
