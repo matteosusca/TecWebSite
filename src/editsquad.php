@@ -30,16 +30,25 @@ if (!empty($_POST['save'])) {
     if (!empty($_POST['user']) && !empty($_POST['action'])) {
         switch ($_POST['action']) {
             case 'admin':
-                print("User reso admin");
-                $dbh->setUserAdmin($_POST['user'], $squad_id);
+                if ($dbh->setUserAdmin($_POST['user'], $squad_id)) {
+                    print($_POST['user'] . " made admin");
+                } else {
+                    print("Unable to make " . $_POST['user'] . " admin");
+                }
                 break;
             case 'member':
-                print("User reso membro");
-                $dbh->setUserMember($_POST['user'], $squad_id);
+                if ($dbh->setUserMember($_POST['user'], $squad_id)) {
+                    print($_POST['user'] . " made member");
+                } else {
+                    print("Unable to make " . $_POST['user'] . " member");
+                }
                 break;
             case 'remove':
-                print("User rimosso");
-                $dbh->removeUserFromSquad($_POST['user'], $squad_id);
+                if ($dbh->removeUserFromSquad($_POST['user'], $squad_id)) {
+                    print($_POST['user'] . " made admin");
+                } else {
+                    print("Unable to remove " . $_POST['user']);
+                }
                 break;
         }
     }
