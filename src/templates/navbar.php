@@ -5,15 +5,15 @@ if (!empty($_POST['esci'])) {
 }
 ?>
 <nav class="navbar navbar-expand-lg shadow" aria-label="Thirteenth navbar example">
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11"
             aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand col-lg-4" href="#">SquadUp</a>
-
+        <a class="navbar-brand col-lg-2 m-0 px-2 d-lg-flex justify-content-lg-end" href="#">SquadUp</a>
+        <div class="col-lg-2"></div>
         <?php if (isset($_SESSION['username'])) {
-            echo '<div class="d-lg-flex  dropdown order-lg-1 col-lg-2 justify-content-lg-end ">
+            echo '<div class="d-lg-flex  dropdown order-lg-1 col-lg-2 justify-content-lg-start m-0 px-2">
             <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="' . $dbh->getMediaUrl($dbh->getUser($_SESSION['username'])->getProfilePicture()) . '" alt="" width="32" height="32" class="rounded-circle">' . $dbh->getUser($_SESSION['username'])->getUsername() . '</a>
             <ul class="dropdown-menu dropdown-menu-end shadow ">
