@@ -5,7 +5,7 @@ if (!empty($_POST['esci'])) {
 }
 ?>
 <nav class="navbar navbar-expand-lg shadow" aria-label="Thirteenth navbar example">
-    <div class="container-fluid col-lg-12">
+    <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11"
             aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
