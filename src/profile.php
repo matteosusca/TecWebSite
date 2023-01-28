@@ -3,15 +3,15 @@ require_once 'templates/head.php';
 checkSession();
 
 if (isset($_GET['user'])) {
-    $user = $_GET['user'];
-    $user = $dbh->getUser($user);
-    if (!$user) {
+    $userProfile = $_GET['user'];
+    $userProfile = $dbh->getUser($userProfile);
+    if (!$userProfile) {
         $title = "Profile not found";
     } else {
-        $title = $user->getUsername() . "'s profile";
+        $title = $userProfile->getUsername() . "'s profile";
     }
     if (isset($_POST['aggiungi'])) {
-        $dbh->addFriend($dbh->getUser($_SESSION['username'])->getUsername(), $user->getUsername());
+        $dbh->addFriend($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
     }
 } else {
     $title = "Profile not found";
@@ -30,19 +30,19 @@ require 'templates/head.php';
     <main class="d-lg-flex flex-wrap justify-content-center overflow-auto vh-100">
         <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">
             <div class="d-flex">
-                <img src=<?php echo $dbh->getMediaUrl($user->getProfilePicture()); ?> class="object-fit-contain rounded-circle p-2" alt="..." width="20%" />
+                <img src=<?php echo $dbh->getMediaUrl($userProfile->getProfilePicture()); ?> class="object-fit-contain rounded-circle p-2" alt="..." width="20%" />
                 <div class="d-flex flex-column justify-content-evenly">
-                    <h5 class="mx-4"><?php echo $user->getUsername() . " (" . $user->getFullName() . "), " . $user->getAge(); ?></h5>
+                    <h5 class="mx-4"><?php echo $userProfile->getUsername() . " (" . $userProfile->getFullName() . "), " . $userProfile->getAge();?></h5>
                 </div>
             </div>
             <div class="d-flex flex-lg-column">
                 <?php
-                if ($user->getUsername() == $_SESSION['username']) {
+                if ($userProfile->getUsername() == $_SESSION['username']) {
                     echo '<form action="editprofile.php" method="post">
                     <input type="submit" class="btn btn-outline-secondary border-0" value="Modifica profilo">
                 </form>';
                 } else {
-                    echo '<form action="profile.php?user=' . $user->getUsername() . '" method="post">
+                    echo '<form action="profile.php?user=' . $userProfile->getUsername() . '" method="post">
                     <input type="hidden" name="aggiungi" value="Aggiungi">
                     <input class="btn btn-outline-secondary border-0" type="submit" value="Aggiungi">
                 </form>';
@@ -60,10 +60,11 @@ require 'templates/head.php';
             </nav>
             <div class="tab-content" id="nav-tabContent">
             
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0"> <?php require 'templates/createpost.php';
-                                                                                                                                   showPosts($dbh->getUserPosts($user->getUsername())); ?></div>
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0"> <?php require 
+                'templates/createpost.php';
+                                                                                                                                   showPosts($dbh->getUserPosts($userProfile->getUsername())); ?></div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0"> <?php require 'templates/createevent.php';
-                                                                                                                             showEvents($dbh->getUserEvents($user->getUsername())); ?></div>
+                                                                                                                             showEvents($dbh->getUserEvents($userProfile->getUsername())); ?></div>
             </div>
         </div>
         <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">

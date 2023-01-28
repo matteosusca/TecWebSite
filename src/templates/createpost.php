@@ -1,5 +1,4 @@
 <?php
-$user = $dbh->getUser($_SESSION['username']);
 if (!empty($_POST['submit'])) {
     $dbh->createPost($_SESSION['username'], $_POST['description'], $_FILES['postfile']);
 }
