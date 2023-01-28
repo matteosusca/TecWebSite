@@ -32,10 +32,10 @@ checkSession();
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class=" h-50 overflow-auto">
-                <?php require_once 'templates/friends.php'; ?>
+            <?php getFriends($dbh,$_SESSION['username']);?>
             </div>
             <div class=" h-50 overflow-auto">
-                <?php require_once 'templates/squads.php'; ?>
+            <?php getSquads($dbh,$_SESSION['username']);?>
             </div>
         </aside>
     </div>

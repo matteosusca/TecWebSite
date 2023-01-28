@@ -59,6 +59,7 @@ require 'templates/head.php';
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
+            
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0"> <?php require 'templates/createpost.php';
                                                                                                                                    showPosts($dbh->getUserPosts($user->getUsername())); ?></div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0"> <?php require 'templates/createevent.php';
@@ -66,7 +67,12 @@ require 'templates/head.php';
             </div>
         </div>
         <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">
-            <?php require 'templates/friends.php'; ?>
+        <div class=" h-50 overflow-auto">
+            <?php getFriends($dbh,$_SESSION['username']);?>
+            </div>
+            <div class=" h-50 overflow-auto">
+            <?php getSquads($dbh,$_SESSION['username']);?>
+            </div>
         </aside>
     </main>
 </body>

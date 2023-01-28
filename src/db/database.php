@@ -271,8 +271,10 @@ class DatabaseHelper
         $stmt = $this->db->prepare("SELECT * FROM amicizia WHERE richiedente=? OR accettante=?");
         $stmt->bind_param('ss', $username, $username);
         $stmt->execute();
+       
         $friends = array();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        
         foreach ($result as $row) {
             if ($row['richiedente'] == $username) {
                 array_push($friends, $row['accettante']);
