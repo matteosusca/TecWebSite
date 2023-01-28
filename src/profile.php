@@ -28,23 +28,26 @@ require 'templates/head.php';
 
 
     <main class="d-lg-flex flex-wrap justify-content-center overflow-auto vh-100">
-        <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 overflow-auto text-nowrap z-1">
-            <div class="d-flex">
-                <img src=<?php echo $userProfile->getProfilePicture(); ?> class="object-fit-contain rounded-circle p-2" alt="..." width="20%" />
-                <div class="d-flex flex-column justify-content-evenly">
-                    <h5 class="mx-4"><?php echo $userProfile->getUsername() . " (" . $userProfile->getFullName() . "), " . $userProfile->getAge(); ?></h5>
+        <aside class="col-12 col-lg-2 p-3 shadow sticky-lg-top mh-100 text-nowrap z-1 overflow-auto">
+            <div class="d-flex ">
+                <div class="d-flex flex-lg-column align-items-lg-center w-100">
+                    <img src=<?php echo $userProfile->getProfilePicture(); ?> class="object-fit-contain rounded-circle" alt="..." width="64" height="64" />
+                    <div class="d-flex flex-column align-items-lg-center px-2">
+                        <h5><?php echo $userProfile->getUsername() ?></h5>
+                        <p> (<?php echo $userProfile->getFullName(); ?>), <?php echo  $userProfile->getAge(); ?></p>
+                    </div>
                 </div>
             </div>
-            <div class="d-flex flex-lg-column">
+            <div class="d-flex flex-lg-column ">
                 <?php
                 if ($userProfile->getUsername() == $_SESSION['username']) {
                     echo '<form action="editprofile.php" method="post">
-                    <input type="submit" class="btn btn-outline-secondary border-0" value="Modifica profilo">
+                    <input type="submit" class="btn btn-secondary border-0 w-100" value="Modifica profilo">
                 </form>';
                 } else {
                     echo '<form action="profile.php?user=' . $userProfile->getUsername() . '" method="post">
                     <input type="hidden" name="aggiungi" value="Aggiungi">
-                    <input class="btn btn-outline-secondary border-0" type="submit" value="Aggiungi">
+                    <input class="btn btn-secondary border-0 w-100" type="submit" value="Aggiungi">
                 </form>';
                 }
                 ?>
