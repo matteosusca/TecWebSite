@@ -36,22 +36,23 @@ require 'templates/head.php';
                         <h5><?php echo $userProfile->getUsername() ?></h5>
                         <p> (<?php echo $userProfile->getFullName(); ?>), <?php echo  $userProfile->getAge(); ?></p>
                     </div>
-                </div>
-            </div>
-            <div class="d-flex flex-lg-column ">
-                <?php
-                if ($userProfile->getUsername() == $_SESSION['username']) {
-                    echo '<form action="editprofile.php" method="post">
+                    <div class="d-flex flex-lg-column w-100 align-self-center">
+                        <?php
+                        if ($userProfile->getUsername() == $_SESSION['username']) {
+                            echo '<form action="editprofile.php" method="post">
                     <input type="submit" class="btn btn-secondary border-0 w-100" value="Modifica profilo">
                 </form>';
-                } else {
-                    echo '<form action="profile.php?user=' . $userProfile->getUsername() . '" method="post">
+                        } else {
+                            echo '<form action="profile.php?user=' . $userProfile->getUsername() . '" method="post">
                     <input type="hidden" name="aggiungi" value="Aggiungi">
                     <input class="btn btn-secondary border-0 w-100" type="submit" value="Aggiungi">
                 </form>';
-                }
-                ?>
+                        }
+                        ?>
+                    </div>
+                </div>
             </div>
+
         </aside>
 
         <div class="col-12 col-lg-4 p-3 shadow mh-100">

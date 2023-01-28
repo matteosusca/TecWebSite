@@ -30,14 +30,15 @@ if (isset($_GET['name'])) {
                         <h5 class="mx-4"><?php echo $squadProfile->getName() ?></h5>
                         <p class="mx-4"><?php echo $squadProfile->getDescription() ?></p>
                     </div>
+                    <div class="d-flex flex-lg-column w-100 align-self-center">
+                        <form action="editsquad.php" method="post">
+                            <input type="hidden" name="id" value=<?php echo $squadProfile->getId(); ?>>
+                            <input class="btn btn-secondary border-0 w-100" type="submit" name="edit_squad" value="Edit Squad">
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="d-flex flex-lg-column">
-                <form action="editsquad.php" method="post">
-                    <input type="hidden" name="id" value=<?php echo $squadProfile->getId(); ?>>
-                    <input class="btn btn-secondary border-0 w-100" type="submit" name="edit_squad" value="Edit Squad">
-                </form>
-            </div>
+
         </aside>
 
         <div class="col-12 col-lg-4 p-3 shadow mh-100">
