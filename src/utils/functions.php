@@ -33,29 +33,20 @@ function showPosts($posts)
 function getFriends($friends)
 {
     foreach ($friends as $friend) {
-        echo '<a class="list-group-item list-group-item-action" href="profile.php?user='
-            . $friend->getUsername() . '"><img src="'
-            . $friend->getProfilePicture() . '" alt="" width="32" height="32" class="rounded-circle">'
-            . $friend->getUsername() . '</a>';
+        echo $friend->showUser();
     }
 }
 
 function getSquads($squads)
 {
     foreach ($squads as $squad) {
-        echo '<a class="list-group-item list-group-item-action" href="squad.php?name='
-            . $squad->getName() . '"><img src="'
-            . $squad->getPicture() . '" alt="" width="32" height="32" class="rounded-circle">'
-            . $squad->getName() . '</a>';
+        echo $squad->showSquad();
     }
 }
 
 function getMembers($members)
 {
     foreach ($members as $member) {
-        echo '<a class="list-group-item list-group-item-action" href="profile.php?user='
-            . $member->getUsername() . '"><img src="'
-            . $member->getProfilePicture() . '" alt="" width="32" height="32" class="rounded-circle">'
-            . $member->getUsername() . '</a>';
+        echo $member->showUser();
     }
 }
