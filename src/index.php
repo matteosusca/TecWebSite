@@ -1,62 +1,46 @@
-<!DOCTYPE html>
-<html lang="it">
+<?php
+require_once 'templates/head.php';
+checkSession();
+?>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SquadUp</title>
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-
-</head>
-
-<body class="bg-dark">
-    <nav class="navbar sticky-top navbar-dark navbar-expand-lg bg-black opacity-75 ">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
-                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <header class="navbar-brand">
-                <h1> SquadUp </h1>
-            </header>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                </ul>
-
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <div class="row m-5">
-        <aside class="col-2 m-auto text-white">
-            <section class="bg-black opacity-50 p-3 vh-100">aside sinistra</section>
+<body class="d-flex flex-column vh-100" data-bs-theme="dark">
+    <?php require_once 'templates/navbar.php'; ?>
+    <div class="d-lg-flex flex-wrap vh-100 justify-content-center overflow-auto ">
+        <aside class="col-12 col-lg-2 p-3 mh-100 shadow sticky-lg-top overflow-auto d-flex flex-lg-column text-nowrap">
+            <a class="btn btn-secondary m-2" href="createpost.php" type="button">Crea post</a>
+            <button class="btn btn-secondary m-2 d-lg-none" type="button" data-bs-scroll="true" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">friends</button>
+            <form class="m-2" role="search">
+                <input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search">
+            </form>
         </aside>
-        <div class="col m-auto text-white">
-            <section class="bg-black opacity-50 p-3 vh-100">body</section>
-        </div>
-        <aside class="col-2 m-auto text-white">
-            <section class="bg-black opacity-50 p-3 vh-100">aside destra</section>
+        <main class="col-12 col-lg-4 p-3 shadow">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">event</button>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0"> <?php require 'templates/createpost.php';
+                                                                                                                                   showPosts($dbh->getPostOrderByDate($_SESSION['username'])) ?></div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0"> <?php require 'templates/createevent.php';
+                                                                                                                             showEvents($dbh->getEventsOrderByDate($_SESSION['username'])); ?></div>
+            </div>
+        </main>
+        <aside class="col-2 p-3 mh-100 shadow overflow-auto sticky-lg-top offcanvas-lg offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+            <div class="offcanvas-header  mh-100">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class=" h-50 overflow-auto">
+            <?php getFriends($dbh,$_SESSION['username']);?>
+            </div>
+            <div class=" h-50 overflow-auto">
+            <?php getSquads($dbh,$_SESSION['username']);?>
+            </div>
         </aside>
     </div>
 
-    <footer class="fixed-bottom text-white bg-black opacity-75">
-        <p class="font-monospace text-center">SquadUp</p>
-    </footer>
-
 </body>
+
 
 </html>
