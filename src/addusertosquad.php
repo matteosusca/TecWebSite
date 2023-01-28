@@ -16,12 +16,14 @@ if (!empty($_POST['save'])) {
             print("Unable to add " . $_POST['user_friend'] . " to squad");
         }
     } else if (!empty($_POST['searched_user'])  && !empty($_POST['role'])) {
+        print("zio canta");
         if ($dbh->addUserToGroup($squad_id, $_SESSION['username'], $_POST['searched_user'], $_POST['role'])) {
             print($_POST['searched_user'] . " added to squad");
         } else {
             print("Unable to add " . $_POST['searched_user'] . " to squad");
         }
-    }
+    } 
+    header("Location: squad.php?name=" . $dbh->getSquad($squad_id)->getName() . "");
 }
 $user = $dbh->getUser($_SESSION['username']);
 $squad = $dbh->getSquad($squad_id);
@@ -38,28 +40,30 @@ $squad = $dbh->getSquad($squad_id);
                 <form action="addusertosquad.php" method="post">
                     <input type="hidden" class="form-control" name="id" value=<?php echo $squad_id; ?>>
                     <div class="row mx-0">
-                        <select name="user_friend" class="btn btn-outline-secondary col-6" id="user_friend">
-                            <option value="" disabled selected>Seleziona un utente</option>
+                        <select name="user_friend" class="btn btn-outline-secondary col-12" id="user_friend">
+                            <option value="" disabled selected>Seleziona un amico</option>
                             <?php
                             foreach ($user->getFriends() as $friend) {
-                                echo "<option value='" . $friend . "' >" . $friend . "</option>";
+                                if(!$dbh->isUserMember($friend, $squad_id)) {
+                                    echo "<option value='" . $friend . "' >" . $friend . "</option>";
+                                }
                             }
                             ?>
                         </select>
                     </div>
-                    <button type="button" class="btn btn-outline-secondary border-0 disabled">Or search for a user</button>
+                    <button type="button" class="btn btn-outline-secondary border-0 disabled col-12">Or search for a user</button>
                     
                     <div class="form-floating">
-                        <input type="text" class="form-control bg-body" name="searched_user" id="searched_user">
+                        <input type="text" class="form-control bg-body" name="searched_user" id="searched_user" placeholder="User">
                         <label for="floatingInput">User</label>
                     </div>
-                    <button type="button" class="btn btn-outline-secondary border-0 disabled">As</button>
-                    <select name="action" class="btn btn-outline-secondary col-6" id="action">
+                    <button type="button" class="btn btn-outline-secondary border-0 disabled col-12">As</button>
+                    <select name="role" class="btn btn-outline-secondary col-12 mb-2" id="role">
                         <option value="" disabled selected>Seleziona un ruolo</option>
                         <option value="2">admin</option>
                         <option value="3">member</option>
                     </select>
-                    <input class="btn btn-outline-secondary w-100" href="addusertosquad.php" type="submit" name="save" value="Add User"></input>
+                    <input class="btn btn-outline-secondary w-100" type="submit" name="save" value="Add User"></input>
                 </form>
             </div>
         </div>

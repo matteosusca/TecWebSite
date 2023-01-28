@@ -46,7 +46,7 @@ if (!empty($_POST['save'])) {
                 break;
             case 'remove':
                 if ($dbh->removeUserFromSquad($_POST['user'], $squad_id)) {
-                    print($_POST['user'] . " made admin");
+                    print($_POST['user'] . " removed");
                 } else {
                     print("Unable to remove " . $_POST['user']);
                 }
@@ -97,7 +97,7 @@ $squad = $dbh->getSquad($squad_id);
                         <option value="remove">Remove from squad</option>
                     </select>
                 </div>
-                <input class="btn btn-outline-secondary w-100" href="editsquad.php" type="submit" name="save" value="Save"></input>
+                <input class="btn btn-outline-secondary w-100" type="submit" name="save" value="Save"></input>
             </form>
         </div>
     </div>

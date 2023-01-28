@@ -72,7 +72,7 @@ class DatabaseHelper
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
-        return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $result['profile_pic'], $result['amici']);
+        return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $result['profile_pic'], explode(",", $result['amici']));
     }
 
     public function getPostComments($id_post)
@@ -433,4 +433,6 @@ class DatabaseHelper
         $stmt->close();
         return true;
     }
+
+
 }
