@@ -3,19 +3,15 @@ require_once 'templates/head.php';
 checkSession();
 //check if file is uploaded
 if (isset($_FILES['profilePicture']) && is_uploaded_file($_FILES['profilePicture']['tmp_name']) && $_FILES['profilePicture']['error'] == 0) {
-    print("Immagine");
     $dbh->setProfilePicture($_SESSION['username'], $_FILES['profilePicture']);
 }
 if (!empty($_POST['name'])) {
-    print("Nome");
     $dbh->setName($_SESSION['username'], $_POST['name']);
 }
 if (!empty($_POST['surname'])) {
-    print("Cognome");
     $dbh->setSurname($_SESSION['username'], $_POST['surname']);
 }
 if (!empty($_POST['email'])) {
-    print("Email");
     if (!$dbh->setMail($_SESSION['username'], $_POST['email'])) {
         header("Location: editprofile.php?error=1");
     }
