@@ -69,8 +69,7 @@ require 'templates/head.php';
                     showPosts($dbh->getUserPosts($userProfile->getUsername())); ?>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                    <?php require 'templates/createevent.php';
-                    showEvents($dbh->getUserEvents($userProfile->getUsername())); ?>
+                    <?php showEvents($dbh->getUserEvents($userProfile->getUsername())); ?>
                 </div>
             </div>
         </div>

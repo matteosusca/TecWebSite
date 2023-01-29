@@ -1,6 +1,6 @@
 <?php
 if (!empty($_POST['submit'])) {
-    $dbh->createEvent($_POST['name'], $_POST['name'], $_POST['description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $_SESSION['username']);
+    $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $_SESSION['username']);
 }
 ?>
 <div class="card">
@@ -9,7 +9,7 @@ if (!empty($_POST['submit'])) {
     </div>
     <div class="card-body">
         <form action="" method="post" enctype="multipart/form-data">
-            <input type="hidden" class="form-control" name="id" value=<?php echo $squad_id; ?>>
+            <input type="hidden" class="form-control" name="id" value=<?php echo $squadProfile->getID(); ?>>
             <input type=" text" class="form-control bg-body mb-2" id="name" placeholder="Nome evento" name="name" required>
             <textarea class="form-control bg-body mb-2" id="description" rows="3" placeholder="Descrizione" name="description" required></textarea>
             <label for="floatingInput">Data Inizio Evento</label>
