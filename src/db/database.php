@@ -127,7 +127,7 @@ class DatabaseHelper
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $squads = array();
         foreach ($result as $row) {
-            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['profile_pic'], $row['creatore'], explode(",", $row['membri'])));
+            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $this->getMediaUrl($row['profile_pic']), $row['creatore'], explode(",", $row['membri'])));
         }
         return $squads;
     }
