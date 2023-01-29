@@ -62,7 +62,7 @@ class DatabaseHelper
     public function getUser($username)
     {
         if (!$this->checkUserExists($username)) {
-            return false;
+            return null;
         }
         $stmt = $this->db->prepare("SELECT u.*, GROUP_CONCAT(f.username) AS amici
                                     FROM utente u
@@ -130,7 +130,7 @@ class DatabaseHelper
     public function getSquads($name)
     {
         if (!$this->checkSquadExists($name)) {
-            return false;
+            return null;
         }
 
         $stmt = $this->db->prepare("SELECT compagnia.*, GROUP_CONCAT(partecipazione.username) AS membri FROM compagnia LEFT JOIN partecipazione ON compagnia.id_compagnia = partecipazione.id_compagnia WHERE compagnia.nome = ? GROUP BY compagnia.id_compagnia");
