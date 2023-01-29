@@ -330,6 +330,7 @@ class DatabaseHelper
         foreach ($result as $row) {
             if ($row['richiedente'] == $username) {
                 array_push($friends, $row['accettante']);
+                array_push($friends,  $row['richiedente']);
             } else {
                 array_push($friends,  $row['richiedente']);
             }
@@ -614,7 +615,6 @@ class DatabaseHelper
     }
 
     public function getUsersPosition($friendsusername){
-        //usa implode per unire gli elementi di un array in una stringa
         $friendsusername = implode("','",$friendsusername);
         $stmt = $this->db->prepare("SELECT username,posizione FROM utente WHERE username IN ('$friendsusername')");
         $stmt->execute();

@@ -19,9 +19,9 @@ function initialize() {
                 }
             });
             $(document).ready(function () {
-                for (var i = 0; i < positions.length; i++) {
+                for (var i = 0; i < positions.length; i=i+2) {
                     var infowindow = new google.maps.InfoWindow({
-                        position: positions[i+1],
+                        position: JSON.parse(positions[i+1]),
                         map: map,
                         content: positions[i]
                     });
