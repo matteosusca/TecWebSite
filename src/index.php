@@ -1,6 +1,8 @@
 <?php
 require_once 'templates/head.php';
+require_once 'bootstrap.php';
 checkSession();
+$user = $dbh->getUser($_SESSION['username']);
 ?>
 
 <body class="d-flex flex-column vh-100" data-bs-theme="dark">
@@ -21,10 +23,18 @@ checkSession();
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0"> <?php require 'templates/createpost.php';
-                                                                                                                                   showPosts($dbh->getPostOrderByDate($_SESSION['username'])) ?></div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0"> <?php require 'templates/createevent.php';
-                                                                                                                             showEvents($dbh->getEventsOrderByDate($_SESSION['username'])); ?></div>
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                    <?php require 'templates/createpost.php';
+                    foreach ($dbh->getPostOrderByDate($user->getUsername()) as $post) {
+                        require 'templates/showpost.php';
+                    } ?>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                    <?php
+                    foreach ($dbh->getEventsOrderByDate($user->getUsername()) as $event) {
+                        require 'templates/showevent.php';
+                    } ?>
+                </div>
             </div>
         </main>
         <aside class="col-2 p-3 mh-100 shadow overflow-auto sticky-lg-top offcanvas-lg offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -32,15 +42,19 @@ checkSession();
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class=" h-50 overflow-auto">
-            <?php getFriends($dbh,$_SESSION['username']);?>
+                <h5>Friends</h5>
+                <ul class="list-group list-group-flush offcanvas-body">
+                    <?php getFriends($dbh->getFriends($user->getUsername())); ?>
+                </ul>
             </div>
             <div class=" h-50 overflow-auto">
-            <?php getSquads($dbh,$_SESSION['username']);?>
+                <h5>Squads</h5>
+                <ul class="list-group list-group-flush offcanvas-body">
+                    <?php getSquads($dbh->getSquadsByUser($user->getUsername())); ?>
+                </ul>
             </div>
         </aside>
     </div>
-
 </body>
-
 
 </html>
