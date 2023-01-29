@@ -51,7 +51,7 @@ if (!empty($_POST['esci'])) {
                 </li>
             </ul>
             <div class="col-lg-4">
-                <form class="m-2" role="search" action="searchpage.php" method="post">
+                <form class="m-2" role="search" action="searchpage.php" method="get">
                     <input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search" name="name" onkeydown="if (event.keyCode == 13) { this.form.submit(); }">
                 </form>
             </div>
