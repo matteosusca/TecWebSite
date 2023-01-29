@@ -604,6 +604,27 @@ class DatabaseHelper
         }
         return $events;
     }
+
+    public function setUserPosition($position,$username){
+        $stmt = $this->db->prepare("UPDATE utente SET posizione=? WHERE username=?");
+        $stmt->bind_param('ss', $position,$username);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    public function getUsersPosition($friendsusername){
+        //usa implode per unire gli elementi di un array in una stringa
+        $friendsusername = implode("','",$friendsusername);
+        $stmt = $this->db->prepare("SELECT username,posizione FROM utente WHERE username IN ('$friendsusername')");
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $users = array();
+        foreach ($result as $row) {
+            array_push($users, $row['username'], $row['posizione']);
+        }
+        return $users;
+    }
     // public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
     // {
     //     if (!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)) {
