@@ -1,6 +1,8 @@
 <?php
 require_once 'templates/head.php';
+require_once 'bootstrap.php';
 checkSession();
+$user = $dbh->getUser($_SESSION['username']);
 ?>
 
 <body class="d-flex flex-column vh-100" data-bs-theme="dark">
@@ -23,7 +25,9 @@ checkSession();
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                     <?php require 'templates/createpost.php';
-                    showPosts($dbh->getPostOrderByDate($_SESSION['username'])) ?>
+                    foreach($dbh->getPostOrderByDate($user->getUsername()) as $post){
+                        require 'templates/showpost.php';
+                    } ?>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                     <?php showEvents($dbh->getEventsOrderByDate($_SESSION['username'])); ?>
@@ -37,19 +41,16 @@ checkSession();
             <div class=" h-50 overflow-auto">
                 <h5>Friends</h5>
                 <ul class="list-group list-group-flush offcanvas-body">
-                    <?php getFriends($dbh->getFriends($_SESSION['username'])); ?>
+                    <?php getFriends($dbh->getFriends($user->getUsername())); ?>
                 </ul>
             </div>
             <div class=" h-50 overflow-auto">
                 <h5>Squads</h5>
                 <ul class="list-group list-group-flush offcanvas-body">
-                    <?php getSquads($dbh->getSquadsByUser($_SESSION['username'])); ?>
+                    <?php getSquads($dbh->getSquadsByUser($user->getUsername())); ?>
                 </ul>
             </div>
         </aside>
     </div>
-
 </body>
-
-
 </html>

@@ -1,5 +1,6 @@
 <?php
-if (!empty($_POST['submit'])) {
+
+if (!empty($_POST['submitEvent'])) {
     $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $_SESSION['username']);
 }
 ?>
@@ -24,7 +25,7 @@ if (!empty($_POST['submit'])) {
                 }
                 ?>
             </select>
-            <button class="btn btn-outline-secondary w-100" type="submit" value="Crea" name="submit">Crea</button>
+            <button class="btn btn-outline-secondary w-100" type="submit" value="Crea" name="submitEvent">Crea</button>
         </form>
     </div>
 

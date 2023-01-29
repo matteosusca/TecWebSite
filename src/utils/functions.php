@@ -1,5 +1,4 @@
 <?php
-
 function isActive($pagename)
 {
     if (basename($_SERVER['PHP_SELF']) == $pagename) {
@@ -26,7 +25,7 @@ function showEvents($events)
 function showPosts($posts)
 {
     foreach ($posts as $post) {
-        echo $post->showPost();
+        $post->showPost();
     }
 }
 

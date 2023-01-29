@@ -1,5 +1,5 @@
 <?php
-require_once 'class/post.php';
+require_once 'class/postclass.php';
 require_once 'class/comment.php';
 require_once 'class/user.php';
 require_once 'class/squad.php';
@@ -383,6 +383,15 @@ class DatabaseHelper
         }
         return false;
     }
+
+    public function createComment($username, $post_id, $body){
+        $stmt = $this->db->prepare("INSERT INTO commento (id_post, username, corpo, data_pubblicazione) VALUES (?,?,?, NOW())");
+        $stmt->bind_param('iss', $post_id, $username, $body);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
     public function getUserPosts($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM post WHERE username=?");
