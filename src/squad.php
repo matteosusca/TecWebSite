@@ -38,7 +38,6 @@ if (isset($_GET['name'])) {
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
             <div class="d-flex flex-lg-column">
                 <form action="editsquad.php" method="post">
                     <input type="hidden" name="id" value=<?php echo $squadProfile->getId(); ?>>
@@ -49,9 +48,6 @@ if (isset($_GET['name'])) {
                     <input class="btn btn-outline-secondary border-0" type="submit" name="add_user" value="Add User">
                 </form>
             </div>
-=======
-
->>>>>>> 314fc660deb962bd88ddd61d4639e266a3466bf1
         </aside>
 
         <div class="col-12 col-lg-4 p-3 shadow mh-100">
