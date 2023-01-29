@@ -51,7 +51,9 @@ if (isset($_GET['name'])) {
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                     <?php require 'templates/createpost.php';
-                    showPosts($dbh->getSquadPosts($squadProfile->getID())) ?>
+                    foreach($dbh->getSquadPosts($squadProfile->getID()) as $post){
+                        require 'templates/showpost.php';
+                    }?>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                     <?php require 'templates/createevent.php';
