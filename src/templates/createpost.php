@@ -1,5 +1,5 @@
 <?php
-if (!empty($_POST['submit'])) {
+if (!empty($_POST['submitPost'])) {
     $dbh->createPost($_SESSION['username'], $_POST['description'], $_FILES['postfile']);
 }
 ?>
@@ -13,7 +13,7 @@ if (!empty($_POST['submit'])) {
             <button type="button" class="btn btn-outline-secondary border-0 disabled">aggiungi al tuo
                 post</button>
             <input type="file" name="postfile" id="postfile" class="btn btn-outline-secondary border-0" required></input>
-            <button class="btn btn-outline-secondary w-100" type="submit" value="Pubblica" name="submit">Pubblica</button>
+            <button class="btn btn-outline-secondary w-100" type="submit" value="Pubblica" name="submitPost">Pubblica</button>
         </form>
     </div>
 </div>
