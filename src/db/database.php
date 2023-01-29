@@ -62,7 +62,7 @@ class DatabaseHelper
     public function getUser($username)
     {
         if (!$this->checkUserExists($username)) {
-            return false;
+            return null;
         }
         $stmt = $this->db->prepare("SELECT u.*, GROUP_CONCAT(f.username) AS amici
                                     FROM utente u
@@ -76,8 +76,6 @@ class DatabaseHelper
         return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $this->getMediaUrl($result['profile_pic']), explode(",", $result['amici']));
     }
 
-
-
     public function getMediaUrl($idmedia)
     {
         $stmt = $this->db->prepare("SELECT url FROM media WHERE id_media=?");
@@ -90,7 +88,6 @@ class DatabaseHelper
             return false;
         }
     }
-
 
     public function checkSquadExists($name)
     {
@@ -106,6 +103,11 @@ class DatabaseHelper
         $stmt = $this->db->prepare("INSERT INTO compagnia (nome, descrizione, creatore) VALUES (?,?,?)");
         $stmt->bind_param('sss', $name, $description, $owner);
         $stmt->execute();
+        $id = mysqli_insert_id($this->db);
+        $role = 1;
+        $stmt = $this->db->prepare("INSERT INTO partecipazione (username, id_compagnia, ruolo) VALUES (?,?,?)");
+        $stmt->bind_param('sii', $owner, $id, $role);
+        $stmt->execute();
         $stmt->close();
 
         return true;
@@ -113,7 +115,12 @@ class DatabaseHelper
 
     public function getSquad($id)
     {
-        $stmt = $this->db->prepare("SELECT compagnia.*, GROUP_CONCAT(partecipazione.username) AS membri FROM compagnia LEFT JOIN partecipazione ON compagnia.id_compagnia = partecipazione.id_compagnia WHERE compagnia.id_compagnia = ? GROUP BY compagnia.id_compagnia");
+        $stmt = $this->db->prepare("SELECT compagnia.*, GROUP_CONCAT(partecipazione.username) AS membri 
+                                    FROM compagnia 
+                                    LEFT JOIN partecipazione 
+                                    ON compagnia.id_compagnia = partecipazione.id_compagnia 
+                                    WHERE compagnia.id_compagnia = ? 
+                                    GROUP BY compagnia.id_compagnia");
         $stmt->bind_param('i', $id);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
@@ -123,7 +130,7 @@ class DatabaseHelper
     public function getSquads($name)
     {
         if (!$this->checkSquadExists($name)) {
-            return false;
+            return null;
         }
 
         $stmt = $this->db->prepare("SELECT compagnia.*, GROUP_CONCAT(partecipazione.username) AS membri FROM compagnia LEFT JOIN partecipazione ON compagnia.id_compagnia = partecipazione.id_compagnia WHERE compagnia.nome = ? GROUP BY compagnia.id_compagnia");
@@ -137,6 +144,27 @@ class DatabaseHelper
         return $squads;
     }
 
+    public function getSquadsCreatedByUser($username) {
+        if(!$this->checkUserExists($username)){
+            return false;
+        }
+        $role = 1; 
+        $stmt = $this->db->prepare("SELECT c.*, GROUP_CONCAT(u.username) as membri
+                                    FROM compagnia c
+                                    JOIN partecipazione p ON p.id_compagnia = c.id_compagnia
+                                    JOIN utente u ON p.username = u.username
+                                    WHERE p.username = ? AND p.ruolo = ? 
+                                    GROUP BY c.id_compagnia");
+        $stmt->bind_param('si',$username, $role);
+        $stmt->execute();   
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $squads = array();
+        foreach($result as $row){
+            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['profile_pic'], $row['creatore'], explode(",", $row['membri'])));
+        }
+        return $squads;
+    }
+    
     public function setName($username, $name)
     {
         $stmt = $this->db->prepare("UPDATE utente SET nome=? WHERE username=?");
