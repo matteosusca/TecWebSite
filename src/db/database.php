@@ -330,7 +330,6 @@ class DatabaseHelper
         foreach ($result as $row) {
             if ($row['richiedente'] == $username) {
                 array_push($friends, $row['accettante']);
-                array_push($friends,  $row['richiedente']);
             } else {
                 array_push($friends,  $row['richiedente']);
             }

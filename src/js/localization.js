@@ -19,6 +19,7 @@ function initialize() {
                 }
             });
             $(document).ready(function () {
+                console.log(positions);
                 for (var i = 0; i < positions.length; i=i+2) {
                     var infowindow = new google.maps.InfoWindow({
                         position: JSON.parse(positions[i+1]),
@@ -30,7 +31,7 @@ function initialize() {
             var infowindow = new google.maps.InfoWindow({
                 map: map,
                 position: pos,
-                content: 'user location'
+                content: 'my location'
             });
             map.setCenter(pos);
         });
