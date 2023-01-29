@@ -26,8 +26,7 @@ checkSession();
                     showPosts($dbh->getPostOrderByDate($_SESSION['username'])) ?>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                    <?php require 'templates/createevent.php';
-                    showEvents($dbh->getEventsOrderByDate($_SESSION['username'])); ?>
+                    <?php showEvents($dbh->getEventsOrderByDate($_SESSION['username'])); ?>
                 </div>
             </div>
         </main>
