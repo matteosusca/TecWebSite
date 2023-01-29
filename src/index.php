@@ -25,12 +25,15 @@ $user = $dbh->getUser($_SESSION['username']);
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                     <?php require 'templates/createpost.php';
-                    foreach($dbh->getPostOrderByDate($user->getUsername()) as $post){
+                    foreach ($dbh->getPostOrderByDate($user->getUsername()) as $post) {
                         require 'templates/showpost.php';
                     } ?>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                    <?php showEvents($dbh->getEventsOrderByDate($_SESSION['username'])); ?>
+                    <?php
+                    foreach ($dbh->getEventsOrderByDate($user->getUsername()) as $event) {
+                        require 'templates/showevent.php';
+                    } ?>
                 </div>
             </div>
         </main>
@@ -53,4 +56,5 @@ $user = $dbh->getUser($_SESSION['username']);
         </aside>
     </div>
 </body>
+
 </html>

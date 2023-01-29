@@ -1,5 +1,5 @@
 <?php
-require_once 'class/postclass.php';
+require_once 'class/post.php';
 if (isset($post) && isset($dbh)) { ?>
     <div class="card my-2">
         <div class="card-header d-flex ">
