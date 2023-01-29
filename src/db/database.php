@@ -73,9 +73,14 @@ class DatabaseHelper
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
-        return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $result['profile_pic'], explode(",", $result['amici']));
+        return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $this->getMediaUrl($result['profile_pic']), explode(",", $result['amici']));
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> main
     public function getMediaUrl($idmedia)
     {
         $stmt = $this->db->prepare("SELECT url FROM media WHERE id_media=?");
@@ -124,7 +129,7 @@ class DatabaseHelper
         $stmt->bind_param('i', $id);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
-        return new Squad($result['id_compagnia'], $result['nome'], $result['descrizione'], $result['profile_pic'], $result['creatore'], explode(",", $result['membri']));
+        return new Squad($result['id_compagnia'], $result['nome'], $result['descrizione'], $this->getMediaUrl($result['profile_pic']), $result['creatore'], explode(",", $result['membri']));
     }
 
     public function getSquads($name)
@@ -139,7 +144,7 @@ class DatabaseHelper
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $squads = array();
         foreach ($result as $row) {
-            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['profile_pic'], $row['creatore'], explode(",", $row['membri'])));
+            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $this->getMediaUrl($row['profile_pic']), $row['creatore'], explode(",", $row['membri'])));
         }
         return $squads;
     }
@@ -289,7 +294,7 @@ class DatabaseHelper
         return true;
     }
 
-   
+
     public function setSquadDescription($id, $description)
     {
         $stmt = $this->db->prepare("UPDATE compagnia SET descrizione=? WHERE id_compagnia=?");
@@ -304,15 +309,34 @@ class DatabaseHelper
         $stmt = $this->db->prepare("SELECT * FROM amicizia WHERE richiedente=? OR accettante=?");
         $stmt->bind_param('ss', $username, $username);
         $stmt->execute();
-       
+
         $friends = array();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        
+
+        foreach ($result as $row) {
+            if ($row['richiedente'] == $username) {
+                array_push($friends, $this->getUser($row['accettante']));
+            } else {
+                array_push($friends,  $this->getUser($row['richiedente']));
+            }
+        }
+        return $friends;
+    }
+
+    public function getFriendsUsername($username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM amicizia WHERE richiedente=? OR accettante=?");
+        $stmt->bind_param('ss', $username, $username);
+        $stmt->execute();
+
+        $friends = array();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
         foreach ($result as $row) {
             if ($row['richiedente'] == $username) {
                 array_push($friends, $row['accettante']);
             } else {
-                array_push($friends, $row['richiedente']);
+                array_push($friends,  $row['richiedente']);
             }
         }
         return $friends;
@@ -380,7 +404,7 @@ class DatabaseHelper
         $squads = array();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         foreach ($result as $row) {
-            array_push($squads, $row['id_compagnia']);
+            array_push($squads, $this->getSquad($row['id_compagnia']));
         }
         return $squads;
     }
@@ -413,6 +437,15 @@ class DatabaseHelper
         }
         return false;
     }
+
+    public function createComment($username, $post_id, $body){
+        $stmt = $this->db->prepare("INSERT INTO commento (id_post, username, corpo, data_pubblicazione) VALUES (?,?,?, NOW())");
+        $stmt->bind_param('iss', $post_id, $username, $body);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
     public function getUserPosts($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM post WHERE username=?");
@@ -451,8 +484,9 @@ class DatabaseHelper
 
     public function getPostOrderByDate($username)
     {
-        $friends = $this->getFriends($username);
+        $friends = $this->getFriendsUsername($username);
         array_push($friends, $username);
+        //implode solo del username dei friends che trovo con friends->getUsername()
         $friends = implode("','", $friends);
         $friends = "'" . $friends . "'";
         $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN ($friends) ORDER BY data_pubblicazione DESC");
@@ -464,7 +498,7 @@ class DatabaseHelper
         }
         return $posts;
     }
-   
+
     public function getSquadPosts($squadId)
     {
         $squad = $this->getSquad($squadId);
@@ -480,7 +514,21 @@ class DatabaseHelper
         }
         return $posts;
     }
-
+    public function getMembers($squadId)
+    {
+        $squad = $this->getSquad($squadId);
+        $members = $squad->getMembers();
+        $members = implode("','", $members);
+        $members = "'" . $members . "'";
+        $stmt = $this->db->prepare("SELECT * FROM utente WHERE username IN ($members)");
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $members = array();
+        foreach ($result as $row) {
+            array_push($members, $this->getUser($row['username']));
+        }
+        return $members;
+    }
     public function getEventTypes()
     {
         $stmt = $this->db->prepare("SELECT * FROM tipo_evento");
@@ -518,7 +566,7 @@ class DatabaseHelper
     public function getUserEvents($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM evento WHERE (username=? or  (Isc_username=?))");
-        $stmt->bind_param('ss', $username,$username);
+        $stmt->bind_param('ss', $username, $username);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $events = array();
@@ -536,7 +584,8 @@ class DatabaseHelper
         return new Event($result['id_evento'], $result['nome'], $result['descrizione'], $result['data_creazione'], $result['data_evento'], $result['data_fine'], $result['id_tipo'], $result['username'], $result['id_compagnia'], $result['Isc_username']);
     }
 
-    public function getEventsOrderByDate($username) {
+    public function getEventsOrderByDate($username)
+    {
         $stmt = $this->db->prepare("SELECT * FROM evento WHERE username=? ORDER BY data_evento DESC");
         $stmt->bind_param('s', $username);
         $stmt->execute();
@@ -548,7 +597,8 @@ class DatabaseHelper
         return $events;
     }
 
-    public function getSquadEvents($squadId) {
+    public function getSquadEvents($squadId)
+    {
         $stmt = $this->db->prepare("SELECT * FROM evento WHERE id_compagnia=?");
         $stmt->bind_param('i', $squadId);
         $stmt->execute();

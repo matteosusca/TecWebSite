@@ -13,31 +13,27 @@ if (!empty($_POST['submit'])) {
 
 <body class="d-flex flex-column vh-100 " data-bs-theme="dark">
 
-    <?php
-    require_once 'templates/navbar.php'
-    ?>
-    <main class="m-auto">
-        <div class="card">
+    <?php require_once 'templates/navbar.php'?>
+    <main class="form-signin m-auto">
+        <div class="card ">
             <div class="card-header">
-                <h5 class="card-title">Please sign in</h5>
+                <h5>Please sign in</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body ">
                 <form action="signin.php" method="post">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="user" placeholder="User" name="user">
+                        <input type="text" class="form-control bg-body" id="floatingInput" placeholder="User" name="user">
                         <label for="floatingInput">User</label>
                     </div>
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="password" placeholder="Password" name="password">
+                        <input type="password" class="form-control bg-body mt-2" id="floatingPassword" placeholder="Password" name="password">
                         <label for="floatingPassword">Password</label>
                     </div>
-                    <button class="btn btn-outline-secondary w-100" type="submit" value="Accedi" name="submit">Sign
-                        in</button>
-
+                    <button class="btn btn-outline-secondary text-bg-dark w-100 mt-3" type="submit" value="Accedi" name="submit">Sign in</button>
                 </form>
             </div>
             <div class="card-footer ">
-                <a class="btn btn-outline-secondary w-100" href="signup.php" type="button">sign up</a>
+                <a class="btn btn-outline-secondary text-bg-dark w-100" href="signup.php" type="button">sign up</a>
             </div>
         </div>
     </main>

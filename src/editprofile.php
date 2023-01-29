@@ -28,30 +28,27 @@ $user = $dbh->getUser($_SESSION['username']);
                 <p>Mail already in use</p>
             <?php } ?>
             <div class="card-header">
-                <h5 class="card-title">Edit Profile</h5>
+                <h5>Edit Profile</h5>
             </div>
             <div class="card-body">
                 <form action="editprofile.php" method="post" enctype="multipart/form-data">
-                    <div class="form-floating">
-                        <button type="button" class="btn btn-outline-secondary border-0 disabled">Profile Picture</button>
-                        <input type="file" class="btn btn-outline-secondary" name="profilePicture" id="profilePicture">
+                    <div>
+                        <label for="formFile" class="form-label">Profile Picture</label>
+                        <input type="file" class="form-control bg-body" name="profilePicture" id="profilePicture">
                     </div>
                     <div class="form-floating">
-                        <!-- placeholder not working -->
-                        <input type="text" class="form-control bg-body" name="name" id="name" placeholder="<?php echo $user->getName() ?>">
+                        <input type="text" class="form-control bg-body mt-2" name="name" id="name" value="<?php echo $user->getName() ?>">
                         <label for="name">Name</label>
                     </div>
                     <div class="form-floating">
-                        <!-- placeholder not working -->
-                        <input type="text" class="form-control bg-body" name="surname" id="surname" placeholder="<?php echo $user->getSurname() ?>">
+                        <input type="text" class="form-control bg-body mt-2" name="surname" id="surname" value="<?php echo $user->getSurname() ?>">
                         <label for="name">Surname</label>
                     </div>
                     <div class="form-floating">
-                        <!-- placeholder not working -->
-                        <input type="email" class="form-control bg-body" name="email" id="email" placeholder="<?php echo $user->getEmail() ?>">
+                        <input type="email" class="form-control bg-body mt-2" name="email" id="email" value="<?php echo $user->getEmail() ?>">
                         <label for="name">Email</label>
                     </div>
-                    <input class="btn btn-outline-secondary w-100" href="editsquad.php" type="submit" name="save" value="Save"></input>
+                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" href="editsquad.php" type="submit" name="save" value="Save"></input>
                 </form>
             </div>
         </div>

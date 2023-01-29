@@ -48,4 +48,12 @@ class Squad
     {
         return $this->members;
     }
+    public function showSquad()
+    {
+        return '
+        <a class="list-group-item list-group-item-action" href="squad.php?name='
+        . $this->getName() . '"><img src="'
+        . $this->getPicture() . '" alt="" width="32" height="32" class="rounded-circle">'
+        . $this->getName() . '</a>';
+    }
 }

@@ -61,46 +61,44 @@ $squad = $dbh->getSquad($squad_id);
 <body class="d-flex flex-column vh-100 " data-bs-theme="dark">
     <?php require_once 'templates/navbar.php'; ?>
     <main class="m-auto">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Edit <?php echo $squad->getName() ?> squad</h5>
+        <div class="card">
+            <div class="card-header">
+                <h5>Edit <?php echo $squad->getName() ?> squad</h5>
+            </div>
+            <div class="card-body">
+                <form action="editsquad.php" method="post" enctype="multipart/form-data">
+                    <input type="hidden" class="form-control" name="id" value=<?php echo $squad_id; ?>>
+                    <div>
+                        <label for="formFile" class="form-label">Squad Picture</label>
+                        <input type="file" class="form-control bg-body" name="squadPicture" id="formFile">
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" class="form-control bg-body mt-2" name="name" id="name" value="<?php echo $squad->getName() ?>">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="form-floating">
+                        <input name="text" class="form-control bg-body mt-2" name="description" id="description" value="<?php echo $squad->getDescription() ?>">
+                        <label for="description">Description</label>
+                    </div>
+                    <div class="row mx-0">
+                        <select name="user" class="col form-select bg-body mt-2  me-2" id="user">
+                            <option value="" disabled selected>Seleziona un utente</option>
+                            <?php
+                            foreach ($squad->getMembers() as $user) {
+                                echo "<option value='" . $user . "' >" . $user . "</option>";
+                            }
+                            ?>
+                        </select>
+                        <select name="action" class="col form-select bg-body mt-2" id="action">
+                            <option value="admin">Make admin</option>
+                            <option value="member">Make member</option>
+                            <option value="remove">Remove from squad</option>
+                        </select>
+                    </div>
+                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" href="editsquad.php" type="submit" name="save" value="Save"></input>
+                </form>
+            </div>
         </div>
-        <div class="card-body">
-            <form action="editsquad.php" method="post" enctype="multipart/form-data">
-                <input type="hidden" class="form-control" name="id" value=<?php echo $squad_id; ?>>
-                <div class="form-floating">
-                    <button type="button" class="btn btn-outline-secondary border-0 disabled">Squad Picture</button>
-                    <input type="file" class="btn btn-outline-secondary" name="squadPicture" id="squadPicture">
-                </div>
-                <div class="form-floating">
-                    <!-- placeholder not working -->
-                    <input type="text" class="form-control bg-body" name="name" id="name" placeholder="<?php echo $squad->getName() ?>">
-                    <label for="name">Name</label>
-                </div>
-                <div class="form-floating">
-                    <!-- placeholder not working -->
-                    <textarea name="description" class="form-control bg-body" placeholder="<?php echo $squad->getDescription() ?>"></textarea>
-                    <label class="form-label" for="description">Description</label>
-                </div>
-                <div class="row mx-0">
-                    <select name="user" class="btn btn-outline-secondary col-6" id="user">
-                        <option value="" disabled selected>Seleziona un utente</option>
-                        <?php
-                        foreach ($squad->getMembers() as $user) {
-                            echo "<option value='" . $user . "' >" . $user . "</option>";
-                        }
-                        ?>
-                    </select>
-                    <select name="action" class="btn btn-outline-secondary col-6" id="action">
-                        <option value="admin">Make admin</option>
-                        <option value="member">Make member</option>
-                        <option value="remove">Remove from squad</option>
-                    </select>
-                </div>
-                <input class="btn btn-outline-secondary w-100" type="submit" name="save" value="Save"></input>
-            </form>
-        </div>
-    </div>
     </main>
 </body>
 
