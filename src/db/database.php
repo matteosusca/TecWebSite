@@ -1,5 +1,5 @@
 <?php
-require_once 'class/postclass.php';
+require_once 'class/post.php';
 require_once 'class/comment.php';
 require_once 'class/user.php';
 require_once 'class/squad.php';
