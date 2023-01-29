@@ -76,11 +76,6 @@ class DatabaseHelper
         return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $this->getMediaUrl($result['profile_pic']), explode(",", $result['amici']));
     }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> main
     public function getMediaUrl($idmedia)
     {
         $stmt = $this->db->prepare("SELECT url FROM media WHERE id_media=?");
