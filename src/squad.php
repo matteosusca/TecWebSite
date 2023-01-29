@@ -57,7 +57,9 @@ if (isset($_GET['name'])) {
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                     <?php require 'templates/createevent.php';
-                    showEvents($dbh->getSquadEvents($squadProfile->getID())); ?>
+                    foreach($dbh->getSquadEvents($squadProfile->getID()) as $event){
+                        require 'templates/showevent.php';
+                    }?>
                 </div>
             </div>
         </div>
