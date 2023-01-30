@@ -39,7 +39,6 @@ if(isset($_GET['name'])){
                 </div>
                 <div class="tab-pane fade" id="nav-squads" role="tabpanel" aria-labelledby="nav-squads-tab" tabindex="0">
                     <?php 
-                        var_dump($squads);
                         if(!empty($squads)) {
                             foreach($squads as $squad) {
                                 echo $squad->showSquad();
