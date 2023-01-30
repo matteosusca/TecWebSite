@@ -41,13 +41,7 @@ if (!empty($_POST['esci'])) {
                     <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Contacts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php isActive("squads.php"); ?>" href="squads.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Squads</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link <?php isActive("map.php"); ?>" href="map.php"><i class="bi bi-map     d-block" style="font-size: 1rem;"></i>Map</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php isActive("event.php"); ?>" href="event.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Events</a>
                 </li>
             </ul>
             <div class="col-lg-4">
