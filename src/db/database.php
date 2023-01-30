@@ -623,6 +623,18 @@ class DatabaseHelper
         }
         return $users;
     }
+
+    public function inviteUserToEvent($eventId, $squadId, $username)
+    {
+        $stmt = $this->db->prepare("INSERT INTO invito_u (username , id_evento) VALUES (?, ?)");
+        $stmt->bind_param('si', $username, $eventId);
+        $stmt->execute();
+        var_dump($stmt);
+        $stmt->close();
+        return true;
+
+
+    }
     // public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
     // {
     //     if (!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)) {
