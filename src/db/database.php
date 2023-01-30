@@ -106,10 +106,12 @@ class DatabaseHelper
         return count($result->fetch_all(MYSQLI_ASSOC)) > 0;
     }
 
-    public function createSquad($name, $description, $owner)
+    public function createSquad($name, $description, $img, $owner)
     {
-        $stmt = $this->db->prepare("INSERT INTO compagnia (nome, descrizione, creatore) VALUES (?,?,?)");
-        $stmt->bind_param('sss', $name, $description, $owner);
+        $id = $this->uploadMedia($img);
+        print("ID pic:" . $id);
+        $stmt = $this->db->prepare("INSERT INTO compagnia (nome, descrizione, creatore, profile_pic) VALUES (?,?,?,?)");
+        $stmt->bind_param('sssi', $name, $description, $owner, $id);
         $stmt->execute();
         $id = mysqli_insert_id($this->db);
         $role = 1;
@@ -118,7 +120,7 @@ class DatabaseHelper
         $stmt->execute();
         $stmt->close();
 
-        return true;
+        return $id;
     }
 
     public function getSquad($id)

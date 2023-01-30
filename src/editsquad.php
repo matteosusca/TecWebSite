@@ -4,7 +4,6 @@ require_once 'templates/head.php';
 checkSession();
 
 $squad_id = $_POST['id'];
-var_dump($squad_id);
 
 if (!empty($_POST['save'])) {
 
