@@ -581,8 +581,8 @@ class DatabaseHelper
 
     public function getUserEvents($username)
     {
-        $stmt = $this->db->prepare("SELECT * FROM evento WHERE (username=? or  (Isc_username=?))");
-        $stmt->bind_param('ss', $username, $username);
+        $stmt = $this->db->prepare("SELECT * FROM evento WHERE username=?");
+        $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $events = array();
