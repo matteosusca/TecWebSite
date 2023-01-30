@@ -502,10 +502,10 @@ class DatabaseHelper
     {
         $friends = $this->getFriendsUsername($username);
         array_push($friends, $username);
-        //implode solo del username dei friends che trovo con friends->getUsername()
         $friends = implode("','", $friends);
         $friends = "'" . $friends . "'";
-        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN ($friends) ORDER BY data_pubblicazione DESC");
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN (?) ORDER BY data_pubblicazione DESC");
+        $stmt->bind_param('s', $friends);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $posts = array();
@@ -521,7 +521,8 @@ class DatabaseHelper
         $members = $squad->getMembers();
         $members = implode("','", $members);
         $members = "'" . $members . "'";
-        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN ($members) ORDER BY data_pubblicazione DESC");
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN (?) ORDER BY data_pubblicazione DESC");
+        $stmt->bind_param('s', $members);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $posts = array();
@@ -536,7 +537,8 @@ class DatabaseHelper
         $members = $squad->getMembers();
         $members = implode("','", $members);
         $members = "'" . $members . "'";
-        $stmt = $this->db->prepare("SELECT * FROM utente WHERE username IN ($members)");
+        $stmt = $this->db->prepare("SELECT * FROM utente WHERE username IN (?)");
+        $stmt->bind_param('s', $members);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $members = array();
@@ -636,7 +638,8 @@ class DatabaseHelper
 
     public function getUsersPosition($friendsusername){
         $friendsusername = implode("','",$friendsusername);
-        $stmt = $this->db->prepare("SELECT username,posizione FROM utente WHERE username IN ('$friendsusername')");
+        $stmt = $this->db->prepare("SELECT username,posizione FROM utente WHERE username IN (?)");
+        $stmt->bind_param('s', $friendsusername);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $users = array();
