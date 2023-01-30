@@ -11,7 +11,7 @@ if(isset($_GET['name'])){
     $title = "Results for " . $name;
 } else{
     $title = "Nothing to show here";
-    header("Location: searchpage.php?error=2");
+    header("Location: search.php?error=2");
 }
 ?>
 
