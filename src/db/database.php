@@ -55,8 +55,9 @@ class DatabaseHelper
         $stmt = $this->db->prepare("INSERT INTO login (username, password) VALUES (?,?)");
         $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
-        $stmt = $this->db->prepare("INSERT INTO posizione (utente, location) VALUES (?)");
+        $stmt = $this->db->prepare("INSERT INTO posizione (utente) VALUES (?)");
         $stmt->bind_param('s', $username);
+        $stmt->execute();
         $stmt->close();
 
         return true;
