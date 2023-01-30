@@ -12,6 +12,8 @@ if (isset($_GET['user'])) {
     }
     if (isset($_POST['aggiungi'])) {
         $dbh->addFriend($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
+    } else if (isset($_POST['rimuovi'])) {
+        $dbh->removeFriend($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
     }
 } else {
     $title = "Profile not found";
@@ -44,9 +46,9 @@ require 'templates/head.php';
                 </form>';
                         } else {
                             echo '<form action="profile.php?user=' . $userProfile->getUsername() . '" method="post">
-                    <input type="hidden" name="aggiungi" value="Aggiungi">
-                    <input class="btn btn-secondary border-0 w-100" type="submit" value="Aggiungi">
-                </form>';
+                                <input class="btn btn-secondary border-0 w-100" type="submit"' . (!in_array($userProfile->getUsername(), $dbh->getFriendsUsername($_SESSION['username'])) ?
+                                ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"') . 
+                                '> </form>';                        
                         }
                         ?>
                     </div>

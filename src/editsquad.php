@@ -4,9 +4,7 @@ require_once 'templates/head.php';
 checkSession();
 
 $squad_id = $_POST['id'];
-if (!$dbh->checkUserPermissionsForSquad($_SESSION['username'], $squad_id)) {
-    header("Location: squad.php?name=" . $dbh->getSquad($squad_id)->getName() . "");
-}
+var_dump($squad_id);
 
 if (!empty($_POST['save'])) {
 
