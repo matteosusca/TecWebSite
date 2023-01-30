@@ -42,14 +42,14 @@ class DatabaseHelper
 
         return count($result->fetch_all(MYSQLI_ASSOC)) > 0;
     }
-
-    public function signUpUser($username, $mail, $password, $name, $surname, $date_of_birth)
+    public function signUpUser($username, $mail, $password, $name, $surname, $date_of_birth, $file)
     {
         if ($this->checkUserExists($username)) {
             return false;
         }
-        $stmt = $this->db->prepare("INSERT INTO utente (username, data_nascita, nome, cognome, email) VALUES (?,?,?,?,?)");
-        $stmt->bind_param('sssss', $username, $date_of_birth, $name, $surname, $mail);
+        $id = $this->uploadMedia($file);
+        $stmt = $this->db->prepare("INSERT INTO utente (username, profile_pic, data_nascita, nome, cognome, email) VALUES (?,?,?,?,?,?)");
+        $stmt->bind_param('sissss', $username, $id, $date_of_birth, $name, $surname, $mail);
         $stmt->execute();
         $stmt = $this->db->prepare("INSERT INTO login (username, password) VALUES (?,?)");
         $stmt->bind_param('ss', $username, $password);
