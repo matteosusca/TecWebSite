@@ -228,9 +228,8 @@ class DatabaseHelper
     {
         //upload file to img folder
         $target_dir = "img/";
-        $target_file = $target_dir . basename($file["name"]);
+        $target_file = $target_dir . $this->generateRandomName() . '.' . pathinfo($file["name"], PATHINFO_EXTENSION);
         $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         // Check if image file is a actual image or fake image
         if (isset($_POST["submit"])) {
             $check = getimagesize($file["tmp_name"]);
@@ -241,8 +240,8 @@ class DatabaseHelper
             }
         }
         // Check if file already exists
-        if (file_exists($target_file)) {
-            $uploadOk = 0;
+        while (file_exists($target_file)) {
+            $target_file = $target_dir . $this->generateRandomName() . '.' . pathinfo($file["name"], PATHINFO_EXTENSION);
         }
         // Check file size
         if ($file["size"] > 500000) {
@@ -264,6 +263,18 @@ class DatabaseHelper
             }
         }
     }
+
+    private function generateRandomName()
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 15; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
 
     public function isUserMember($username, $squadId)
     {
