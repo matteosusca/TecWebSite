@@ -68,8 +68,7 @@ class DatabaseHelper
                                     FROM utente u
                                     INNER JOIN amicizia a ON u.username = a.richiedente OR u.username = a.accettante
                                     INNER JOIN utente f ON f.username = IF(u.username = a.richiedente, a.accettante, a.richiedente)
-                                    WHERE u.username = ?
-                                    GROUP BY u.username");
+                                    WHERE u.username = ?");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
