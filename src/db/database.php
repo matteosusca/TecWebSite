@@ -642,7 +642,7 @@ class DatabaseHelper
 
     public function getUsersPosition($friendsusername){
         $friendsusername = implode("','",$friendsusername);
-        $stmt = $this->db->prepare("SELECT * FROM posizione WHERE user IN (?)");
+        $stmt = $this->db->prepare("SELECT * FROM posizione WHERE utente IN (?)");
         $stmt->bind_param('s', $friendsusername);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
