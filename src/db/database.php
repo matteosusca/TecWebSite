@@ -574,7 +574,7 @@ class DatabaseHelper
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $events = array();
         foreach ($result as $row) {
-            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia'], $row['Isc_username']));
+            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia']));
         }
         return $events;
     }
@@ -587,7 +587,7 @@ class DatabaseHelper
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $events = array();
         foreach ($result as $row) {
-            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia'], $row['Isc_username']));
+            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia']));
         }
         return $events;
     }
@@ -608,7 +608,7 @@ class DatabaseHelper
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $events = array();
         foreach ($result as $row) {
-            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia'], $row['Isc_username']));
+            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia']));
         }
         return $events;
     }
@@ -621,7 +621,7 @@ class DatabaseHelper
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $events = array();
         foreach ($result as $row) {
-            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia'], $row['Isc_username']));
+            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia']));
         }
         return $events;
     }
