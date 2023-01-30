@@ -7,9 +7,10 @@ $user = $dbh->getUser($_SESSION['username']);
 
 <body class="d-flex flex-column vh-100" data-bs-theme="dark">
     <?php require_once 'templates/navbar.php'; ?>
-    <div class="d-lg-flex flex-wrap vh-100 justify-content-center overflow-auto ">
+    <div class="d-lg-flex flex-wrap vh-100 justify-content-center overflow-auto">
         <aside class="col-12 col-lg-2 p-3 mh-100 shadow sticky-lg-top overflow-auto d-flex flex-lg-column text-nowrap">
-            <button class="btn btn-secondary m-2 d-lg-none" type="button" data-bs-scroll="true" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">friends</button>
+            <button class="btn btn-secondary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>
+
         </aside>
         <main class="col-12 col-lg-4 p-3 shadow">
             <nav>
@@ -33,21 +34,25 @@ $user = $dbh->getUser($_SESSION['username']);
                 </div>
             </div>
         </main>
-        <aside class="col-2 p-3 mh-100 shadow overflow-auto sticky-lg-top offcanvas-lg offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-            <div class="offcanvas-header  mh-100">
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class=" h-50 overflow-auto">
-                <h5>Friends</h5>
-                <ul class="list-group list-group-flush offcanvas-body">
-                    <?php getFriends($dbh->getFriends($user->getUsername())); ?>
-                </ul>
-            </div>
-            <div class=" h-50 overflow-auto">
-                <h5>Squads</h5>
-                <ul class="list-group list-group-flush offcanvas-body">
-                    <?php getSquads($dbh->getSquadsByUser($user->getUsername())); ?>
-                </ul>
+        <aside class="col-2 p-3 mh-100 shadow overflow-auto sticky-lg-top">
+            <div class="h-100 offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+                <div class="offcanvas-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+                </div>
+                <div class="h-100">
+                    <div class=" h-50 overflow-auto">
+                        <h5>Friends</h5>
+                        <ul class="list-group list-group-flush offcanvas-body">
+                            <?php getFriends($dbh->getFriends($user->getUsername())); ?>
+                        </ul>
+                    </div>
+                    <div class=" h-50 overflow-auto">
+                        <h5>Squads</h5>
+                        <ul class="list-group list-group-flush offcanvas-body">
+                            <?php getSquads($dbh->getSquadsByUser($user->getUsername())); ?>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </aside>
     </div>
