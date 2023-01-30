@@ -89,7 +89,7 @@ class DatabaseHelper
         if (count($result) > 0) {
             return $result['url'];
         } else {
-            return ;
+            return "";
         }
     }
 
