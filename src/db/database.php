@@ -227,7 +227,6 @@ class DatabaseHelper
     public function uploadMedia($file)
     {
         //upload file to img folder
-
         $target_dir = "img/";
         $target_file = $target_dir . basename($file["name"]);
         $uploadOk = 1;
@@ -580,7 +579,7 @@ class DatabaseHelper
         $stmt->bind_param('i', $eventId);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
-        return new Event($result['id_evento'], $result['nome'], $result['descrizione'], $result['data_creazione'], $result['data_evento'], $result['data_fine'], $result['id_tipo'], $result['username'], $result['id_compagnia'], $result['Isc_username']);
+        return new Event($result['id_evento'], $result['nome'], $result['descrizione'], $result['data_creazione'], $result['data_evento'], $result['data_fine'], $result['id_tipo'], $result['username'], $result['id_compagnia']);
     }
 
     public function getEventsOrderByDate($username)

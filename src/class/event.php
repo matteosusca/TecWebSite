@@ -12,9 +12,8 @@ class Event
     private $type;
     private $username;
     private $id_squad;
-    private $sign_up_username;
 
-    public function __construct($id_event, $name, $description, $date_of_creation, $date_of_event_start, $date_of_event_end, $type, $username, $id_squad, $sign_up_username)
+    public function __construct($id_event, $name, $description, $date_of_creation, $date_of_event_start, $date_of_event_end, $type, $username, $id_squad)
     {
         $this->id_event = $id_event;
         $this->name = $name;
@@ -25,7 +24,6 @@ class Event
         $this->type = $type;
         $this->username = $username;
         $this->id_squad = $id_squad;
-        $this->sign_up_username = $sign_up_username;
     }
 
     public function getIdEvent()
@@ -71,10 +69,5 @@ class Event
     public function getIdSquad()
     {
         return $this->id_squad;
-    }
-
-    public function getSignUpUsername()
-    {
-        return $this->sign_up_username;
     }
 }
