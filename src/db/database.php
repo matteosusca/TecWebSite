@@ -504,15 +504,12 @@ class DatabaseHelper
         }
         return $comments;
     }
-
     public function getPostOrderByDate($username)
     {
         $friends = $this->getFriendsUsername($username);
         array_push($friends, $username);
-        $friends = implode("','", $friends);
-        $friends = "'" . $friends . "'";
-        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN (?) ORDER BY data_pubblicazione DESC");
-        $stmt->bind_param('s', $friends);
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username  IN (?" . str_repeat(",?", count($friends) - 1) . ") ORDER BY data_pubblicazione DESC");
+        $stmt->bind_param(str_repeat('s',count($friends)), ...$friends);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $posts = array();
@@ -526,10 +523,8 @@ class DatabaseHelper
     {
         $squad = $this->getSquad($squadId);
         $members = $squad->getMembers();
-        $members = implode("','", $members);
-        $members = "'" . $members . "'";
-        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN (?) ORDER BY data_pubblicazione DESC");
-        $stmt->bind_param('s', $members);
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN (?" . str_repeat(",?", count($members) - 1) . ") ORDER BY data_pubblicazione DESC");
+        $stmt->bind_param(str_repeat('s',count($members)), ...$members);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $posts = array();
@@ -542,10 +537,8 @@ class DatabaseHelper
     {
         $squad = $this->getSquad($squadId);
         $members = $squad->getMembers();
-        $members = implode("','", $members);
-        $members = "'" . $members . "'";
-        $stmt = $this->db->prepare("SELECT * FROM utente WHERE username IN (?)");
-        $stmt->bind_param('s', $members);
+        $stmt = $this->db->prepare("SELECT * FROM utente WHERE username IN (?" . str_repeat(",?", count($members) - 1) . ")");
+        $stmt->bind_param(str_repeat('s',count($members)), ...$members);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $members = array();
