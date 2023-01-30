@@ -76,7 +76,7 @@ class DatabaseHelper
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
-        if(is_null($result['amici'])) {
+        if (is_null($result['amici'])) {
             $amici = [];
         } else {
             $amici = explode(",", $result['amici']);
@@ -152,27 +152,28 @@ class DatabaseHelper
         return $squads;
     }
 
-    public function getSquadsCreatedByUser($username) {
-        if(!$this->checkUserExists($username)){
+    public function getSquadsCreatedByUser($username)
+    {
+        if (!$this->checkUserExists($username)) {
             return false;
         }
-        $role = 1; 
+        $role = 1;
         $stmt = $this->db->prepare("SELECT c.*, GROUP_CONCAT(u.username) as membri
                                     FROM compagnia c
                                     JOIN partecipazione p ON p.id_compagnia = c.id_compagnia
                                     JOIN utente u ON p.username = u.username
                                     WHERE p.username = ? AND p.ruolo = ? 
                                     GROUP BY c.id_compagnia");
-        $stmt->bind_param('si',$username, $role);
-        $stmt->execute();   
+        $stmt->bind_param('si', $username, $role);
+        $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $squads = array();
-        foreach($result as $row){
+        foreach ($result as $row) {
             array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $row['profile_pic'], $row['creatore'], explode(",", $row['membri'])));
         }
         return $squads;
     }
-    
+
     public function setName($username, $name)
     {
         $stmt = $this->db->prepare("UPDATE utente SET nome=? WHERE username=?");
@@ -364,7 +365,8 @@ class DatabaseHelper
         return true;
     }
 
-    public function removeFriend($username, $friend) {
+    public function removeFriend($username, $friend)
+    {
         $stmt = $this->db->prepare("DELETE FROM amicizia WHERE (richiedente=? AND accettante=?) OR (richiedente=? AND accettante=?)");
         $stmt->bind_param('ssss', $username, $friend, $friend, $username);
         $stmt->execute();
@@ -444,7 +446,7 @@ class DatabaseHelper
         return true;
     }
 
-    
+
     public function createPost($username, $text, $media_id)
     {
         $id = $this->uploadMedia($media_id);
@@ -458,7 +460,8 @@ class DatabaseHelper
         return false;
     }
 
-    public function createComment($username, $post_id, $body){
+    public function createComment($username, $post_id, $body)
+    {
         $stmt = $this->db->prepare("INSERT INTO commento (id_post, username, corpo, data_pubblicazione) VALUES (?,?,?, NOW())");
         $stmt->bind_param('iss', $post_id, $username, $body);
         $stmt->execute();
@@ -632,18 +635,18 @@ class DatabaseHelper
         return $events;
     }
 
-    public function setUserPosition($location,$username){
+    public function setUserPosition($location, $username)
+    {
         $stmt = $this->db->prepare("UPDATE posizione SET location=? WHERE utente=?");
-        $stmt->bind_param('ss', $location,$username);
+        $stmt->bind_param('ss', $location, $username);
         $stmt->execute();
         $stmt->close();
         return true;
     }
-
-    public function getUsersPosition($friendsusername){
-        $friendsusername = implode("','",$friendsusername);
-        $stmt = $this->db->prepare("SELECT * FROM posizione WHERE utente IN (?)");
-        $stmt->bind_param('s', $friendsusername);
+    public function getUsersPosition($friendsusername)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM posizione WHERE utente IN (?" . str_repeat(",?", count($friendsusername) - 1) . ")");
+        $stmt->bind_param(str_repeat("s", count($friendsusername)), ...$friendsusername);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $users = array();
@@ -652,6 +655,8 @@ class DatabaseHelper
         }
         return $users;
     }
+    
+    
     // public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
     // {
     //     if (!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)) {
