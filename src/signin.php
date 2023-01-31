@@ -19,14 +19,14 @@ if (!empty($_POST['submit'])) {
             <div class="card-header">
                 <h5>Please sign in</h5>
             </div>
-            <div class="card-body ">
+            <div class="card-body">
                 <form action="signin.php" method="post">
                     <div class="form-floating">
-                        <input type="text" class="form-control bg-body" id="floatingInput" placeholder="User" name="user">
+                        <input type="text" class="form-control bg-body" id="floatingInput" placeholder="User" name="user" required>
                         <label for="floatingInput">User</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control bg-body mt-2" id="floatingPassword" placeholder="Password" name="password">
+                        <input type="password" class="form-control bg-body mt-2" id="floatingPassword" placeholder="Password" name="password" required>
                         <label for="floatingPassword">Password</label>
                     </div>
                     <button class="btn btn-outline-secondary text-bg-dark w-100 mt-3" type="submit" value="Accedi" name="submit">Sign in</button>

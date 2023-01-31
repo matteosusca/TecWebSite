@@ -58,7 +58,7 @@ $squad = $dbh->getSquad($squad_id);
                         <label for="floatingInput">User</label>
                     </div>
                     <button type="button" class="btn btn-outline-secondary border-0 disabled col-12">As</button>
-                    <select name="role" class="btn btn-outline-secondary col-12 mb-2" id="role">
+                    <select name="role" class="btn btn-outline-secondary col-12 mb-2" id="role" required>
                         <option value="" disabled selected>Seleziona un ruolo</option>
                         <option value="2">admin</option>
                         <option value="3">member</option>

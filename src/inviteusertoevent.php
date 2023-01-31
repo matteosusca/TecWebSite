@@ -25,7 +25,7 @@ $squad = $dbh->getSquad($squad_id);
             <div class="card-body">
                 <form action="inviteusertoevent.php" method="post">
                     <input type="hidden" class="form-control" name="id" value=<?php echo $squad_id; ?>>
-                    <select name="event" class="col form-select bg-body" id="event">
+                    <select name="event" class="col form-select bg-body" id="event" required>
                         <option value="" disabled selected>evento</option>
                         <?php
                         foreach ($dbh->getSquadEvents($squad->getID()) as $event) {
@@ -33,7 +33,7 @@ $squad = $dbh->getSquad($squad_id);
                         }
                         ?>
                     </select>
-                    <select name="user" class="col mt-2 form-select bg-body" id="user">
+                    <select name="user" class="col mt-2 form-select bg-body" id="user" required>
                         <option value="" disabled selected>utente</option>
                         <?php
                         foreach ($squad->getMembers() as $user) {

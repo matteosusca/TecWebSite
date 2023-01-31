@@ -4,9 +4,7 @@ checkSession();
 
 if (!empty($_POST['save'])) {
     $squad_id = $dbh->createSquad($_POST['name'], $_POST['description'], $_FILES['squadPicture'], $_SESSION['username']);
-    var_dump($_FILES['squadPicture']);
-    var_dump($squad_id);
-    //header("Location: squad.php?squad_id=" . $squad_id);
+    header("Location: squad.php?squad_id=" . $squad_id);
 }
 
 ?>

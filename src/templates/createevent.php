@@ -20,11 +20,11 @@ if (!empty($_POST['submitEvent'])) {
                 <label for="floatingInput">Descrizione</label>
             </div>
             <label for="floatingInput">Data Inizio Evento</label>
-            <input type="date" class="form-control bg-body mb-2" id="event_begin_date" name="event_begin_date">
+            <input type="date" class="form-control bg-body mb-2" id="event_begin_date" name="event_begin_date" required>
             <label for="floatingInput">Data Fine Evento</label>
-            <input type="date" class="form-control bg-body mb-2" id="event_end_date" name="event_end_date">
+            <input type="date" class="form-control bg-body mb-2" id="event_end_date" name="event_end_date" requireed>
             <label for="floatingInput">Tipo Evento</label>
-            <select class="form-select bg-body mb-4" aria-label="Tipo Evento" name="type">
+            <select class="form-select bg-body mb-4" aria-label="Tipo Evento" name="type" required>
                 <?php
                 foreach ($dbh->getEventTypes() as $key => $name) {
                     echo "<option value='" . $key . "'>" . $name . "</option>";
