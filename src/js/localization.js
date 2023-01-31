@@ -19,19 +19,18 @@ function initialize() {
                 }
             });
             $(document).ready(function () {
-                console.log(positions);
-                for (var i = 0; i < positions.length; i=i+2) {
-                    var infowindow = new google.maps.InfoWindow({
-                        position: JSON.parse(positions[i+1]),
+                for (var user in positions) {
+                    new google.maps.InfoWindow({
+                        position: JSON.parse(positions[user]),
                         map: map,
-                        content: positions[i]
+                        content: user
                     });
                 }
             });
-            var infowindow = new google.maps.InfoWindow({
+            new google.maps.InfoWindow({
                 map: map,
                 position: pos,
-                content: 'my location'
+                content: 'My location'
             });
             map.setCenter(pos);
         });

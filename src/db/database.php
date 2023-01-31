@@ -646,7 +646,7 @@ class DatabaseHelper
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $users = array();
         foreach ($result as $row) {
-            array_push($users, $row['utente'], $row['location']);
+            $users[$row['utente']] = $row['location'];    
         }
         return $users;
     }
