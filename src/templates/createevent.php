@@ -10,7 +10,7 @@ if (!empty($_POST['submitEvent'])) {
     </div>
     <div class="card-body">
         <form action="" method="post" enctype="multipart/form-data">
-            <input type="hidden" class="form-control" name="id" value=<?php echo $squadProfile->getID(); ?>>
+            <input type="hidden" class="form-control" name="id" value=<?php echo $squad->getID(); ?>>
             <div class="form-floating">
                 <input type=" text" class="form-control bg-body mb-2" id="name" placeholder="Nome evento" name="name" required>
                 <label for="floatingInput">Nome evento</label>

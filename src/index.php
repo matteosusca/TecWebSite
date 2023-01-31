@@ -10,6 +10,7 @@ $user = $dbh->getUser($_SESSION['username']);
     <div class="d-lg-flex flex-wrap vh-100 justify-content-center overflow-auto">
         <aside class="col-12 col-lg-2 p-3 mh-100 shadow sticky-lg-top overflow-auto d-flex flex-lg-column text-nowrap">
             <button class="btn btn-secondary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>
+            <a class="btn btn-secondary mx-2" href="createsquad.php" type="button">Crea squad</a>
 
         </aside>
         <main class="col-12 col-lg-4 p-3 shadow">

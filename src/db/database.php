@@ -506,12 +506,14 @@ class DatabaseHelper
         }
         return $comments;
     }
+
     public function getPostOrderByDate($username)
     {
         $friends = $this->getFriendsUsername($username);
         array_push($friends, $username);
-        $stmt = $this->db->prepare("SELECT * FROM post WHERE username  IN (?" . str_repeat(",?", count($friends) - 1) . ") ORDER BY data_pubblicazione DESC");
-        $stmt->bind_param(str_repeat('s',count($friends)), ...$friends);
+        $inQuery = implode(",", array_fill(0, count($friends), "?"));
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN ($inQuery) ORDER BY data_pubblicazione DESC");
+        $stmt->bind_param(str_repeat('s', count($friends)), ...$friends);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $posts = array();
@@ -525,8 +527,10 @@ class DatabaseHelper
     {
         $squad = $this->getSquad($squadId);
         $members = $squad->getMembers();
-        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN (?" . str_repeat(",?", count($members) - 1) . ") ORDER BY data_pubblicazione DESC");
-        $stmt->bind_param(str_repeat('s',count($members)), ...$members);
+        $placeholders = implode(',', array_fill(0, count($members), '?'));
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE username IN ($placeholders) ORDER BY data_pubblicazione DESC");
+        $types = str_repeat('s', count($members));
+        $stmt->bind_param($types, ...$members);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $posts = array();
@@ -535,12 +539,14 @@ class DatabaseHelper
         }
         return $posts;
     }
+
     public function getMembers($squadId)
     {
         $squad = $this->getSquad($squadId);
         $members = $squad->getMembers();
-        $stmt = $this->db->prepare("SELECT * FROM utente WHERE username IN (?" . str_repeat(",?", count($members) - 1) . ")");
-        $stmt->bind_param(str_repeat('s',count($members)), ...$members);
+        $placeholders = implode(',', array_fill(0, count($members), '?'));
+        $stmt = $this->db->prepare("SELECT * FROM utente WHERE username IN ($placeholders)");
+        $stmt->bind_param(str_repeat('s', count($members)), ...$members);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $members = array();
@@ -640,16 +646,18 @@ class DatabaseHelper
     }
     public function getUsersPosition($friendsusername)
     {
-        $stmt = $this->db->prepare("SELECT * FROM posizione WHERE utente IN (?" . str_repeat(",?", count($friendsusername) - 1) . ")");
+        $placeholders = implode(",", array_fill(0, count($friendsusername), "?"));
+        $stmt = $this->db->prepare("SELECT * FROM posizione WHERE utente IN ($placeholders)");
         $stmt->bind_param(str_repeat("s", count($friendsusername)), ...$friendsusername);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $users = array();
         foreach ($result as $row) {
-            $users[$row['utente']] = $row['location'];    
+            $users[$row['utente']] = $row['location'];
         }
         return $users;
     }
+    
     public function inviteUserToEvent($eventId, $squadId, $username)
     {
         $stmt = $this->db->prepare("INSERT INTO invito_u (username , id_evento) VALUES (?, ?)");
@@ -658,9 +666,8 @@ class DatabaseHelper
         var_dump($stmt);
         $stmt->close();
         return true;
-
     }
-    
+
     // public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
     // {
     //     if (!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)) {
