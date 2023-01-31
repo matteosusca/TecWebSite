@@ -12,7 +12,7 @@ $positions_json = json_encode($positions);
     <?php require_once 'templates/navbar.php'; ?>
     <div id="map-canvas" class="h-100"></div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtkgSO0EAakNnErsYTuO1ORfA4QFsnqiw&callback=initialize" async defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script>
         var positions = <?php echo $positions_json;?>;
     </script>
