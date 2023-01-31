@@ -1,9 +1,9 @@
 <?php
-require_once 'class/post.php';
-require_once 'class/comment.php';
-require_once 'class/user.php';
-require_once 'class/squad.php';
-require_once 'class/event.php';
+require_once '../class/post.php';
+require_once '../class/comment.php';
+require_once '../class/user.php';
+require_once '../class/squad.php';
+require_once '../class/event.php';
 
 class DatabaseHelper
 {

@@ -1,5 +1,4 @@
 <?php
-require_once 'templates/head.php';
 class Event
 {
     private $id_event;

@@ -1,5 +1,5 @@
 <?php
-require_once 'bootstrap.php';
+require_once '../bootstrap.php';
 checkSession();
 $user = $dbh->getUser($_SESSION['username']);
 if (!empty($_POST['esci'])) {
