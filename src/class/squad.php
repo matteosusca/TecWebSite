@@ -51,8 +51,8 @@ class Squad
     public function showSquad()
     {
         return '
-        <a class="list-group-item list-group-item-action" href="squad.php?name='
-        . $this->getName() . '"><img src="'
+        <a class="list-group-item list-group-item-action" href="squad.php?squad_id='
+        . $this->getId() . '"><img src="'
         . $this->getPicture() . '" alt="" width="32" height="32" class="rounded-circle">'
         . $this->getName() . '</a>';
     }
