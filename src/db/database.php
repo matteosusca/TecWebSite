@@ -1,9 +1,9 @@
 <?php
-require_once '../class/post.php';
-require_once '../class/comment.php';
-require_once '../class/user.php';
-require_once '../class/squad.php';
-require_once '../class/event.php';
+require_once 'class/post.php';
+require_once 'class/comment.php';
+require_once 'class/user.php';
+require_once 'class/squad.php';
+require_once 'class/event.php';
 
 class DatabaseHelper
 {
@@ -298,7 +298,7 @@ class DatabaseHelper
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
-        return $result['ruolo'] != 3;
+        return !is_null($result) && $result['ruolo'] != 3;
     }
 
     public function setSquadName($id, $name)

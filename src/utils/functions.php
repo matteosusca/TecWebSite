@@ -7,13 +7,17 @@ function isActive($pagename)
 }
 function checkSession()
 {
-    if (session_status() != PHP_SESSION_ACTIVE) {
-        session_start();
+    if(basename($_SERVER['PHP_SELF']) != "signin.php" && basename($_SERVER['PHP_SELF']) != "signup.php") {
+        if (session_status() != PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        if (!isset($_SESSION['username'])) {
+            header("Location: signin.php");
+            exit();
+        }
+        return true;
     }
-    if (!isset($_SESSION['username'])) {
-        header("Location: signin.php");
-        exit();
-    }
+    return false;
 }
 function showEvents($events)
 {

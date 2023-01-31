@@ -1,11 +1,7 @@
 <?php
-require_once '../bootstrap.php';
-checkSession();
-$user = $dbh->getUser($_SESSION['username']);
-if (!empty($_POST['esci'])) {
-    session_start();
-    session_destroy();
-    header("Location: ../signin.php");
+require_once 'utils/functions.php';
+if(checkSession()) {
+    $user = $dbh->getUser($_SESSION['username']);
 }
 ?>
 
@@ -19,35 +15,31 @@ if (!empty($_POST['esci'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
-    <title>SquadUp</title>
+    <title><?php echo $templateParams["title"] ?></title>
 </head>
 
 <body class="d-flex flex-column vh-100" data-bs-theme="dark">
-<nav class="navbar navbar-expand-lg shadow" aria-label="Thirteenth navbar example">
+    <nav class="navbar navbar-expand-lg shadow" aria-label="Thirteenth navbar example">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand col-lg-4 m-0 px-2 d-flex justify-content-end" href="index.php">SquadUp</a>
-
-            <?php if (isset($_SESSION['username'])) {
-                echo '<div class="dropdown order-lg-1 col-lg-2 d-flex justify-content-start px-2">
-                <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="'
-                    . $dbh->getUser($_SESSION['username'])->getProfilePicture() . '" alt="" width="32" height="32" class="rounded-circle">'
-                    . $dbh->getUser($_SESSION['username'])->getUsername() . '</a>
-                <ul class="dropdown-menu dropdown-menu mx-2 ">
-                    <li><a class="dropdown-item" href="profile.php?user='
-                    . $dbh->getUser($_SESSION['username'])->getUsername() . '">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><form action="templates/navbar.php" method="post"><button class="btn dropdown-item" type="submit" value="Accedi" name="esci">Sign out</button></form></li>
-                </ul>
-            </div>';
-            } else {
-                echo '<a class="btn btn-outline-light order-lg-1 col-lg-2" href="signin.php">Sign in/sign up</a>';
-            }
+            <?php if (isset($_SESSION['username'])) { ?>
+                <div class="dropdown order-lg-1 col-lg-2 d-flex justify-content-start px-2">
+                    <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="<?php echo $user->getProfilePicture() ?>" alt="" width="32" height="32" class="rounded-circle">
+                        <?php echo $user->getUsername() ?></a>
+                    <ul class="dropdown-menu dropdown-menu mx-2 ">
+                        <li><a class="dropdown-item" href="profile.php?user=<?php echo $user->getUsername() ?>">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><form action="signin.php" method="post"><button class="btn dropdown-item" type="submit" value="Sign Out" name="esci">Sign out</button></form></li>
+                    </ul>
+                </div> <?php
+                    } else { ?>
+                <a class="btn btn-outline-light order-lg-1 col-lg-2" href="signin.php">Sign in/sign up</a>
+            <?php
+                    }
             ?>
 
             <div class="collapse navbar-collapse flex-grow-0 col-lg-6" id="navbarsExample11">
@@ -71,13 +63,34 @@ if (!empty($_POST['esci'])) {
         </div>
     </nav>
     <div class="d-lg-flex flex-wrap vh-100 justify-content-center overflow-auto">
-        <aside class="col-12 col-lg-2 p-3 mh-100 shadow sticky-lg-top overflow-auto d-flex flex-lg-column text-nowrap">
-        </aside>
-        <main class="col-12 col-lg-4 p-3 shadow">
-        </main>
-        <aside class="col-2 p-3 mh-100 shadow overflow-auto sticky-lg-top">
-        </aside>
+        <?php
+        if(isset($templateParams["left-aside"])) {
+            require $templateParams["left-aside"];
+        }
+        ?>
+        <?php
+        if(isset($templateParams["main"])) {
+            require $templateParams["main"];
+        }
+        ?>
+        <?php
+        if(isset($templateParams["right-aside"])) {
+            require $templateParams["right-aside"];
+        }
+        ?>
     </div>
+
+    <?php
+    //php per inserire tutti gli eventuali file js utilizzati da una data pagina
+    if (isset($templateParams["js"])) :
+        foreach ($templateParams["js"] as $script) :
+    ?>
+            <script src="<?php echo $script; ?>"></script>
+    <?php
+        endforeach;
+    endif;
+    ?>
 </body>
+
 
 </html>
