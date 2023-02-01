@@ -1,5 +1,4 @@
 <?php
-
 if (!empty($_POST['submitEvent'])) {
     $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $_SESSION['username']);
 }

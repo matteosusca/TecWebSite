@@ -1,5 +1,4 @@
 <?php
-require_once 'bootstrap.php';
 if (isset($dbh) && isset($user) && isset($post)) {
     if (isset($_POST['submitComment'])) {
         $dbh->createComment($user->getUsername(), $post->getId(), $_POST['body']);
