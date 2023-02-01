@@ -5,7 +5,7 @@
         </div>
         <?php
         if (basename($_SERVER['PHP_SELF']) == "index.php" || basename($_SERVER['PHP_SELF']) == "profile.php") { ?>
-            <div class="h-100">
+            <div class="offcanvas-body h-100">
                 <div class=" h-50 overflow-auto">
                     <h5>Friends</h5>
                     <ul class="list-group list-group-flush offcanvas-body">
@@ -21,7 +21,7 @@
             </div>
         <?php
         } else if (basename($_SERVER['PHP_SELF']) == "squad.php") { ?>
-            <div class="h-100 overflow-auto">
+            <div class="offcanvas-body h-100 overflow-auto">
                 <h5>Members</h5>
                 <ul class="list-group list-group-flush offcanvas-body">
                     <?php getMembers($templateParams["members"]); ?>
