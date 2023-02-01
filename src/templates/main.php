@@ -175,9 +175,9 @@
             </div>
         </div>
     <?php } else if (basename($_SERVER['PHP_SELF']) == "contacts.php") { ?>
-        <div class="card m-auto container mt-5">
+        <div class="card">
             <div class="card-header">
-                <h5 class="card-title">Contatti</h5>
+                <h5>Contatti</h5>
             </div>
             <div class="card-body">
                 <p class="card-text">nome</p>
