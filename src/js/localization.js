@@ -19,7 +19,7 @@ function initialize() {
             });
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             $.ajax({
-                url: "templates/receiver.php",
+                url: "receiver.php",
                 type: "POST",
                 data: { "data": JSON.stringify(pos) },
                 success: function (response) {
