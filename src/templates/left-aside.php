@@ -15,13 +15,13 @@
                 <div class="d-flex flex-lg-column w-100 align-self-center">
                     <?php
                     if ($templateParams["user"]->getUsername() == $_SESSION['username']) { ?>
+                        <button class="btn btn-secondary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>
                         <form action="editprofile.php" method="post">
                             <input type="submit" class="btn btn-secondary border-0 w-100" value="Modifica profilo">
                         </form> <?php
                             } else { ?>
                         <form action="profile.php?user=<?php $templateParams["user"]->getUsername() ?>" method="post">
-                            <input class="btn btn-secondary border-0 w-100" type="submit" <?php
-                                                                                            echo (!in_array($userProfile->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?> />
+                            <input class="btn btn-secondary border-0 w-100" type="submit" <?php echo (!in_array($userProfile->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?> />
                         </form> <?php
                             } ?>
                 </div>
@@ -38,7 +38,8 @@
                 </div>
                 <?php
                 if ($templateParams["userCanEdit"]) { ?>
-                    <div class="d-flex flex-lg-column justify-content-around w-100">
+                    <div class="d-flex flex-lg-column align-self-center w-100">
+                        <button class="btn btn-secondary d-lg-none my-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">members</button>
                         <form action="editsquad.php" method="post">
                             <input type="hidden" name="id" value="<?php echo $templateParams["squad"]->getId() ?>">
                             <input class="btn btn-secondary my-2 w-100" type="submit" name="edit_squad" value="Edit Squad">
