@@ -19,24 +19,3 @@ function checkSession()
     }
     return false;
 }
-
-function getFriends($friends)
-{
-    foreach ($friends as $friend) {
-        echo $friend->showUser();
-    }
-}
-
-function getSquads($squads)
-{
-    foreach ($squads as $squad) {
-        echo $squad->showSquad();
-    }
-}
-
-function getMembers($members)
-{
-    foreach ($members as $member) {
-        echo $member->showUser();
-    }
-}
