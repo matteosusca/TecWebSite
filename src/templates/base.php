@@ -66,23 +66,21 @@ if (checkSession()) {
             </div>
         </div>
     </nav>
-    <div class="d-lg-flex flex-wrap vh-100 justify-content-center overflow-auto">
-        <?php
-        if (isset($templateParams["left-aside"])) {
-            require $templateParams["left-aside"];
-        }
-        ?>
-        <?php
-        if (isset($templateParams["main"])) {
-            require $templateParams["main"];
-        }
-        ?>
-        <?php
-        if (isset($templateParams["right-aside"])) {
-            require $templateParams["right-aside"];
-        }
-        ?>
-    </div>
+    <?php if (isset($templateParams["body"])) {
+        require $templateParams["body"];
+    } else { ?>
+        <div class="d-lg-flex flex-wrap vh-100 justify-content-center overflow-auto">
+            <?php if (isset($templateParams["left-aside"])) {
+                require $templateParams["left-aside"];
+            }
+            if (isset($templateParams["main"])) {
+                require $templateParams["main"];
+            }
+            if (isset($templateParams["right-aside"])) {
+                require $templateParams["right-aside"];
+            } ?>
+        </div>
+    <?php } ?>
 
     <?php
     //php per inserire tutti gli eventuali file js utilizzati da una data pagina
