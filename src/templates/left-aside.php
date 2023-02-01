@@ -1,34 +1,32 @@
 <aside class="col-12 col-lg-2 p-3 mh-100 shadow sticky-lg-top overflow-auto d-flex flex-lg-column text-nowrap">
-    <?php
-    if (basename($_SERVER['PHP_SELF']) == "index.php") { ?>
+    <?php if (basename($_SERVER['PHP_SELF']) == "index.php") { ?>
         <button class="btn btn-secondary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>
         <a class="btn btn-secondary mx-2" href="createsquad.php" type="button">Crea squad</a>
-    <?php
-    } else if (basename($_SERVER['PHP_SELF']) == "profile.php") { ?>
+    <?php }
+    if (isset($templateParams['user'])) { ?>
         <div class="d-flex ">
             <div class="d-flex flex-lg-column align-items-lg-center w-100">
                 <img src=<?php echo $templateParams["user"]->getProfilePicture(); ?> class="object-fit-contain rounded-circle" alt="..." width="64" height="64" />
                 <div class="d-flex flex-column align-items-lg-center px-2">
                     <h5><?php echo $templateParams["user"]->getUsername() ?></h5>
-                    <p> (<?php echo $templateParams["user"]->getFullName(); ?>), <?php echo  $templateParams["user"]->getAge(); ?></p>
+                    <p>(<?php echo $templateParams["user"]->getFullName() ?>), <?php echo  $templateParams["user"]->getAge() ?></p>
                 </div>
                 <div class="d-flex flex-lg-column w-100 align-self-center">
-                    <?php
-                    if ($templateParams["user"]->getUsername() == $_SESSION['username']) { ?>
+                    <?php if ($templateParams["user"]->getUsername() == $_SESSION['username']) { ?>
                         <button class="btn btn-secondary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>
                         <form action="editprofile.php" method="post">
                             <input type="submit" class="btn btn-secondary border-0 w-100" value="Modifica profilo">
-                        </form> <?php
-                            } else { ?>
+                        </form>
+                    <?php } else { ?>
                         <form action="profile.php?user=<?php $templateParams["user"]->getUsername() ?>" method="post">
-                            <input class="btn btn-secondary border-0 w-100" type="submit" <?php echo (!in_array($userProfile->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?> />
-                        </form> <?php
-                            } ?>
+                            <input class="btn btn-secondary border-0 w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?> />
+                        </form>
+                    <?php } ?>
                 </div>
             </div>
         </div>
-    <?php
-    } else if (basename($_SERVER['PHP_SELF']) == "squad.php") { ?>
+    <?php }
+    if (isset($templateParams['squad'])) { ?>
         <div class="d-flex">
             <div class="d-flex flex-lg-column align-items-lg-center w-100">
                 <img src=<?php echo $templateParams["squad"]->getPicture(); ?> class="object-fit-contain rounded-circle" alt="..." width="64" height="64" />
@@ -36,8 +34,7 @@
                     <h5 class="mx-4"><?php echo $templateParams["squad"]->getName() ?></h5>
                     <p class="mx-4"><?php echo $templateParams["squad"]->getDescription() ?></p>
                 </div>
-                <?php
-                if ($templateParams["userCanEdit"]) { ?>
+                <?php if ($templateParams["userCanEdit"]) { ?>
                     <div class="d-flex flex-lg-column align-self-center w-100">
                         <button class="btn btn-secondary d-lg-none my-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">members</button>
                         <form action="editsquad.php" method="post">
@@ -53,10 +50,8 @@
                             <input class="btn btn-secondary my-2 w-100" type="submit" name="invite_user" value="Invite User to Event">
                         </form>
                     </div>
-                <?php
-                } ?>
+                <?php } ?>
             </div>
         </div>
-    <?php
-    } ?>
+    <?php } ?>
 </aside>

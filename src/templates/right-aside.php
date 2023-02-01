@@ -5,20 +5,19 @@
         </div>
 
         <div class="h-100 d-flex flex-column">
-            <?php
-            if (isset($templateParams['friends'])) { ?>
+            <?php if (isset($templateParams['friends'])) { ?>
                 <div class="flex-fill overflow-auto">
                     <h5>Friends</h5>
                     <ul class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["friends"] as $friend) { ?>
                             <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $friend->getUsername() ?>">
                                 <img src=<?php echo $friend->getprofilePicture() ?> alt="" width=" 32" height="32" class="rounded-circle">
-                                <?php echo $friend->getUsername()  ?></a>
-                        <?php }
-                        ?>
+                                <?php echo $friend->getUsername() ?></a>
+                        <?php } ?>
                     </ul>
                 </div>
-            <?php } if (isset($templateParams['squads'])) { ?>
+            <?php }
+            if (isset($templateParams['squads'])) { ?>
                 <div class="flex-fill overflow-auto">
                     <h5>Squads</h5>
                     <ul class="list-group list-group-flush offcanvas-body">
@@ -29,20 +28,19 @@
                         <?php } ?>
                     </ul>
                 </div>
-            <?php } if (isset($templateParams['members'])) { ?>
+            <?php }
+            if (isset($templateParams['members'])) { ?>
                 <div class="flex-fill overflow-auto">
                     <h5>Members</h5>
                     <ul class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["members"] as $member) { ?>
                             <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $member->getUsername() ?>">
                                 <img src=<?php echo $member->getprofilePicture() ?> alt="" width=" 32" height="32" class="rounded-circle">
-                                <?php echo $member->getUsername()  ?></a>
-                        <?php }
-                        ?>
+                                <?php echo $member->getUsername() ?></a>
+                        <?php } ?>
                     </ul>
                 </div>
-            <?php
-            } ?>
+            <?php } ?>
         </div>
     </div>
 </aside>
