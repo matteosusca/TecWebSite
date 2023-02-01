@@ -1,21 +1,15 @@
 <main class="col-12 col-lg-4 p-3 shadow">
-    <?php
-    if (basename($_SERVER['PHP_SELF']) == "index.php" || basename($_SERVER['PHP_SELF']) == "squad.php" || basename($_SERVER['PHP_SELF']) == "profile.php") { ?>
-        <?php
-        if (isset($templateParams['post']) && isset($templateParams['event'])) { ?>
-            <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>
-                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">event</button>
-                </div>
-            </nav>
-        <?php } ?>
-
+    <?php if (isset($templateParams['post']) && isset($templateParams['event'])) { ?>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">event</button>
+            </div>
+        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                <?php
-                if (!empty($_POST['submitPost'])) {
-                    $dbh->createPost($_SESSION['username'], $_POST['description'], $_FILES['postfile']);
+                <?php if (!empty($_POST['submitPost'])) {
+                    $dbh->createPost($user, $_POST['description'], $_FILES['postfile']);
                 } ?>
                 <div class="card my-2">
                     <div class="card-header">
@@ -54,11 +48,8 @@
                             <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="bi bi-pencil-square d-block" style="font-size: 1rem;"></i>comments</button>
                         </div>
                         <div class="collapse multi-collapse" id="multiCollapseExample1">
-                            <?php
-                            if (isset($dbh) && isset($user) && isset($post)) {
-                                if (isset($_POST['submitComment'])) {
-                                    $dbh->createComment($user->getUsername(), $post->getId(), $_POST['body']);
-                                }
+                            <?php if (isset($_POST['submitComment'])) {
+                                $dbh->createComment($user->getUsername(), $post->getId(), $_POST['body']);
                             } ?>
                             <div class="card m-2">
                                 <div class="card-header ">
@@ -87,20 +78,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php }
-                            ?>
+                            <?php } ?>
                         </div>
                     </div>
                 <?php } ?>
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                <?php
-                if (!empty($_POST['submitEvent'])) {
-                    $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $_SESSION['username']);
+                <?php if (!empty($_POST['submitEvent'])) {
+                    $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $user);
                 }
                 //da aggiungere controllo per creare evento anche se si è su user.php
-                if (basename($_SERVER['PHP_SELF']) == "squad.php") {
-                ?>
+                if (basename($_SERVER['PHP_SELF']) == "squad.php") { ?>
                     <div class="card my-2">
                         <div class="card-header">
                             <h5 class="card-title">Crea Evento</h5>
@@ -122,11 +110,9 @@
                                 <input type="date" class="form-control bg-body mb-2" id="event_end_date" name="event_end_date" requireed>
                                 <label for="floatingInput">Tipo Evento</label>
                                 <select class="form-select bg-body mb-4" aria-label="Tipo Evento" name="type" required>
-                                    <?php
-                                    foreach ($dbh->getEventTypes() as $key => $name) {
+                                    <?php foreach ($dbh->getEventTypes() as $key => $name) {
                                         echo "<option value='" . $key . "'>" . $name . "</option>";
-                                    }
-                                    ?>
+                                    } ?>
                                 </select>
                                 <button class="btn btn-outline-secondary w-100" type="submit" value="Crea" name="submitEvent">Crea</button>
                             </form>
@@ -270,7 +256,7 @@
                         <select name="user_friend" class="btn btn-outline-secondary col-12" id="user_friend">
                             <option value="" disabled selected>Seleziona un amico</option>
                             <?php
-                            foreach ($templateParams["user"]->getFriends() as $friend) {
+                            foreach ($user->getFriends() as $friend) {
                                 if (!$dbh->isUserMember($friend, $templateParams["squad"]->getId())) {
                                     echo "<option value='" . $friend . "' >" . $friend . "</option>";
                                 }
@@ -334,15 +320,15 @@
                         <input type="file" class="form-control bg-body" name="profilePicture" id="profilePicture">
                     </div>
                     <div class="form-floating">
-                        <input type="text" class="form-control bg-body mt-2" name="name" id="name" value="<?php echo $templateParams["user"]->getName() ?>">
+                        <input type="text" class="form-control bg-body mt-2" name="name" id="name" value="<?php echo $user->getName() ?>">
                         <label for="name">Name</label>
                     </div>
                     <div class="form-floating">
-                        <input type="text" class="form-control bg-body mt-2" name="surname" id="surname" value="<?php echo $templateParams["user"]->getSurname() ?>">
+                        <input type="text" class="form-control bg-body mt-2" name="surname" id="surname" value="<?php echo $user->getSurname() ?>">
                         <label for="name">Surname</label>
                     </div>
                     <div class="form-floating">
-                        <input type="email" class="form-control bg-body mt-2" name="email" id="email" value="<?php echo $templateParams["user"]->getEmail() ?>">
+                        <input type="email" class="form-control bg-body mt-2" name="email" id="email" value="<?php echo $user->getEmail() ?>">
                         <label for="name">Email</label>
                     </div>
                     <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" href="editsquad.php" type="submit" name="save" value="Save"></input>

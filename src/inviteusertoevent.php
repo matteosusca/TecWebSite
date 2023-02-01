@@ -9,7 +9,6 @@ if (!$dbh->checkUserPermissionsForSquad($_SESSION['username'], $squad_id)) {
 if (!empty($_POST['invita'])) {
     $dbh->inviteUserToEvent($_POST['event'], $squad_id, $_POST['user'] );
 }
-$user = $dbh->getUser($_SESSION['username']);
 $squad = $dbh->getSquad($squad_id);
 
 $templateParams["title"] = "Invite user to event";

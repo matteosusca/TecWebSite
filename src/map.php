@@ -1,8 +1,7 @@
 <?php
 require_once 'bootstrap.php';
-$user = $dbh->getUser($_SESSION['username']);
 
-$positions = $dbh->getUsersPosition($dbh->getFriendsUsername($user->getUsername()));
+$positions = $dbh->getUsersPosition($dbh->getFriendsUsername($_SESSION['username']->getUsername()));
 $positions_json = json_encode($positions);
 
 $templateParams["title"] = "Map";

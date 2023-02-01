@@ -26,7 +26,6 @@ if (!empty($_POST['save'])) {
 $templateParams["title"] = "Add user to group";
 $templateParams["main"] = "main.php";
 $templateParams["squad"] = $dbh->getSquad($squad_id);
-$templateParams["user"] = $dbh->getUser($_SESSION['username']);
 
 require 'templates/base.php';
 
