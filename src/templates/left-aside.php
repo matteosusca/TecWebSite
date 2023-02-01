@@ -30,7 +30,7 @@
                 <p class="mx-4"><?php echo $templateParams["squad"]->getDescription() ?></p>
             </div>
             <?php if ($templateParams["userCanEdit"]) { ?>
-                <div class="d-flex flex-lg-column align-self-center">
+                <div class="d-flex flex-lg-column align-self-center w-100">
                     <button class="btn btn-secondary m-2  d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">members</button>
                     <form action="editsquad.php" method="post" class="m-2">
                         <input type="hidden" name="id" value="<?php echo $templateParams["squad"]->getId() ?>">
