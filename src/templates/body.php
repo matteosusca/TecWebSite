@@ -1,10 +1,11 @@
-<div class="m-auto">
-    <?php if (basename($_SERVER['PHP_SELF']) == "map.php") { ?>
-        <div id="map" class="h-100"></div>
-        <script>
-            var positions = <?php echo $positions_json; ?>;
-        </script>
-    <?php } else if (basename($_SERVER['PHP_SELF']) == "signin.php") { ?>
+<?php if (basename($_SERVER['PHP_SELF']) == "map.php") { ?>
+    <div id="map" class="h-100"></div>
+    <script>
+        var positions = <?php echo $positions_json; ?>;
+    </script>
+<?php } else { ?>
+<div class="m-auto h-100">
+    <?php if (basename($_SERVER['PHP_SELF']) == "signin.php") { ?>
         <div class="card ">
             <div class="card-header">
                 <h5>Please sign in</h5>
@@ -239,5 +240,5 @@
                 </form>
             </div>
         </div>
-    <?php } ?>
+    <?php } } ?>
 </div>
