@@ -12,7 +12,7 @@ if (!empty($_POST['invita'])) {
 $squad = $dbh->getSquad($squad_id);
 
 $templateParams["title"] = "Invite user to event";
-$templateParams["main"] = "main.php";
+$templateParams["body"] = "body.php";
 $templateParams["squad"] = $squad;
 $templateParams["event"] = $dbh->getSquadEvents($squad->getID());
 

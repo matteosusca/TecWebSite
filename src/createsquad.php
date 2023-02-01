@@ -7,7 +7,7 @@ if (!empty($_POST['save'])) {
 }
 
 $templateParams["title"] = "Create Squad";
-$templateParams["main"] = "main.php";
+$templateParams["body"] = "body.php";
 
 require 'templates/base.php';
 

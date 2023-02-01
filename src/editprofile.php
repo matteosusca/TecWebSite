@@ -17,7 +17,7 @@ if (!empty($_POST['email'])) {
 }
 
 $templateParams["title"] = "Edit Profile";
-$templateParams["main"] = "main.php";
+$templateParams["body"] = "body.php";
 
 require 'templates/base.php';
 ?>

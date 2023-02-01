@@ -24,7 +24,7 @@ if (!empty($_POST['save'])) {
     header("Location: squad.php?name=" . $dbh->getSquad($squad_id)->getName() . "");
 }
 $templateParams["title"] = "Add user to group";
-$templateParams["main"] = "main.php";
+$templateParams["body"] = "body.php";
 $templateParams["squad"] = $dbh->getSquad($squad_id);
 
 require 'templates/base.php';
