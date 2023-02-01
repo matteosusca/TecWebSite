@@ -9,13 +9,33 @@
                     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">event</button>
                 </div>
             </nav>
-        <?php
-        } ?>
+        <?php } ?>
 
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                <?php require 'templates/createpost.php';
-                foreach ($templateParams["post"] as $post) { ?>
+                <?php
+                if (!empty($_POST['submitPost'])) {
+                    $dbh->createPost($_SESSION['username'], $_POST['description'], $_FILES['postfile']);
+                } ?>
+                <div class="card my-2">
+                    <div class="card-header">
+                        <h5 class="card-title"> Crea post</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="index.php" method="post" enctype="multipart/form-data">
+                            <div class="form-floating">
+                                <input type=" text" class="form-control bg-body" id="description" placeholder="a cosa stai pensando?" name="description" required>
+                                <label for="floatingInput">a cosa stai pensando?</label>
+                            </div>
+                            <div>
+                                <label for="formFile" class="form-label mt-2">aggiungi al tuo post</label>
+                                <input type="file" class="form-control bg-body" name="postfile" id="postfile" required>
+                            </div>
+                            <button class="btn btn-outline-secondary mt-3 w-100" type="submit" value="Pubblica" name="submitPost">Pubblica</button>
+                        </form>
+                    </div>
+                </div>
+                <?php foreach ($templateParams["post"] as $post) { ?>
                     <div class="card my-2">
                         <div class="card-header d-flex ">
                             <img src=<?php echo $dbh->getUser($post->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="..." width="64" height="64" />
@@ -35,8 +55,26 @@
                         </div>
                         <div class="collapse multi-collapse" id="multiCollapseExample1">
                             <?php
-                            require "templates/createcomment.php";
-                            foreach ($dbh->getPostComments($post->getId()) as $comment) { ?>
+                            if (isset($dbh) && isset($user) && isset($post)) {
+                                if (isset($_POST['submitComment'])) {
+                                    $dbh->createComment($user->getUsername(), $post->getId(), $_POST['body']);
+                                }
+                            } ?>
+                            <div class="card m-2">
+                                <div class="card-header ">
+                                    <h5 class="card-title"> Crea commento</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <div class="form-floating">
+                                            <input type=" text" class="form-control bg-body" id="body" placeholder="Scrivi un commento" name="body" required>
+                                            <label for="floatingInput">Scrivi un commento</label>
+                                        </div>
+                                        <button class="btn btn-outline-secondary mt-2 w-100" type="submit" value="Pubblica" name="submitComment">Pubblica</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <?php foreach ($dbh->getPostComments($post->getId()) as $comment) { ?>
                                 <div class="card my-1 border-0">
                                     <div class="d-flex align-items-center px-2 border-0">
                                         <img src=<?php echo $dbh->getUser($comment->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="..." width="32" height="32" />
@@ -57,11 +95,45 @@
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                 <?php
-                echo basename($_SERVER['PHP_SELF']);
+                if (!empty($_POST['submitEvent'])) {
+                    $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $_SESSION['username']);
+                }
                 //da aggiungere controllo per creare evento anche se si è su user.php
                 if (basename($_SERVER['PHP_SELF']) == "squad.php") {
-                    require 'templates/createevent.php';
-                }
+                ?>
+                    <div class="card my-2">
+                        <div class="card-header">
+                            <h5 class="card-title">Crea Evento</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <input type="hidden" class="form-control" name="id" value=<?php echo $squad->getID(); ?>>
+                                <div class="form-floating">
+                                    <input type=" text" class="form-control bg-body mb-2" id="name" placeholder="Nome evento" name="name" required>
+                                    <label for="floatingInput">Nome evento</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control bg-body mb-2" id="description" rows="3" placeholder="Descrizione" name="description" required>
+                                    <label for="floatingInput">Descrizione</label>
+                                </div>
+                                <label for="floatingInput">Data Inizio Evento</label>
+                                <input type="date" class="form-control bg-body mb-2" id="event_begin_date" name="event_begin_date" required>
+                                <label for="floatingInput">Data Fine Evento</label>
+                                <input type="date" class="form-control bg-body mb-2" id="event_end_date" name="event_end_date" requireed>
+                                <label for="floatingInput">Tipo Evento</label>
+                                <select class="form-select bg-body mb-4" aria-label="Tipo Evento" name="type" required>
+                                    <?php
+                                    foreach ($dbh->getEventTypes() as $key => $name) {
+                                        echo "<option value='" . $key . "'>" . $name . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                                <button class="btn btn-outline-secondary w-100" type="submit" value="Crea" name="submitEvent">Crea</button>
+                            </form>
+                        </div>
+
+                    </div>
+                <?php }
                 foreach ($templateParams["event"] as $event) { ?>
                     <div class="card m-2">
                         <div class="card-header">

@@ -1,6 +1,6 @@
 <?php
 require_once 'utils/functions.php';
-if(checkSession()) {
+if (checkSession()) {
     $user = $dbh->getUser($_SESSION['username']);
 }
 ?>
@@ -32,8 +32,12 @@ if(checkSession()) {
                         <?php echo $user->getUsername() ?></a>
                     <ul class="dropdown-menu dropdown-menu mx-2 ">
                         <li><a class="dropdown-item" href="profile.php?user=<?php echo $user->getUsername() ?>">Profile</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><form action="signin.php" method="post"><button class="btn dropdown-item" type="submit" value="Sign Out" name="esci">Sign out</button></form></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form action="signin.php" method="post"><button class="btn dropdown-item" type="submit" value="Sign Out" name="esci">Sign out</button></form>
+                        </li>
                     </ul>
                 </div> <?php
                     } else { ?>
@@ -64,17 +68,17 @@ if(checkSession()) {
     </nav>
     <div class="d-lg-flex flex-wrap vh-100 justify-content-center overflow-auto">
         <?php
-        if(isset($templateParams["left-aside"])) {
+        if (isset($templateParams["left-aside"])) {
             require $templateParams["left-aside"];
         }
         ?>
         <?php
-        if(isset($templateParams["main"])) {
+        if (isset($templateParams["main"])) {
             require $templateParams["main"];
         }
         ?>
         <?php
-        if(isset($templateParams["right-aside"])) {
+        if (isset($templateParams["right-aside"])) {
             require $templateParams["right-aside"];
         }
         ?>

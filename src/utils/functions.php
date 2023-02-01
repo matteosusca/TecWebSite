@@ -7,7 +7,7 @@ function isActive($pagename)
 }
 function checkSession()
 {
-    if(basename($_SERVER['PHP_SELF']) != "signin.php" && basename($_SERVER['PHP_SELF']) != "signup.php") {
+    if (basename($_SERVER['PHP_SELF']) != "signin.php" && basename($_SERVER['PHP_SELF']) != "signup.php") {
         if (session_status() != PHP_SESSION_ACTIVE) {
             session_start();
         }
@@ -18,19 +18,6 @@ function checkSession()
         return true;
     }
     return false;
-}
-function showEvents($events)
-{
-    foreach ($events as $event) {
-        echo $event->showEvent();
-    }
-}
-
-function showPosts($posts)
-{
-    foreach ($posts as $post) {
-        $post->showPost();
-    }
 }
 
 function getFriends($friends)
