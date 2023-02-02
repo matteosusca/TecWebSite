@@ -38,6 +38,7 @@ if (checkSession()) {
                             <form action="signin.php" method="post"><button class="btn dropdown-item" type="submit" value="Sign Out" name="esci">Sign out</button></form>
                         </li>
                     </ul>
+                    <button class="btn btn-secondary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="bi bi-bell d-block" style="font-size: 1rem;"></i></button>
                 </div> <?php
                     } else { ?>
                 <a class="btn btn-outline-light order-lg-1 col-lg-2" href="signin.php">Sign in/sign up</a>
@@ -63,8 +64,20 @@ if (checkSession()) {
                     </form>
                 </div>
             </div>
+
+
         </div>
     </nav>
+
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p>Try scrolling the rest of the page to see this option in action.</p>
+        </div>
+    </div>
     <?php if (isset($templateParams["body"])) {
         require $templateParams["body"];
     } else { ?>
