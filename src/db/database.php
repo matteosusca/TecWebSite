@@ -668,6 +668,25 @@ class DatabaseHelper
         return true;
     }
 
+    public function setLastActivity($user, $date) {
+        $stmt = $this->db->prepare("UPDATE accessi SET last_access=? WHERE utente=?");
+        $stmt->bind_param('ss', $date, $user);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    public function getUsersLastActivity() {
+        $stmt = $this->db->prepare("SELECT * FROM accessi");
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $users = array();
+        foreach ($result as $row) {
+            $users[$row['utente']] = $row['last_access'];
+        }
+        return $users;
+    }
+
     // public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
     // {
     //     if (!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)) {

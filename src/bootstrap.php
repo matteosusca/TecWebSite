@@ -1,5 +1,9 @@
 <?php 
 session_start();
+
+// $session_duration = 30 * 60; // 30 minutes
+// session_set_cookie_params($session_duration);
+
 define("UPLOAD_DIR", "./upload/");
 require_once("db/database.php");
 require_once("utils/functions.php");

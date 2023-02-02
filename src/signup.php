@@ -8,6 +8,7 @@ if (!empty($_POST['submit'])) {
         $_SESSION['username'] = $_POST['username'];
         $_SESSION['email'] = $_POST['email'];
         $_SESSION['password'] = $enc_passw;
+        $dbh->setLastActivity($_POST['user'], date("Y-m-d H:i:s", time()));
         header("Location: index.php");
     } else {
         header("Location: signup.php?error=1");
