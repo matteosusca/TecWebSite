@@ -11,6 +11,6 @@ $templateParams["friends"] = $dbh->getFriends($_SESSION["username"]);
 $templateParams["squads"] = $dbh->getSquadsByUser($_SESSION["username"]);
 
 //$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js","js/index.js");
-$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "js/update_user_activity.js");
+$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "js/retrieve_users_status.js");
 require 'templates/base.php';
 ?>

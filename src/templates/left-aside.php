@@ -11,12 +11,14 @@
                 <p>(<?php echo $templateParams["user"]->getFullName() ?>), <?php echo  $templateParams["user"]->getAge() ?></p>
             </div>
             <div class="d-flex flex-lg-column w-100 align-self-center">
-                <?php if ($templateParams["user"]->getUsername() == $user) { ?>
+                <?php if ($templateParams["user"]->getUsername() == $_SESSION["username"]) { ?>
                     <button class="btn btn-secondary m-2 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>
                     <form action="editprofile.php" method="post" class="m-2">
                         <input type="submit" class="btn btn-secondary w-100" value="Modifica profilo">
                     </form>
                 <?php } else { ?>
+                    <input type="hidden" name="user-username" value="<?php echo $templateParams["user"]->getUsername() ?>" />
+                    <p id=<?php echo $templateParams["user"]->getUsername() ?>></p>
                     <form action="profile.php?user=<?php $templateParams["user"]->getUsername() ?>" method="post" class="m-2">
                         <input class="btn btn-secondary w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?> />
                     </form>

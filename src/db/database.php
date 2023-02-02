@@ -668,9 +668,9 @@ class DatabaseHelper
         return true;
     }
 
-    public function setLastActivity($user, $date) {
+    public function setLastActivity($user, $timestamp) {
         $stmt = $this->db->prepare("UPDATE accessi SET last_access=? WHERE utente=?");
-        $stmt->bind_param('ss', $date, $user);
+        $stmt->bind_param('ss', $timestamp, $user);
         $stmt->execute();
         $stmt->close();
         return true;
@@ -687,18 +687,4 @@ class DatabaseHelper
         return $users;
     }
 
-    // public function inviteUserToGroup($squadId, $hostUser, $inviteeUser, $role)
-    // {
-    //     if (!isUserMember($hostUser, $squadId) || !checkUserPermissions($hostUser, $squadId)) {
-    //         return false;
-    //     }
-    //     if (isUserMember($inviteeUser, $squadId)) {
-    //         return false;
-    //     }
-    //     $stmt = $this->db->prepare("INSERT INTO partecipazione (username, id_compagnia, ruolo) VALUES (?, ?, ?)");
-    //     $stmt->bind_param('sii', $inviteeUser, $squadId, $role);
-    //     $stmt->execute();
-    //     $stmt->close();
-    //     return true;
-    // }
 }

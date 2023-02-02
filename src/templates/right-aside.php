@@ -3,7 +3,6 @@
         <div class="offcanvas-header">
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
         </div>
-
         <div class="h-100 d-flex flex-column">
             <?php if (isset($templateParams['friends'])) { ?>
                 <div class="flex-fill overflow-auto">
@@ -13,6 +12,8 @@
                             <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $friend->getUsername() ?>">
                                 <img src=<?php echo $friend->getprofilePicture() ?> alt="" width=" 32" height="32" class="rounded-circle">
                                 <?php echo $friend->getUsername() ?></a>
+                                <input type="hidden" name="user-username" value="<?php echo $friend->getUsername() ?>" />
+                                <p id=<?php echo $friend->getUsername()?>></p>
                         <?php } ?>
                     </ul>
                 </div>
