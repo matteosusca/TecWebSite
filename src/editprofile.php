@@ -16,11 +16,8 @@ if (!empty($_POST['email'])) {
     }
 }
 
-$user = $dbh->getUser($_SESSION['username']);
-
 $templateParams["title"] = "Edit Profile";
-$templateParams["main"] = "main.php";
-$templateParams["user"] = $user;
+$templateParams["body"] = "body.php";
 
 require 'templates/base.php';
 ?>

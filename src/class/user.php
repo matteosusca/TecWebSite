@@ -68,13 +68,4 @@ class User
     {
         return $this->friends;
     }
-    
-    public function showUser()
-    {
-        return '
-        <a class="list-group-item list-group-item-action" href="profile.php?user='
-        . $this->getUsername() . '"><img src="'
-        . $this->getProfilePicture() . '" alt="" width="32" height="32" class="rounded-circle">'
-        . $this->getUsername() . '</a>';
-    }
 }

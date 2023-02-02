@@ -13,7 +13,6 @@ if (checkSession()) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
     <title><?php echo $templateParams["title"] ?></title>
 </head>
@@ -39,6 +38,7 @@ if (checkSession()) {
                             <form action="signin.php" method="post"><button class="btn dropdown-item" type="submit" value="Sign Out" name="esci">Sign out</button></form>
                         </li>
                     </ul>
+                    <button class="btn btn-secondary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="bi bi-bell d-block" style="font-size: 1rem;"></i></button>
                 </div> <?php
                     } else { ?>
                 <a class="btn btn-outline-light order-lg-1 col-lg-2" href="signin.php">Sign in/sign up</a>
@@ -64,36 +64,42 @@ if (checkSession()) {
                     </form>
                 </div>
             </div>
+
+
         </div>
     </nav>
-    <div class="d-lg-flex flex-wrap vh-100 justify-content-center overflow-auto">
-        <?php
-        if (isset($templateParams["left-aside"])) {
-            require $templateParams["left-aside"];
-        }
-        ?>
-        <?php
-        if (isset($templateParams["main"])) {
-            require $templateParams["main"];
-        }
-        ?>
-        <?php
-        if (isset($templateParams["right-aside"])) {
-            require $templateParams["right-aside"];
-        }
-        ?>
-    </div>
 
-    <?php
-    //php per inserire tutti gli eventuali file js utilizzati da una data pagina
-    if (isset($templateParams["js"])) :
-        foreach ($templateParams["js"] as $script) :
-    ?>
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p>Try scrolling the rest of the page to see this option in action.</p>
+        </div>
+    </div>
+    <?php if (isset($templateParams["body"])) {
+        require $templateParams["body"];
+    } else { ?>
+        <div class="d-lg-flex flex-wrap vh-100 justify-content-center overflow-auto">
+            <?php if (isset($templateParams["left-aside"])) {
+                require $templateParams["left-aside"];
+            }
+            if (isset($templateParams["main"])) {
+                require $templateParams["main"];
+            }
+            if (isset($templateParams["right-aside"])) {
+                require $templateParams["right-aside"];
+            } ?>
+        </div>
+    <?php } ?>
+
+    <?php if (isset($templateParams["js"])) :
+        foreach ($templateParams["js"] as $script) : ?>
             <script src="<?php echo $script; ?>"></script>
-    <?php
-        endforeach;
-    endif;
-    ?>
+    <?php endforeach;
+    endif; ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 
 

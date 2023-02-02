@@ -3,7 +3,7 @@
 require_once 'bootstrap.php';
 
 $templateParams["title"] = "Contatti";
-$templateParams["main"] = "main.php";
+$templateParams["body"] = "body.php";
 
 require 'templates/base.php';
 

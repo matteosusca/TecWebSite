@@ -16,7 +16,7 @@ if (!empty($_POST['submit'])) {
 }
 
 $templateParams["title"] = "Sign up";
-$templateParams["main"] = "main.php";
+$templateParams["body"] = "body.php";
 
 require 'templates/base.php';
 

@@ -53,7 +53,7 @@ if (!empty($_POST['save'])) {
 $squad = $dbh->getSquad($squad_id);
 
 $templateParams["title"] = "Edit Squad";
-$templateParams["main"] = "main.php";
+$templateParams["body"] = "body.php";
 $templateParams["squad"] = $squad;
 
 require 'templates/base.php';
