@@ -48,6 +48,7 @@ if (!empty($_POST['save'])) {
                 break;
         }
     }
+    header("Location: squad.php?squad_id=" . $squad_id);
 }
 
 $squad = $dbh->getSquad($squad_id);

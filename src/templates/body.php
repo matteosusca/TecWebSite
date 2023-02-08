@@ -111,7 +111,7 @@
                         <option value="2">admin</option>
                         <option value="3">member</option>
                     </select>
-                    <input class="btn btn-outline-secondary w-100" type="submit" name="save" value="Add User"></input>
+                    <input class="btn btn-outline-secondary w-100" type="submit" name="save" value="Add User">
                 </form>
             </div>
         </div>
@@ -135,7 +135,7 @@
                         <label for="formFile" class="form-label">Squad Picture</label>
                         <input type="file" class="form-control bg-body" name="squadPicture" id="squadPicture" required>
                     </div>
-                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" href="editsquad.php" type="submit" name="save" value="Save"></input>
+                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" type="submit" name="save" value="Save">
                 </form>
             </div>
         </div>
@@ -166,7 +166,7 @@
                         <input type="email" class="form-control bg-body mt-2" name="email" id="email" value="<?php echo $user->getEmail() ?>">
                         <label for="name">Email</label>
                     </div>
-                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" type="submit" name="save" value="Save"></input>
+                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" type="submit" name="save" value="Save">
                 </form>
             </div>
         </div>
@@ -187,7 +187,7 @@
                         <label for="name">Name</label>
                     </div>
                     <div class="form-floating">
-                        <input name="text" class="form-control bg-body mt-2" name="description" id="description" value="<?php echo $templateParams["squad"]->getDescription() ?>">
+                        <input type="text" class="form-control bg-body mt-2" name="description" id="description" value="<?php echo $templateParams["squad"]->getDescription() ?>">
                         <label for="description">Description</label>
                     </div>
                     <div class="row mx-0">
@@ -205,7 +205,7 @@
                             <option value="remove">Remove from squad</option>
                         </select>
                     </div>
-                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" href="editsquad.php" type="submit" name="save" value="Save"></input>
+                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" type="submit" name="save" value="Save">
                 </form>
             </div>
         </div>
@@ -233,7 +233,7 @@
                         }
                         ?>
                     </select>
-                    <input class="btn btn-outline-secondary mt-3 w-100" type="submit" name="invita" value="Invite User"></input>
+                    <input class="btn btn-outline-secondary mt-3 w-100" type="submit" name="invita" value="Invite User">
                 </form>
             </div>
         </div>

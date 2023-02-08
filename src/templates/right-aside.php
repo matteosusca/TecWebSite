@@ -40,6 +40,8 @@
                             <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $member->getUsername() ?>">
                                 <img src=<?php echo $member->getprofilePicture() ?> alt="" width="32" height="32" class="rounded-circle">
                                 <?php echo $member->getUsername() ?>
+                                <input type="hidden" name="user-username" value="<?php echo $member->getUsername() ?>">
+                                <p id=<?php echo $member->getUsername()?>></p>
                             </a>
                         <?php } ?>
                     </div>
