@@ -32,7 +32,7 @@
                 <?php foreach ($templateParams["post"] as $post) { ?>
                     <div class="card my-2">
                         <div class="card-header d-flex ">
-                            <img src=<?php echo $dbh->getUser($post->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="..." width="64" height="64">
+                            <img src=<?php echo $dbh->getUser($post->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="post author profile picture" width="64" height="64">
                             <div class="d-flex flex-column px-2">
                                 <h5 class="card-title"><?php echo $post->getUsername() ?></h5>
                                 <p class="card-text"><?php echo $post->getDate() ?></p>
@@ -41,11 +41,11 @@
                         <div class="card-body">
                             <p class="card-text"><?php echo $post->getDescription() ?></p>
                         </div>
-                        <img src=<?php echo $post->getUrlMedia() ?> class="object-fit-contain" alt="..." height="455">
+                        <img src=<?php echo $post->getUrlMedia() ?> class="object-fit-contain" alt="post media" height="455">
                         <div class="card-footer container-fluid d-flex flex-wrap justify-content-evenly">
-                            <button type="button" class="btn btn-outline-secondary border-0"><i class="bi bi-house d-block" style="font-size: 1rem;"></i>like</button>
-                            <button type="button" class="btn btn-outline-secondary border-0" style="font-size: 1rem;"><i class="bi bi-share d-block" style="font-size: 1rem;"></i>share</button>
-                            <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $post->getId() ?>" aria-expanded="false" aria-controls="<?php echo $post->getId() ?>"><i class="bi bi-pencil-square d-block" style="font-size: 1rem;"></i>comments</button>
+                            <button type="button" class="btn btn-outline-secondary border-0"><em class="bi bi-house d-block" style="font-size: 1rem;"></em>like</button>
+                            <button type="button" class="btn btn-outline-secondary border-0" style="font-size: 1rem;"><em class="bi bi-share d-block" style="font-size: 1rem;"></em>share</button>
+                            <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $post->getId() ?>" aria-expanded="false" aria-controls="<?php echo $post->getId() ?>"><em class="bi bi-pencil-square d-block" style="font-size: 1rem;"></em>comments</button>
                         </div>
                         <div class="collapse multi-collapse" id="<?php echo $post->getId() ?>">
                             <?php if (isset($_POST['submitComment' . $post->getId()])) {
@@ -68,7 +68,7 @@
                             <?php foreach ($dbh->getPostComments($post->getId()) as $comment) { ?>
                                 <div class="card my-1 border-0">
                                     <div class="d-flex align-items-center px-2 border-0">
-                                        <img src=<?php echo $dbh->getUser($comment->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="..." width="32" height="32">
+                                        <img src=<?php echo $dbh->getUser($comment->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="comment author profile picture" width="32" height="32">
                                         <div class="d-flex flex-column px-2">
                                             <p class="card-title"><?php echo $comment->getUsername() ?></p>
                                             <p class="card-text"><?php echo $comment->getDate() ?></p>
@@ -125,7 +125,7 @@
                     <div class="card m-2">
                         <div class="card-header">
                             <div class="d-flex align-items-center px-2 border-0">
-                                <img src=<?php echo $dbh->getUser($event->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="..." width="32" height="32">
+                                <img src=<?php echo $dbh->getUser($event->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="event author profile picture" width="32" height="32">
                                 <div class="d-flex flex-column px-2">
                                     <p class="card-title"><?php echo $event->getName() ?>(<?php echo $event->getUsername() ?>)</p>
                                     <p class="card-text">dal <?php echo $event->getDateOfEventStart() ?> al <?php echo $event->getDateOfEventEnd() ?></p>
@@ -151,7 +151,7 @@
                 <?php
                 if (!is_null($templateParams["user"])) { ?>
                     <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $templateParams["user"]->getUsername() ?>">
-                        <img src=<?php echo $templateParams["user"]->getprofilePicture() ?> alt="" width="32" height="32" class="rounded-circle">
+                        <img src=<?php echo $templateParams["user"]->getprofilePicture() ?> alt="<?php echo $templateParams["user"]->getUsername() ?> profile picture" width="32" height="32" class="rounded-circle">
                         <?php echo $templateParams["user"]->getUsername() ?></a>
                 <?php } else { ?>
                     <div class='alert alert-danger col-6' role='alert'>No user found</div>
@@ -163,7 +163,7 @@
                 if (!empty($templateParams["squads"])) {
                     foreach ($templateParams["squads"] as $squad) { ?>
                         <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
-                            <img src=<?php echo $squad->getPicture() ?> alt="" width="32" height="32" class="rounded-circle">
+                            <img src=<?php echo $squad->getPicture() ?> alt="<?php echo $squad->getName() ?> picture" width="32" height="32" class="rounded-circle">
                             <?php echo $squad->getName() ?></a>
                     <?php }
                 } else { ?>

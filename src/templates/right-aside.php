@@ -10,7 +10,7 @@
                     <div class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["friends"] as $friend) { ?>
                             <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $friend->getUsername() ?>">
-                                <img src=<?php echo $friend->getprofilePicture() ?> alt="" width="32" height="32" class="rounded-circle">
+                                <img src=<?php echo $friend->getprofilePicture() ?> alt="<?php echo $friend->getUsername() ?> profile picture" width="32" height="32" class="rounded-circle">
                                 <?php echo $friend->getUsername() ?>
                                 <input type="hidden" name="user-username" value="<?php echo $friend->getUsername() ?>">
                                 <p id=<?php echo $friend->getUsername()?>></p>
@@ -25,7 +25,7 @@
                     <div class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["squads"] as $squad) { ?>
                             <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
-                                <img src=<?php echo $squad->getPicture() ?> alt="" width="32" height="32" class="rounded-circle">
+                                <img src=<?php echo $squad->getPicture() ?> alt="<?php echo $squad->getName() ?> picture" width="32" height="32" class="rounded-circle">
                                 <?php echo $squad->getName() ?>
                             </a>
                         <?php } ?>
@@ -38,7 +38,7 @@
                     <div class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["members"] as $member) { ?>
                             <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $member->getUsername() ?>">
-                                <img src=<?php echo $member->getprofilePicture() ?> alt="" width="32" height="32" class="rounded-circle">
+                                <img src=<?php echo $member->getprofilePicture() ?> alt="<?php $member->getUsername() ?> profile picture" width="32" height="32" class="rounded-circle">
                                 <?php echo $member->getUsername() ?>
                                 <input type="hidden" name="user-username" value="<?php echo $member->getUsername() ?>">
                                 <p id=<?php echo $member->getUsername()?>></p>

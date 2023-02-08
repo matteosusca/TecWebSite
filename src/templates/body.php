@@ -88,6 +88,7 @@
                 <form action="addusertosquad.php" method="post">
                     <input type="hidden" class="form-control" name="id" value=<?php echo $templateParams["squad"]->getId(); ?>>
                     <div class="row mx-0">
+                        <label for="user_friend" class="visually-hidden">Select friend to add</label>
                         <select name="user_friend" class="btn btn-outline-secondary col-12" id="user_friend">
                             <option value="" disabled selected>Seleziona un amico</option>
                             <?php
@@ -106,6 +107,7 @@
                         <label for="searched_user">User</label>
                     </div>
                     <button type="button" class="btn btn-outline-secondary border-0 disabled col-12">As</button>
+                    <label for="role" class="visually-hidden">Select a role for the new user</label>
                     <select name="role" class="btn btn-outline-secondary col-12 mb-2" id="role" required>
                         <option value="" disabled selected>Seleziona un ruolo</option>
                         <option value="2">admin</option>
@@ -132,7 +134,7 @@
                         <label for="description">Descrizione</label>
                     </div>
                     <div>
-                        <label for="formFile" class="form-label">Squad Picture</label>
+                        <label for="squadPicture" class="form-label">Squad Picture</label>
                         <input type="file" class="form-control bg-body" name="squadPicture" id="squadPicture" required>
                     </div>
                     <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" type="submit" name="save" value="Save">
@@ -151,7 +153,7 @@
             <div class="card-body">
                 <form action="editprofile.php" method="post" enctype="multipart/form-data">
                     <div>
-                        <label for="formFile" class="form-label">Profile Picture</label>
+                        <label for="profilePicture" class="form-label">Profile Picture</label>
                         <input type="file" class="form-control bg-body" name="profilePicture" id="profilePicture">
                     </div>
                     <div class="form-floating">
@@ -160,11 +162,11 @@
                     </div>
                     <div class="form-floating">
                         <input type="text" class="form-control bg-body mt-2" name="surname" id="surname" value="<?php echo $user->getSurname() ?>">
-                        <label for="name">Surname</label>
+                        <label for="surname">Surname</label>
                     </div>
                     <div class="form-floating">
                         <input type="email" class="form-control bg-body mt-2" name="email" id="email" value="<?php echo $user->getEmail() ?>">
-                        <label for="name">Email</label>
+                        <label for="email">Email</label>
                     </div>
                     <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" type="submit" name="save" value="Save">
                 </form>
@@ -191,6 +193,7 @@
                         <label for="description">Description</label>
                     </div>
                     <div class="row mx-0">
+                        <label for="user" class="visually-hidden">User</label>
                         <select name="user" class="col form-select bg-body mt-2  me-2" id="user">
                             <option value="" disabled selected>Seleziona un utente</option>
                             <?php
@@ -199,6 +202,7 @@
                             }
                             ?>
                         </select>
+                        <label for="action" class="visually-hidden">Role for the user</label>
                         <select name="action" class="col form-select bg-body mt-2" id="action">
                             <option value="admin">Make admin</option>
                             <option value="member">Make member</option>
@@ -217,6 +221,7 @@
             <div class="card-body">
                 <form action="inviteusertoevent.php" method="post">
                     <input type="hidden" class="form-control" name="id" value=<?php echo $templateParams["squad"]->getId(); ?>>
+                    <label for="event" class="visually-hidden">Event</label>
                     <select name="event" class="col form-select bg-body" id="event" required>
                         <option value="" disabled selected>evento</option>
                         <?php
@@ -225,6 +230,7 @@
                         }
                         ?>
                     </select>
+                    <label for="user" class="visually-hidden">User to add</label>
                     <select name="user" class="col mt-2 form-select bg-body" id="user" required>
                         <option value="" disabled selected>utente</option>
                         <?php

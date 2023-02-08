@@ -5,7 +5,7 @@
             <button class="btn btn-secondary m-2 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>
         <?php }
         if (isset($templateParams['user'])) { ?>
-            <img src=<?php echo $templateParams["user"]->getProfilePicture(); ?> class="object-fit-contain rounded-circle" alt="..." width="64" height="64">
+            <img src=<?php echo $templateParams["user"]->getProfilePicture(); ?> class="object-fit-contain rounded-circle" alt="<?php echo $templateParams["user"]->getUsername(); ?> profile picture" width="64" height="64">
             <div class="d-flex flex-column align-items-lg-center px-2">
                 <h5><?php echo $templateParams["user"]->getUsername() ?></h5>
                 <p>(<?php echo $templateParams["user"]->getFullName() ?>), <?php echo  $templateParams["user"]->getAge() ?></p>
@@ -26,7 +26,7 @@
             </div>
         <?php }
         if (isset($templateParams['squad'])) { ?>
-            <img src=<?php echo $templateParams["squad"]->getPicture(); ?> class="object-fit-contain rounded-circle" alt="..." width="64" height="64">
+            <img src=<?php echo $templateParams["squad"]->getPicture(); ?> class="object-fit-contain rounded-circle" alt="<?php echo $templateParams["squad"]->getName() ?> picture" width="64" height="64">
             <div class="d-flex flex-column align-items-lg-center px-2">
                 <h5 class="mx-4"><?php echo $templateParams["squad"]->getName() ?></h5>
                 <p class="mx-4"><?php echo $templateParams["squad"]->getDescription() ?></p>
