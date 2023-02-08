@@ -1,7 +1,7 @@
 <?php if (basename($_SERVER['PHP_SELF']) == "map.php") { ?>
     <div id="map" class="h-100"></div>
 <?php } else { ?>
-<div class="m-auto h-100">
+<div class="m-auto">
     <?php if (basename($_SERVER['PHP_SELF']) == "signin.php") { ?>
         <div class="card ">
             <div class="card-header">

@@ -150,10 +150,10 @@
                 <?php
                 if (!is_null($templateParams["user"])) { ?>
                     <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $templateParams["user"]->getUsername() ?>">
-                        <img src=<?php echo $templateParams["user"]->getprofilePicture() ?> alt="" width=" 32" height="32" class="rounded-circle">
+                        <img src=<?php echo $templateParams["user"]->getprofilePicture() ?> alt="" width="64" height="64" class="rounded-circle">
                         <?php echo $templateParams["user"]->getUsername() ?></a>
                 <?php } else { ?>
-                    <div class='alert alert-danger col-6' role='alert'>No user found</div>
+                    <div class='alert alert-danger col-12' role='alert'>No user found</div>
                 <?php
                 } ?>
             </div>
@@ -162,11 +162,11 @@
                 if (!empty($templateParams["squads"])) {
                     foreach ($templateParams["squads"] as $squad) { ?>
                         <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
-                            <img src=<?php echo $squad->getPicture() ?> alt="" width="32" height="32" class="rounded-circle">
+                            <img src=<?php echo $squad->getPicture() ?> alt="" width="64" height="64" class="rounded-circle">
                             <?php echo $squad->getName() ?></a>
                     <?php }
                 } else { ?>
-                    <div class='alert alert-danger col-6' role='alert'>No squads found</div>
+                    <div class='alert alert-danger col-12' role='alert'>No squads found</div>
                 <?php
                 } ?>
             </div>

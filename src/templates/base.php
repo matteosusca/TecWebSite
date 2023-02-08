@@ -38,7 +38,9 @@ if (checkSession()) {
                             <form action="signin.php" method="post"><button class="btn dropdown-item" type="submit" value="Sign Out" name="esci">Sign out</button></form>
                         </li>
                     </ul>
-                    <button class="btn btn-secondary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="bi bi-bell d-block" style="font-size: 1rem;"></i></button>
+                    <button class="btn btn-secondary position-relative mx-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="bi bi-bell d-block" style="font-size: 1rem;"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">22+</span>
+                </button>
                 </div> <?php
                     } else { ?>
                 <a class="btn btn-outline-light order-lg-1 col-lg-2" href="signin.php">Sign in/sign up</a>

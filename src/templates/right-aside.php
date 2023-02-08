@@ -10,7 +10,11 @@
                     <div class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["friends"] as $friend) { ?>
                             <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $friend->getUsername() ?>">
-                                <img src=<?php echo $friend->getprofilePicture() ?> alt="" width="32" height="32" class="rounded-circle">
+                                <div class="d-inline-flex position-relative">
+                                    <span class="position-absolute top-100 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                    </span>
+                                    <img src=<?php echo $friend->getprofilePicture() ?> alt="" width="32" height="32" class="rounded-circle">
+                                </div>
                                 <?php echo $friend->getUsername() ?>
                                 <input type="hidden" name="user-username" value="<?php echo $friend->getUsername() ?>">
                                 <p id=<?php echo $friend->getUsername()?>></p>
