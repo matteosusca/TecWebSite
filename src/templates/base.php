@@ -38,7 +38,7 @@ if (checkSession()) {
                             <form action="signin.php" method="post"><button class="btn dropdown-item" type="submit" value="Sign Out" name="esci">Sign out</button></form>
                         </li>
                     </ul>
-                    <button class="btn btn-secondary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><em class="bi bi-bell d-block" style="font-size: 1rem;"></em></button>
+                    <button class="btn btn-secondary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><em class="bi bi-bell d-block"></em></button>
                 </div> <?php
                     } else { ?>
                 <a class="btn btn-outline-light order-lg-1 col-lg-2" href="signin.php">Sign in/sign up</a>
@@ -49,13 +49,13 @@ if (checkSession()) {
             <div class="collapse navbar-collapse flex-grow-0 col-lg-6" id="navbarHeader">
                 <ul class="navbar-nav col-lg-8 text-center d-flex flex-row justify-content-around">
                     <li class="nav-item">
-                        <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><em class="bi bi-house d-block " style="font-size: 1rem;"></em>Home</a>
+                        <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><em class="bi bi-house d-block"></em>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><em class="bi bi-people d-block" style="font-size: 1rem;"></em>Contacts</a>
+                        <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><em class="bi bi-people d-block"></em>Contacts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php isActive("map.php"); ?>" href="map.php"><em class="bi bi-map d-block" style="font-size: 1rem;"></em>Map</a>
+                        <a class="nav-link <?php isActive("map.php"); ?>" href="map.php"><em class="bi bi-map d-block"></em>Map</a>
                     </li>
                 </ul>
                 <div class="col-lg-4">
