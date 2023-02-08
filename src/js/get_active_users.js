@@ -1,6 +1,6 @@
 function retrive_user_activity() {
     let usernames = Array.from(document.getElementsByName("user-username"));
-    axios.get("api-get-active-users.php").then(response => {
+    axios.get("api_get_active_users.php").then(response => {
         usernames.forEach(username => { document.getElementById(username.value).innerHTML = getStatus(response.data[username.value]) });
     });    
 }

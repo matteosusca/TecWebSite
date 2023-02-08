@@ -14,7 +14,6 @@ if (!empty($_POST['save'])) {
             print("Unable to add " . $_POST['user_friend'] . " to squad");
         }
     } else if (!empty($_POST['searched_user'])  && !empty($_POST['role'])) {
-        print("zio canta");
         if ($dbh->addUserToGroup($squad_id, $_SESSION['username'], $_POST['searched_user'], $_POST['role'])) {
             print($_POST['searched_user'] . " added to squad");
         } else {

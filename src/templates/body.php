@@ -1,8 +1,5 @@
 <?php if (basename($_SERVER['PHP_SELF']) == "map.php") { ?>
     <div id="map" class="h-100"></div>
-    <script>
-        var positions = <?php echo $positions_json; ?>;
-    </script>
 <?php } else { ?>
 <div class="m-auto h-100">
     <?php if (basename($_SERVER['PHP_SELF']) == "signin.php") { ?>
@@ -13,8 +10,8 @@
             <div class="card-body">
                 <form action="signin.php" method="post">
                     <div class="form-floating">
-                        <input type="text" class="form-control bg-body" id="floatingInput" placeholder="User" name="user" required>
-                        <label for="floatingInput">User</label>
+                        <input type="text" class="form-control bg-body" id="user" placeholder="User" name="user" required>
+                        <label for="user">User</label>
                     </div>
                     <div class="form-floating">
                         <input type="password" class="form-control bg-body mt-2" id="floatingPassword" placeholder="Password" name="password" required>
@@ -51,31 +48,31 @@
                 <form action="signup.php" method="post" enctype="multipart/form-data">
                     <div class="form-floating">
                         <input type="text" class="form-control bg-body" id="name" placeholder="name" name="name" required>
-                        <label for="floatingInput">Name</label>
+                        <label for="name">Name</label>
                     </div>
                     <div class="form-floating">
                         <input type="text" class="form-control bg-body mt-2" id="surname" placeholder="Cognome" name="surname" required>
-                        <label for="floatingInput">Cognome</label>
+                        <label for="surname">Cognome</label>
                     </div>
                     <div class="form-floating">
                         <input type="date" class="form-control bg-body mt-2" id="date_of_birth" placeholder="00/00/0000" name="date_of_birth" required>
-                        <label for="floatingInput">Data</label>
+                        <label for="date_of_birth">Data</label>
                     </div>
                     <div class="form-floating">
                         <input type="text" class="form-control bg-body mt-2" id="username" placeholder="username" name="username" required>
-                        <label for="floatingInput">Username</label>
+                        <label for="username">Username</label>
                     </div>
                     <div class="form-floating">
                         <input type="text" class="form-control bg-body mt-2" id="email" placeholder="name@example.com" name="email" required>
-                        <label for="floatingInput">Email address</label>
+                        <label for="email">Email address</label>
                     </div>
                     <div class="form-floating">
                         <input type="password" class="form-control bg-body mt-2" id="password" placeholder="Password" name="password" required>
-                        <label for="floatingPassword">Password</label>
+                        <label for="password">Password</label>
                     </div>
                     <div>
-                        <label for="formFile" class="form-label mt-2">aggiungi una foto</label>
-                        <input type="file" class="form-control bg-body" name="profilefile" id="profilefile" required>
+                        <label for="profilepic" class="form-label mt-2">aggiungi una foto</label>
+                        <input type="file" class="form-control bg-body" name="profilefile" id="profilepic" required>
                     </div>
                     <button class="btn btn-outline-secondary text-bg-dark w-100 mt-3" type="submit" value="Registrati" name="submit">Sign
                         up</button>
@@ -106,7 +103,7 @@
 
                     <div class="form-floating">
                         <input type="text" class="form-control bg-body" name="searched_user" id="searched_user" placeholder="User">
-                        <label for="floatingInput">User</label>
+                        <label for="searched_user">User</label>
                     </div>
                     <button type="button" class="btn btn-outline-secondary border-0 disabled col-12">As</button>
                     <select name="role" class="btn btn-outline-secondary col-12 mb-2" id="role" required>
@@ -169,7 +166,7 @@
                         <input type="email" class="form-control bg-body mt-2" name="email" id="email" value="<?php echo $user->getEmail() ?>">
                         <label for="name">Email</label>
                     </div>
-                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" href="editsquad.php" type="submit" name="save" value="Save"></input>
+                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" type="submit" name="save" value="Save"></input>
                 </form>
             </div>
         </div>
@@ -240,5 +237,6 @@
                 </form>
             </div>
         </div>
-    <?php } } ?>
-</div>
+    <?php } ?> 
+    </div>
+<?php } ?>

@@ -10,7 +10,6 @@ $templateParams["event"] = $dbh->getEventsOrderByDate($_SESSION["username"]);
 $templateParams["friends"] = $dbh->getFriends($_SESSION["username"]);
 $templateParams["squads"] = $dbh->getSquadsByUser($_SESSION["username"]);
 
-//$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js","js/index.js");
-$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "js/retrieve_users_status.js");
+$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "js/get_active_users.js");
 require 'templates/base.php';
 ?>

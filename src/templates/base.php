@@ -20,7 +20,7 @@ if (checkSession()) {
 <body class="d-flex flex-column vh-100" data-bs-theme="dark">
     <nav class="navbar navbar-expand-lg shadow" aria-label="Thirteenth navbar example">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand col-lg-4 m-0 px-2 d-flex justify-content-end" href="index.php">SquadUp</a>
@@ -46,7 +46,7 @@ if (checkSession()) {
                     }
             ?>
 
-            <div class="collapse navbar-collapse flex-grow-0 col-lg-6" id="navbarsExample11">
+            <div class="collapse navbar-collapse flex-grow-0 col-lg-6" id="navbarHeader">
                 <ul class="navbar-nav col-lg-8 text-center d-flex flex-row justify-content-around">
                     <li class="nav-item">
                         <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><i class="bi bi-house d-block " style="font-size: 1rem;"></i>Home</a>
@@ -64,8 +64,6 @@ if (checkSession()) {
                     </form>
                 </div>
             </div>
-
-
         </div>
     </nav>
 
@@ -93,14 +91,13 @@ if (checkSession()) {
             } ?>
         </div>
     <?php } ?>
-
     <?php if (isset($templateParams["js"])) :
         foreach ($templateParams["js"] as $script) : ?>
             <script src="<?php echo $script; ?>"></script>
     <?php endforeach;
     endif; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <script src="js/set_user_status.js"></script>
+    <script src="js/set_active_user.js"></script>
 </body>
 
 

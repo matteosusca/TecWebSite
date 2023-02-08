@@ -30,7 +30,7 @@ $templateParams["left-aside"] = "left-aside.php";
 $templateParams["main"] = "main.php";
 $templateParams["right-aside"] = "right-aside.php";
 
-$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "js/retrieve_users_status.js");
+$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "js/get_active_users.js");
 
 
 require 'templates/base.php';
