@@ -151,7 +151,7 @@
                 <?php
                 if (!is_null($templateParams["user"])) { ?>
                     <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $templateParams["user"]->getUsername() ?>">
-                        <img src=<?php echo $templateParams["user"]->getprofilePicture() ?> alt="" width=" 32" height="32" class="rounded-circle">
+                        <img src=<?php echo $templateParams["user"]->getprofilePicture() ?> alt="" width="32" height="32" class="rounded-circle">
                         <?php echo $templateParams["user"]->getUsername() ?></a>
                 <?php } else { ?>
                     <div class='alert alert-danger col-6' role='alert'>No user found</div>

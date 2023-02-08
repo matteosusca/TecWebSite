@@ -55,7 +55,7 @@
                         <label for="surname">Cognome</label>
                     </div>
                     <div class="form-floating">
-                        <input type="date" class="form-control bg-body mt-2" id="date_of_birth" placeholder="00/00/0000" name="date_of_birth" required>
+                        <input type="date" class="form-control bg-body mt-2" id="date_of_birth" name="date_of_birth" required>
                         <label for="date_of_birth">Data</label>
                     </div>
                     <div class="form-floating">
