@@ -4,4 +4,4 @@ function update_user_activity() {
     });
 }
 
-setInterval(() => { update_user_activity() }, 5000); // update user status once every 5 seconds
+setInterval(() => { update_user_activity() }, 500); // update user status once every 5 msec 
