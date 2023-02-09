@@ -1,5 +1,5 @@
-<aside class="col-2 p-3 h-100 shadow overflow-auto sticky-lg-top">
-    <div class="h-100 offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasResponsive" aria-labelledby="list">
+<aside class="col-12 col-lg-2 mh-100 shadow overflow-auto sticky-lg-top">
+    <div class="h-100 offcanvas-lg offcanvas-end p-3" tabindex="-1" id="offcanvasResponsive" aria-labelledby="list">
         <div class="offcanvas-header">
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
         </div>
