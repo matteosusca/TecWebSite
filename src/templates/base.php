@@ -40,7 +40,7 @@ if (checkSession()) {
                     </ul>
                     <button class="btn btn-secondary position-relative mx-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><em class="bi bi-bell d-block"></em>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">22+</span>
-                </button>
+                    </button>
                 </div> <?php
                     } else { ?>
                 <a class="btn btn-outline-light order-lg-1 col-lg-2" href="signin.php">Sign in/sign up</a>
@@ -75,8 +75,16 @@ if (checkSession()) {
             <h5 class="offcanvas-title">Notifications</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
-            <p>first notify</p>
+        <div class="list-group list-group-flush offcanvas-body">
+            <?php foreach ($templateParams["squads"] as $squad) { ?>
+                <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
+                    <div class="d-flex align-items-start position-relative">
+                        <span class="position-absolute top-100 start-100 translate-middle" id="<?php echo $user->getUsername() ?>-span">time</span>
+                        <img src=<?php echo $squad->getPicture() ?> alt="<?php echo $squad->getName() ?> picture" width="64" height="64" class="rounded-circle">
+                        <?php echo $squad->getName() ?> ha creato l'evento x
+                    </div>
+                </a>
+            <?php } ?>
         </div>
     </div>
     <?php if (isset($templateParams["body"])) {
