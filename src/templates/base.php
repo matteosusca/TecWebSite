@@ -18,9 +18,9 @@ if (checkSession()) {
 </head>
 
 <body class="d-flex flex-column vh-100" data-bs-theme="dark">
-    <nav class="navbar navbar-expand-lg shadow" aria-label="navbar">
+    <nav class="navbar navbar-expand-lg shadow">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand col-lg-4 m-0 px-2 d-flex justify-content-end" href="index.php">SquadUp</a>
@@ -70,10 +70,11 @@ if (checkSession()) {
         </div>
     </nav>
 
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-label="Notifications">
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">Notifications</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <label class="visually-hidden" for="closebtn">Close</label>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" id="closebtn"></button>
         </div>
         <div class="list-group list-group-flush offcanvas-body">
             <?php foreach ($templateParams["squads"] as $squad) { ?>

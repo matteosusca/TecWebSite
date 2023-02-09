@@ -7,7 +7,7 @@
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" tabindex="0">
                 <?php if (!empty($_POST['submit-post'])) {
                     $dbh->createPost($user, $_POST['post-description'], $_FILES['post-file']);
                 } ?>
@@ -83,7 +83,7 @@
                     </div>
                 <?php } ?>
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" tabindex="0">
                 <?php if (!empty($_POST['submit-event'])) {
                     $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['event-description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $user);
                 }
@@ -109,7 +109,7 @@
                                 <label for="event_end_date">Data Fine Evento</label>
                                 <input type="date" class="form-control bg-body mb-2" id="event_end_date" name="event_end_date" required>
                                 <label for="type">Tipo Evento</label>
-                                <select class="form-select bg-body mb-4" id="type" aria-label="Tipo Evento" name="type" required>
+                                <select class="form-select bg-body mb-4" id="type" name="type" required>
                                     <option value="" disabled selected>Seleziona un tipo di evento</option>
                                     <?php foreach ($dbh->getEventTypes() as $key => $name) {
                                         echo "<option value='" . $key . "'>" . $name . "</option>";
@@ -147,7 +147,7 @@
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="nav-user" role="tabpanel" tabindex="0">
                 <?php
                 if (!is_null($templateParams["user"])) { ?>
                     <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $templateParams["user"]->getUsername() ?>">
@@ -158,7 +158,7 @@
                 <?php
                 } ?>
             </div>
-            <div class="tab-pane fade" id="nav-squads" role="tabpanel" aria-labelledby="nav-squads-tab" tabindex="0">
+            <div class="tab-pane fade" id="nav-squads" role="tabpanel" tabindex="0">
                 <?php
                 if (!empty($templateParams["squads"])) {
                     foreach ($templateParams["squads"] as $squad) { ?>

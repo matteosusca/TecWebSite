@@ -13,6 +13,7 @@
             <div class="d-flex flex-column align-items-lg-center px-2">
                 <h5><?php echo $templateParams["user"]->getUsername() ?></h5>
                 <p>(<?php echo $templateParams["user"]->getFullName() ?>), <?php echo  $templateParams["user"]->getAge() ?></p>
+                <p id=<?php echo $templateParams["user"]->getUsername() ?>></p>
                 <input type="hidden" name="user-username" value="<?php echo $templateParams["user"]->getUsername() ?>">
             </div>
             <div class="d-flex flex-lg-column w-100 align-self-center">
@@ -22,7 +23,6 @@
                         <input type="submit" class="btn btn-secondary w-100" value="Modifica profilo">
                     </form>
                     <?php } else { ?>
-                        <p id=<?php echo $templateParams["user"]->getUsername() ?>></p>
                         <form action="profile.php?user=<?php $templateParams["user"]->getUsername() ?>" method="post" class="m-2">
                             <input class="btn btn-secondary w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?> />
                         </form>

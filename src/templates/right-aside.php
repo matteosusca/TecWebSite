@@ -1,12 +1,13 @@
 <aside class="col-2 p-3 h-100 shadow overflow-auto sticky-lg-top">
-    <div class="h-100 offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasResponsive" aria-labelledby="list">
+    <div class="h-100 offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasResponsive">
         <div class="offcanvas-header">
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+            <label class="visually-hidden" for="closerightaside">Close Friends</label>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" id="closerightaside"></button>
         </div>
         <div class="h-100 d-flex flex-column">
             <?php if (isset($templateParams['friends'])) { ?>
                 <div class="flex-fill overflow-auto">
-                    <h5 class="offcanvas-title" id="list">Friends</h5>
+                    <h5 class="offcanvas-title">Friends</h5>
                     <div class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["friends"] as $user) { 
                             require "user-icon.php";    
@@ -16,7 +17,7 @@
             <?php }
             if (isset($templateParams['squads'])) { ?>
                 <div class="flex-fill overflow-auto">
-                    <h5 class="offcanvas-title" id="list">Squads</h5>
+                    <h5 class="offcanvas-title">Squads</h5>
                     <div class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["squads"] as $squad) { ?>
                             <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
@@ -29,7 +30,7 @@
             <?php }
             if (isset($templateParams['members'])) { ?>
                 <div class="flex-fill overflow-auto">
-                    <h5 class="offcanvas-title" id="list">Members</h5>
+                    <h5 class="offcanvas-title">Members</h5>
                     <div class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["members"] as $user) { 
                             require "user-icon.php";

@@ -11,7 +11,7 @@ function retrive_user_activity() {
 
 // compare the last activity of the user with the current time in order to understand if the user is online or not
 function getStatus(last_activity) {
-    return (Date.now() - new Date(last_activity)) <= 10_000 ? "Online" : "Last active: " + last_activity;
+    return (Date.now() - new Date(last_activity)) <= 10000 ? "Online" : "Last active: " + last_activity;
 }
 
 // update the text of the user status
@@ -31,4 +31,4 @@ function updateIcon(username, status) {
 
 }
 
-setInterval(() => { retrive_user_activity() }, 500); // get user status once every 5 seconds
+setInterval(() => { retrive_user_activity() }, 1000); // get user status once every 5 seconds
