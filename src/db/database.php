@@ -97,6 +97,21 @@ class DatabaseHelper
         }
     }
 
+    public function getNotifications($username) {
+        $query = "SELECT * FROM notification WHERE recipient = ? ORDER BY notification_id DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        //foreach row in result create a notification object
+        $notifications = [];
+        foreach ($result as $row) {
+            $notifications[] = new Notification($row['notification_id'], $row['recipient'], $row['sender'], $row['type'], $row['isread'], $row['date']);
+        }
+        return $notifications;
+        
+    }
+
     public function checkSquadExists($name)
     {
         $stmt = $this->db->prepare("SELECT * FROM compagnia WHERE nome=?");
