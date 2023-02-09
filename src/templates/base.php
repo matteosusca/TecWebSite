@@ -27,7 +27,7 @@ if (checkSession()) {
             <?php if (isset($_SESSION['username'])) { ?>
                 <div class="dropdown order-lg-1 col-lg-2 d-flex justify-content-start px-2">
                     <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="<?php echo $user->getProfilePicture() ?>" alt="" width="32" height="32" class="rounded-circle">
+                        <img src="<?php echo $user->getProfilePicture() ?>" alt="<?php echo $user->getUsername() ?> profile picture" width="32" height="32" class="rounded-circle">
                         <?php echo $user->getUsername() ?></a>
                     <ul class="dropdown-menu dropdown-menu mx-2 ">
                         <li><a class="dropdown-item" href="profile.php?user=<?php echo $user->getUsername() ?>">Profile</a></li>
@@ -38,7 +38,7 @@ if (checkSession()) {
                             <form action="signin.php" method="post"><button class="btn dropdown-item" type="submit" value="Sign Out" name="esci">Sign out</button></form>
                         </li>
                     </ul>
-                    <button class="btn btn-secondary position-relative mx-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="bi bi-bell d-block" style="font-size: 1rem;"></i>
+                    <button class="btn btn-secondary position-relative mx-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><em class="bi bi-bell d-block"></em>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">22+</span>
                 </button>
                 </div> <?php
@@ -51,18 +51,19 @@ if (checkSession()) {
             <div class="collapse navbar-collapse flex-grow-0 col-lg-6" id="navbarHeader">
                 <ul class="navbar-nav col-lg-8 text-center d-flex flex-row justify-content-around">
                     <li class="nav-item">
-                        <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><i class="bi bi-house d-block " style="font-size: 1rem;"></i>Home</a>
+                        <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><em class="bi bi-house d-block"></em>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><i class="bi bi-people d-block" style="font-size: 1rem;"></i>Contacts</a>
+                        <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><em class="bi bi-people d-block"></em>Contacts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php isActive("map.php"); ?>" href="map.php"><i class="bi bi-map d-block" style="font-size: 1rem;"></i>Map</a>
+                        <a class="nav-link <?php isActive("map.php"); ?>" href="map.php"><em class="bi bi-map d-block"></em>Map</a>
                     </li>
                 </ul>
                 <div class="col-lg-4">
                     <form class="m-2" role="search" action="search.php" method="get">
-                        <input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search" name="name" onkeydown="if (event.keyCode == 13) { this.form.submit(); }">
+                        <label class="visually-hidden" for="search-bar">Search</label>
+                        <input type="search" class="form-control bg-body" id="search-bar" placeholder="Search" name="name" onkeydown="if (event.keyCode == 13) { this.form.submit(); }">
                     </form>
                 </div>
             </div>

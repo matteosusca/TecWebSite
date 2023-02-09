@@ -55,7 +55,7 @@
                         <label for="surname">Cognome</label>
                     </div>
                     <div class="form-floating">
-                        <input type="date" class="form-control bg-body mt-2" id="date_of_birth" placeholder="00/00/0000" name="date_of_birth" required>
+                        <input type="date" class="form-control bg-body mt-2" id="date_of_birth" name="date_of_birth" required>
                         <label for="date_of_birth">Data</label>
                     </div>
                     <div class="form-floating">
@@ -88,6 +88,7 @@
                 <form action="addusertosquad.php" method="post">
                     <input type="hidden" class="form-control" name="id" value=<?php echo $templateParams["squad"]->getId(); ?>>
                     <div class="row mx-0">
+                        <label for="user_friend" class="visually-hidden">Select friend to add</label>
                         <select name="user_friend" class="btn btn-outline-secondary col-12" id="user_friend">
                             <option value="" disabled selected>Seleziona un amico</option>
                             <?php
@@ -106,12 +107,13 @@
                         <label for="searched_user">User</label>
                     </div>
                     <button type="button" class="btn btn-outline-secondary border-0 disabled col-12">As</button>
+                    <label for="role" class="visually-hidden">Select a role for the new user</label>
                     <select name="role" class="btn btn-outline-secondary col-12 mb-2" id="role" required>
                         <option value="" disabled selected>Seleziona un ruolo</option>
                         <option value="2">admin</option>
                         <option value="3">member</option>
                     </select>
-                    <input class="btn btn-outline-secondary w-100" type="submit" name="save" value="Add User"></input>
+                    <input class="btn btn-outline-secondary w-100" type="submit" name="save" value="Add User">
                 </form>
             </div>
         </div>
@@ -132,10 +134,10 @@
                         <label for="description">Descrizione</label>
                     </div>
                     <div>
-                        <label for="formFile" class="form-label">Squad Picture</label>
+                        <label for="squadPicture" class="form-label">Squad Picture</label>
                         <input type="file" class="form-control bg-body" name="squadPicture" id="squadPicture" required>
                     </div>
-                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" href="editsquad.php" type="submit" name="save" value="Save"></input>
+                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" type="submit" name="save" value="Save">
                 </form>
             </div>
         </div>
@@ -151,7 +153,7 @@
             <div class="card-body">
                 <form action="editprofile.php" method="post" enctype="multipart/form-data">
                     <div>
-                        <label for="formFile" class="form-label">Profile Picture</label>
+                        <label for="profilePicture" class="form-label">Profile Picture</label>
                         <input type="file" class="form-control bg-body" name="profilePicture" id="profilePicture">
                     </div>
                     <div class="form-floating">
@@ -160,13 +162,13 @@
                     </div>
                     <div class="form-floating">
                         <input type="text" class="form-control bg-body mt-2" name="surname" id="surname" value="<?php echo $user->getSurname() ?>">
-                        <label for="name">Surname</label>
+                        <label for="surname">Surname</label>
                     </div>
                     <div class="form-floating">
                         <input type="email" class="form-control bg-body mt-2" name="email" id="email" value="<?php echo $user->getEmail() ?>">
-                        <label for="name">Email</label>
+                        <label for="email">Email</label>
                     </div>
-                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" type="submit" name="save" value="Save"></input>
+                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" type="submit" name="save" value="Save">
                 </form>
             </div>
         </div>
@@ -187,10 +189,11 @@
                         <label for="name">Name</label>
                     </div>
                     <div class="form-floating">
-                        <input name="text" class="form-control bg-body mt-2" name="description" id="description" value="<?php echo $templateParams["squad"]->getDescription() ?>">
+                        <input type="text" class="form-control bg-body mt-2" name="description" id="description" value="<?php echo $templateParams["squad"]->getDescription() ?>">
                         <label for="description">Description</label>
                     </div>
                     <div class="row mx-0">
+                        <label for="user" class="visually-hidden">User</label>
                         <select name="user" class="col form-select bg-body mt-2  me-2" id="user">
                             <option value="" disabled selected>Seleziona un utente</option>
                             <?php
@@ -199,13 +202,14 @@
                             }
                             ?>
                         </select>
+                        <label for="action" class="visually-hidden">Role for the user</label>
                         <select name="action" class="col form-select bg-body mt-2" id="action">
                             <option value="admin">Make admin</option>
                             <option value="member">Make member</option>
                             <option value="remove">Remove from squad</option>
                         </select>
                     </div>
-                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" href="editsquad.php" type="submit" name="save" value="Save"></input>
+                    <input class="btn btn-outline-secondary text-bg-dark mt-3 w-100" type="submit" name="save" value="Save">
                 </form>
             </div>
         </div>
@@ -217,6 +221,7 @@
             <div class="card-body">
                 <form action="inviteusertoevent.php" method="post">
                     <input type="hidden" class="form-control" name="id" value=<?php echo $templateParams["squad"]->getId(); ?>>
+                    <label for="event" class="visually-hidden">Event</label>
                     <select name="event" class="col form-select bg-body" id="event" required>
                         <option value="" disabled selected>evento</option>
                         <?php
@@ -225,6 +230,7 @@
                         }
                         ?>
                     </select>
+                    <label for="user" class="visually-hidden">User to add</label>
                     <select name="user" class="col mt-2 form-select bg-body" id="user" required>
                         <option value="" disabled selected>utente</option>
                         <?php
@@ -233,7 +239,7 @@
                         }
                         ?>
                     </select>
-                    <input class="btn btn-outline-secondary mt-3 w-100" type="submit" name="invita" value="Invite User"></input>
+                    <input class="btn btn-outline-secondary mt-3 w-100" type="submit" name="invita" value="Invite User">
                 </form>
             </div>
         </div>
