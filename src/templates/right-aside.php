@@ -8,20 +8,9 @@
                 <div class="flex-fill overflow-auto">
                     <h5>Friends</h5>
                     <div class="list-group list-group-flush offcanvas-body">
-                        <?php foreach ($templateParams["friends"] as $friend) { ?>
-                            <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $friend->getUsername() ?>">
-                                <div class="d-flex align-items-center">
-                                    <div class="d-inline-flex position-relative">
-                                        <span class="position-absolute top-100 start-100 translate-middle p-1 bg-danger border rounded-circle">
-                                        </span>
-                                        <img src=<?php echo $friend->getprofilePicture() ?> alt="<?php echo $friend->getUsername() ?> profile picture"  width="32" height="32" class="rounded-circle">
-                                    </div>
-                                    <?php echo $friend->getUsername() ?>
-                                </div>
-                                <input type="hidden" name="user-username" value="<?php echo $friend->getUsername() ?>">
-                                <p id=<?php echo $friend->getUsername() ?>></p>
-                            </a>
-                        <?php } ?>
+                        <?php foreach ($templateParams["friends"] as $user) { 
+                            require "user-icon.php";    
+                        } ?>
                     </div>
                 </div>
             <?php }
@@ -42,14 +31,9 @@
                 <div class="flex-fill overflow-auto">
                     <h5>Members</h5>
                     <div class="list-group list-group-flush offcanvas-body">
-                        <?php foreach ($templateParams["members"] as $member) { ?>
-                            <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $member->getUsername() ?>">
-                                <img src=<?php echo $member->getprofilePicture() ?> alt="<?php $member->getUsername() ?> profile picture" width="32" height="32" class="rounded-circle">
-                                <?php echo $member->getUsername() ?>
-                                <input type="hidden" name="user-username" value="<?php echo $member->getUsername() ?>">
-                                <p id=<?php echo $member->getUsername()?>></p>
-                            </a>
-                        <?php } ?>
+                        <?php foreach ($templateParams["members"] as $user) { 
+                            require "user-icon.php";
+                        } ?>
                     </div>
                 </div>
             <?php } ?>
