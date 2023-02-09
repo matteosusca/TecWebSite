@@ -5,10 +5,15 @@
             <button class="btn btn-secondary m-2 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>
         <?php }
         if (isset($templateParams['user'])) { ?>
-            <img src=<?php echo $templateParams["user"]->getProfilePicture(); ?> class="object-fit-contain rounded-circle" alt="<?php echo $templateParams["user"]->getUsername(); ?> profile picture" width="64" height="64">
+            <div class="d-inline-flex position-relative">
+                <span class="position-absolute top-100 start-100 translate-middle p-1 border rounded-circle" id="<?php echo $templateParams['user']->getUsername() ?>-span">
+                </span>
+                <img src=<?php echo $templateParams["user"]->getProfilePicture(); ?> class="object-fit-contain rounded-circle" alt="<?php echo $templateParams["user"]->getUsername(); ?> profile picture" width="64" height="64">
+            </div>
             <div class="d-flex flex-column align-items-lg-center px-2">
                 <h5><?php echo $templateParams["user"]->getUsername() ?></h5>
                 <p>(<?php echo $templateParams["user"]->getFullName() ?>), <?php echo  $templateParams["user"]->getAge() ?></p>
+                <input type="hidden" name="user-username" value="<?php echo $templateParams["user"]->getUsername() ?>">
             </div>
             <div class="d-flex flex-lg-column w-100 align-self-center">
                 <?php if ($templateParams["user"]->getUsername() == $_SESSION["username"]) { ?>
@@ -16,12 +21,11 @@
                     <form action="editprofile.php" method="post" class="m-2">
                         <input type="submit" class="btn btn-secondary w-100" value="Modifica profilo">
                     </form>
-                <?php } else { ?>
-                    <input type="hidden" name="user-username" value="<?php echo $templateParams["user"]->getUsername() ?>">
-                    <p id=<?php echo $templateParams["user"]->getUsername() ?>></p>
-                    <form action="profile.php?user=<?php $templateParams["user"]->getUsername() ?>" method="post" class="m-2">
-                        <input class="btn btn-secondary w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?> />
-                    </form>
+                    <?php } else { ?>
+                        <p id=<?php echo $templateParams["user"]->getUsername() ?>></p>
+                        <form action="profile.php?user=<?php $templateParams["user"]->getUsername() ?>" method="post" class="m-2">
+                            <input class="btn btn-secondary w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?> />
+                        </form>
                 <?php } ?>
             </div>
         <?php }

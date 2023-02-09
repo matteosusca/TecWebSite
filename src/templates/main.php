@@ -43,9 +43,9 @@
                         </div>
                         <img src=<?php echo $post->getUrlMedia() ?> class="object-fit-contain" alt="post media" height="455">
                         <div class="card-footer container-fluid d-flex flex-wrap justify-content-evenly">
-                            <button type="button" class="btn btn-outline-secondary border-0"><em class="bi bi-house d-block" style="font-size: 1rem;"></em>like</button>
-                            <button type="button" class="btn btn-outline-secondary border-0" style="font-size: 1rem;"><em class="bi bi-share d-block" style="font-size: 1rem;"></em>share</button>
-                            <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $post->getId() ?>" aria-expanded="false" aria-controls="<?php echo $post->getId() ?>"><em class="bi bi-pencil-square d-block" style="font-size: 1rem;"></em>comments</button>
+                            <button type="button" class="btn btn-outline-secondary border-0"><em class="bi bi-star d-block position-relative"><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">0</span></em>like</button>
+                            <button type="button" class="btn btn-outline-secondary border-0" style="font-size: 1rem;"><em class="bi bi-share d-block"></em>share</button>
+                            <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $post->getId() ?>" aria-expanded="false" aria-controls="<?php echo $post->getId() ?>"><em class="bi bi-pencil-square d-block"></em>comments</button>
                         </div>
                         <div class="collapse multi-collapse" id="<?php echo $post->getId() ?>">
                             <?php if (isset($_POST['submitComment' . $post->getId()])) {
@@ -151,10 +151,10 @@
                 <?php
                 if (!is_null($templateParams["user"])) { ?>
                     <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $templateParams["user"]->getUsername() ?>">
-                        <img src=<?php echo $templateParams["user"]->getprofilePicture() ?> alt="<?php echo $templateParams["user"]->getUsername() ?> profile picture" width="32" height="32" class="rounded-circle">
+                        <img src=<?php echo $templateParams["user"]->getprofilePicture() ?> alt="<?php echo $templateParams["user"]->getUsername() ?> width="64" height="64" class="rounded-circle">
                         <?php echo $templateParams["user"]->getUsername() ?></a>
                 <?php } else { ?>
-                    <div class='alert alert-danger col-6' role='alert'>No user found</div>
+                    <div class='alert alert-danger col-12' role='alert'>No user found</div>
                 <?php
                 } ?>
             </div>
@@ -163,11 +163,11 @@
                 if (!empty($templateParams["squads"])) {
                     foreach ($templateParams["squads"] as $squad) { ?>
                         <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
-                            <img src=<?php echo $squad->getPicture() ?> alt="<?php echo $squad->getName() ?> picture" width="32" height="32" class="rounded-circle">
+                            <img src=<?php echo $squad->getPicture() ?> alt="<?php echo $squad->getName() ?> picture" width="64" height="64" class="rounded-circle">
                             <?php echo $squad->getName() ?></a>
                     <?php }
                 } else { ?>
-                    <div class='alert alert-danger col-6' role='alert'>No squads found</div>
+                    <div class='alert alert-danger col-12' role='alert'>No squads found</div>
                 <?php
                 } ?>
             </div>

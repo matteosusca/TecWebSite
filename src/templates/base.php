@@ -18,7 +18,7 @@ if (checkSession()) {
 </head>
 
 <body class="d-flex flex-column vh-100" data-bs-theme="dark">
-    <nav class="navbar navbar-expand-lg shadow" aria-label="Thirteenth navbar example">
+    <nav class="navbar navbar-expand-lg shadow" aria-label="navbar">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -38,7 +38,9 @@ if (checkSession()) {
                             <form action="signin.php" method="post"><button class="btn dropdown-item" type="submit" value="Sign Out" name="esci">Sign out</button></form>
                         </li>
                     </ul>
-                    <button class="btn btn-secondary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><em class="bi bi-bell d-block" style="font-size: 1rem;"></em></button>
+                    <button class="btn btn-secondary position-relative mx-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><em class="bi bi-bell d-block"></em>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">22+</span>
+                </button>
                 </div> <?php
                     } else { ?>
                 <a class="btn btn-outline-light order-lg-1 col-lg-2" href="signin.php">Sign in/sign up</a>
@@ -49,13 +51,13 @@ if (checkSession()) {
             <div class="collapse navbar-collapse flex-grow-0 col-lg-6" id="navbarHeader">
                 <ul class="navbar-nav col-lg-8 text-center d-flex flex-row justify-content-around">
                     <li class="nav-item">
-                        <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><em class="bi bi-house d-block " style="font-size: 1rem;"></em>Home</a>
+                        <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><em class="bi bi-house d-block"></em>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><em class="bi bi-people d-block" style="font-size: 1rem;"></em>Contacts</a>
+                        <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><em class="bi bi-people d-block"></em>Contacts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php isActive("map.php"); ?>" href="map.php"><em class="bi bi-map d-block" style="font-size: 1rem;"></em>Map</a>
+                        <a class="nav-link <?php isActive("map.php"); ?>" href="map.php"><em class="bi bi-map d-block"></em>Map</a>
                     </li>
                 </ul>
                 <div class="col-lg-4">
@@ -68,13 +70,13 @@ if (checkSession()) {
         </div>
     </nav>
 
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-label="Notifications">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
+            <h5 class="offcanvas-title">Notifications</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p>Try scrolling the rest of the page to see this option in action.</p>
+            <p>first notify</p>
         </div>
     </div>
     <?php if (isset($templateParams["body"])) {
