@@ -4,6 +4,7 @@ require_once 'class/comment.php';
 require_once 'class/user.php';
 require_once 'class/squad.php';
 require_once 'class/event.php';
+require_once 'class/notification.php';
 
 class DatabaseHelper
 {
@@ -106,7 +107,7 @@ class DatabaseHelper
         //foreach row in result create a notification object
         $notifications = [];
         foreach ($result as $row) {
-            $notifications[] = new Notification($row['notification_id'], $row['recipient'], $row['sender'], $row['type'], $row['isread'], $row['date']);
+            $notifications[] = new Notification($row['notification_id'], $row['recipient'], $row['sender'], $row['type'], $row['isread'], $row['date'], $this->getMediaUrl($this->getProfilePicture($row['sender'])), $row['post_id']);
         }
         return $notifications;
         
@@ -150,6 +151,15 @@ class DatabaseHelper
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
         return new Squad($result['id_compagnia'], $result['nome'], $result['descrizione'], $this->getMediaUrl($result['profile_pic']), $result['creatore'], explode(",", $result['membri']));
+    }
+
+    public function getSquadImg($id)
+    {
+        $stmt = $this->db->prepare("SELECT profile_pic FROM compagnia WHERE id_compagnia=?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        return $this->getMediaUrl($result['profile_pic']);
     }
 
     public function getSquads($name)
@@ -230,6 +240,14 @@ class DatabaseHelper
             return true;
         }
         return false;
+    }
+
+    public function getProfilePicture($username){
+        $stmt = $this->db->prepare("SELECT profile_pic FROM utente WHERE username=?");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        return $result['profile_pic'];
     }
 
     public function setSquadPicture($id_squad, $file)
