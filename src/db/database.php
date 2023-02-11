@@ -4,11 +4,8 @@ require_once 'class/comment.php';
 require_once 'class/user.php';
 require_once 'class/squad.php';
 require_once 'class/event.php';
-<<<<<<< HEAD
 require_once 'class/like.php';
-=======
 require_once 'class/notification.php';
->>>>>>> main
 
 class DatabaseHelper
 {
