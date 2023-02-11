@@ -9,8 +9,8 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                 <?php if (!empty($_POST['submit-post'])) {
-                    $dbh->createPost($user, $_POST['post-description'], $_FILES['post-file']);
-                } ?>
+                    $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
+                }?>
                 <div class="card my-2">
                     <div class="card-header">
                         <h5 class="card-title">Crea post</h5>

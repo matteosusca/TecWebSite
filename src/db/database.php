@@ -113,6 +113,12 @@ class DatabaseHelper
         
     }
 
+    public function createNotification($recipient, $sender, $type, $post_id=null) {
+        $stmt = $this->db->prepare("INSERT INTO notification (recipient, sender, type, post_id) VALUES (?,?,?,?)");
+        $stmt->bind_param('sssi', $recipient, $sender, $type, $post_id);
+        $stmt->execute();
+    }
+
     public function checkSquadExists($name)
     {
         $stmt = $this->db->prepare("SELECT * FROM compagnia WHERE nome=?");
@@ -490,6 +496,13 @@ class DatabaseHelper
             $stmt->bind_param('iss', $id, $text, $username);
             $stmt->execute();
             $stmt->close();
+            //get the id of the post
+            $id = $this->db->insert_id;
+            //send a notification to all friends
+            $friends = $this->getFriendsUsername($username);
+            foreach ($friends as $friend) {
+                $this->createNotification($friend, $username, "post", $id);
+            }
             return true;
         }
         return false;
@@ -501,6 +514,13 @@ class DatabaseHelper
         $stmt->bind_param('iss', $post_id, $username, $body);
         $stmt->execute();
         $stmt->close();
+        //get the username of the post owner
+        $post = $this->getPost($post_id);
+        $postOwner = $post->getUsername();
+        //if i'm not the owner send a notification to the post owner
+        if ($postOwner != $username) {
+            $this->createNotification($postOwner, $username, "comment", $post_id);
+        }
         return true;
     }
 

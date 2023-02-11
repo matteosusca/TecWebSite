@@ -89,6 +89,10 @@ function createNotification(notification) {
             notificationElement.href = "event.php?id=" + notification.event_id;
             contentElement.innerHTML += notification.sender + " invited you to an event";
             break;
+        case "post":
+            notificationElement.href = "post.php?id=" + notification.post_id;
+            contentElement.innerHTML += notification.sender + " posted something";
+            break;
     }
   
     // Add the text of the notification
