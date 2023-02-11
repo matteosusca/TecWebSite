@@ -39,7 +39,7 @@ if (checkSession()) {
                         </li>
                     </ul>
                     <button class="btn btn-secondary position-relative mx-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><em class="bi bi-bell d-block"></em>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">22+</span>
+                        <span id="notification_counter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
                     </button>
                 </div> <?php
                     } else { ?>

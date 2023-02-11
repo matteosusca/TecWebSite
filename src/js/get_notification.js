@@ -22,6 +22,7 @@ async function getNotifications() {
 getNotifications().then(notifications => {
   // Clear the existing notifications
   document.getElementById("notifications").innerHTML = "";
+  document.getElementById("notification_counter").innerHTML = notifications.length;
 
   // Add the new notifications
   notifications.forEach(notification => {
@@ -34,6 +35,7 @@ setInterval(() => {
   getNotifications().then(notifications => {
     // Clear the existing notifications
     document.getElementById("notifications").innerHTML = "";
+    document.getElementById("notification_counter").innerHTML = notifications.length;
 
     // Add the new notifications
     notifications.forEach(notification => {
