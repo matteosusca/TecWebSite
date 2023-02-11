@@ -36,8 +36,8 @@
             <?php if ($templateParams["userCanEdit"]) { ?>
                 <div class="d-flex flex-lg-column align-self-center w-100">
                     <button class="btn btn-secondary m-2  d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">members</button>
-                    <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalEditSquad">edit Squad</button>
-                    <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalAddUserToSquad">add User</button>
+                    <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalEditSquad">edit squad</button>
+                    <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalAddUserToSquad">add user</button>
                     <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalInviteUserToEvent">invite user to event</button>
                 </div>
             <?php } ?>
