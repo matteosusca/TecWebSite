@@ -1,6 +1,10 @@
 <?php
 require_once 'bootstrap.php';
 
+if (!empty($_POST['submit-post'])) {
+    $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
+}
+
 $templateParams["title"] = "Home";
 $templateParams["left-aside"] = "left-aside.php";
 $templateParams["main"] = "main.php";

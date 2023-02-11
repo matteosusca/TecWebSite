@@ -13,7 +13,7 @@
                 }?>
                 <div class="card my-2">
                     <div class="card-header">
-                        <h5 class="card-title">Crea post</h5>
+                        <h3 class="card-title">Crea post</h3>
                     </div>
                     <div class="card-body">
                         <form action="index.php" method="post" enctype="multipart/form-data">
@@ -34,7 +34,7 @@
                         <div class="card-header d-flex ">
                             <img src=<?php echo $dbh->getUser($post->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="post author profile picture" width="64" height="64">
                             <div class="d-flex flex-column px-2">
-                                <h5 class="card-title"><?php echo $post->getUsername() ?></h5>
+                                <h3 class="card-title"><?php echo $post->getUsername() ?></h3>
                                 <p class="card-text"><?php echo $post->getDate() ?></p>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                             } ?>
                             <div class="card m-2">
                                 <div class="card-header ">
-                                    <h5 class="card-title">Crea commento</h5>
+                                    <h4 class="card-title">Crea commento</h4>
                                 </div>
                                 <div class="card-body">
                                     <form action="#" method="post" enctype="multipart/form-data">
@@ -84,14 +84,12 @@
                 <?php } ?>
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" tabindex="0">
-                <?php if (!empty($_POST['submit-event'])) {
-                    $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['event-description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $user);
-                }
+                <?php
                 //da aggiungere controllo per creare evento anche se si è su user.php
                 if (basename($_SERVER['PHP_SELF']) == "squad.php") { ?>
                     <div class="card my-2">
                         <div class="card-header">
-                            <h5 class="card-title">Crea Evento</h5>
+                            <h3 class="card-title">Crea Evento</h3>
                         </div>
                         <div class="card-body">
                             <form action="#" method="post" enctype="multipart/form-data">
