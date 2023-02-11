@@ -23,7 +23,7 @@ if (checkSession()) {
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand col-lg-4 m-0 px-2 d-flex justify-content-end" href="index.php">SquadUp</a>
+            <a class="navbar-brand col-lg-4 m-0 px-2 d-flex justify-content-end" href="index.php"><h1>SquadUp</h1></a>
             <?php if (isset($_SESSION['username'])) { ?>
                 <div class="dropdown order-lg-1 col-lg-2 d-flex justify-content-start px-2">
                     <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,7 +39,7 @@ if (checkSession()) {
                         </li>
                     </ul>
                     <button class="btn btn-secondary position-relative mx-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><em class="bi bi-bell d-block"></em>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">22+</span>
+                        <span id="notification_counter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
                     </button>
                 </div> <?php
                     } else { ?>
@@ -70,22 +70,13 @@ if (checkSession()) {
         </div>
     </nav>
 
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions">
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" >
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">Notifications</h5>
             <label class="visually-hidden" for="closebtn">Close</label>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" id="closebtn"></button>
         </div>
-        <div class="list-group list-group-flush offcanvas-body">
-            <?php foreach ($templateParams["squads"] as $squad) { ?>
-                <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
-                    <div class="d-flex align-items-start position-relative">
-                        <span class="position-absolute top-100 start-100 translate-middle" id="<?php echo $user->getUsername() ?>-span">time</span>
-                        <img src=<?php echo $squad->getPicture() ?> alt="<?php echo $squad->getName() ?> picture" width="64" height="64" class="rounded-circle">
-                        <?php echo $squad->getName() ?> ha creato l'evento x
-                    </div>
-                </a>
-            <?php } ?>
+        <div id="notifications" class="list-group list-group-flush offcanvas-body">          
         </div>
     </div>
     <?php if (isset($templateParams["body"])) {
@@ -102,7 +93,9 @@ if (checkSession()) {
                 require $templateParams["right-aside"];
             } ?>
         </div>
-    <?php } ?>
+    <?php } 
+    require_once("modal.php");
+    ?>
     <?php if (isset($templateParams["js"])) :
         foreach ($templateParams["js"] as $script) : ?>
             <script src="<?php echo $script; ?>"></script>
@@ -110,6 +103,8 @@ if (checkSession()) {
     endif; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="js/set_active_user.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/get_notification.js"></script>
 </body>
 
 
