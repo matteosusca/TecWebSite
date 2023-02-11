@@ -8,7 +8,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="card">
-                        <form action="createsquad.php" method="post" enctype="multipart/form-data">
+                        <form action="" method="post" enctype="multipart/form-data">
                     <div class="form-floating">
                         <input type="text" class="form-control bg-body mt-2" id="name" placeholder="Nome squad" name="name" required>
                         <label for="name">Nome squad</label>
