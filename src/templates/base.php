@@ -70,7 +70,7 @@ if (checkSession()) {
         </div>
     </nav>
 
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions">
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" >
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">Notifications</h5>
             <label class="visually-hidden" for="closebtn">Close</label>
@@ -93,7 +93,9 @@ if (checkSession()) {
                 require $templateParams["right-aside"];
             } ?>
         </div>
-    <?php } ?>
+    <?php } 
+    require_once("modal.php");
+    ?>
     <?php if (isset($templateParams["js"])) :
         foreach ($templateParams["js"] as $script) : ?>
             <script src="<?php echo $script; ?>"></script>
