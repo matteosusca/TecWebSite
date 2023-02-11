@@ -694,7 +694,6 @@ class DatabaseHelper
         $stmt->bind_param('sis', $username, $postId, $date);
         $stmt->execute();
         $stmt->close();
-        error_log("likePost");
         return true;
     }
 
@@ -703,7 +702,6 @@ class DatabaseHelper
         $stmt->bind_param('si', $username, $postId);
         $stmt->execute();
         $stmt->close();
-        error_log("unlikePost");
         return true;
     }
 

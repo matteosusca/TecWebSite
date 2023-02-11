@@ -43,7 +43,10 @@
                         </div>
                         <img src=<?php echo $post->getUrlMedia() ?> class="object-fit-contain" alt="post media" height="455">
                         <div class="card-footer container-fluid d-flex flex-wrap justify-content-evenly">
-                            <button type="button" class="btn btn-outline-secondary border-0" name="like-btn" value="<?php echo $post->getId() ?>"><em class="bi bi-star d-block position-relative"><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">0</span></em>like</button>
+                            <button type="button" class="btn btn-outline-secondary border-0" name="like-btn" value="<?php echo $post->getId() ?>">
+                                <em class="bi bi-star d-block position-relative"><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="<?php echo $post->getId() ?>-like-count"></span></em>
+                                like
+                            </button>
                             <button type="button" class="btn btn-outline-secondary border-0" style="font-size: 1rem;"><em class="bi bi-share d-block"></em>share</button>
                             <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $post->getId() ?>" aria-expanded="false" aria-controls="<?php echo $post->getId() ?>"><em class="bi bi-pencil-square d-block"></em>comments</button>
                         </div>
