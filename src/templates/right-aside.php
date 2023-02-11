@@ -7,7 +7,7 @@
         <div class="h-100 d-flex flex-column">
             <?php if (isset($templateParams['friends'])) { ?>
                 <div class="flex-fill overflow-auto">
-                    <h5 class="offcanvas-title">Friends</h5>
+                    <h2 class="offcanvas-title">Friends</h2>
                     <div class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["friends"] as $user) { 
                             require "user-icon.php";    
@@ -17,7 +17,7 @@
             <?php }
             if (isset($templateParams['squads'])) { ?>
                 <div class="flex-fill overflow-auto">
-                    <h5 class="offcanvas-title">Squads</h5>
+                    <h2 class="offcanvas-title">Squads</h2>
                     <div class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["squads"] as $squad) { ?>
                             <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
@@ -30,7 +30,7 @@
             <?php }
             if (isset($templateParams['members'])) { ?>
                 <div class="flex-fill overflow-auto">
-                    <h5 class="offcanvas-title">Members</h5>
+                    <h2 class="offcanvas-title">Members</h2>
                     <div class="list-group list-group-flush offcanvas-body">
                         <?php foreach ($templateParams["members"] as $user) { 
                             require "user-icon.php";
