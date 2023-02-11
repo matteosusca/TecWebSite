@@ -1,8 +1,8 @@
 <aside class="col-12 col-lg-2 p-3 mh-100 shadow sticky-lg-top overflow-auto d-flex flex-lg-column text-nowrap">
-    <div class="d-flex flex-lg-column align-items-lg-center">
+    <div class="d-flex flex-lg-column align-items-lg-center ">
         <?php if (basename($_SERVER['PHP_SELF']) == "index.php") { ?>
-            <a class="btn btn-secondary m-2 w-100" href="createsquad.php" role="button">Crea squad</a>
             <button class="btn btn-secondary m-2 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>
+            <button type="button" class="btn btn-secondary m-2 w-100" data-bs-toggle="modal" data-bs-target="#modalCreateSquad">create squad</button>
         <?php }
         if (isset($templateParams['user'])) { ?>
             <div class="d-inline-flex position-relative">
@@ -18,14 +18,12 @@
             </div>
             <div class="d-flex flex-lg-column w-100 align-self-center">
                 <?php if ($templateParams["user"]->getUsername() == $_SESSION["username"]) { ?>
-                    <button class="btn btn-secondary m-2 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>
-                    <form action="editprofile.php" method="post" class="m-2">
-                        <input type="submit" class="btn btn-secondary w-100" value="Modifica profilo">
+                    <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalEditProfile">edit profile</button>
+                    <button class="btn btn-secondary m-2 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>                
+                <?php } else { ?>
+                    <form action="profile.php?user=<?php echo $templateParams["user"]->getUsername() ?>" method="post" class="m-2">
+                        <input class="btn btn-secondary w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?> />
                     </form>
-                    <?php } else { ?>
-                        <form action="profile.php?user=<?php echo $templateParams["user"]->getUsername() ?>" method="post" class="m-2">
-                            <input class="btn btn-secondary w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?> />
-                        </form>
                 <?php } ?>
             </div>
         <?php }
@@ -38,20 +36,12 @@
             <?php if ($templateParams["userCanEdit"]) { ?>
                 <div class="d-flex flex-lg-column align-self-center w-100">
                     <button class="btn btn-secondary m-2  d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">members</button>
-                    <form action="editsquad.php" method="post" class="m-2">
-                        <input type="hidden" name="id" value="<?php echo $templateParams["squad"]->getId() ?>">
-                        <input class="btn btn-secondary  w-100" type="submit" name="edit_squad" value="Edit Squad">
-                    </form>
-                    <form action="addusertosquad.php" method="post" class="m-2">
-                        <input type="hidden" name="id" value="<?php echo $templateParams["squad"]->getId() ?>">
-                        <input class="btn btn-secondary w-100" type="submit" name="add_user" value="Add User">
-                    </form>
-                    <form action="inviteusertoevent.php" method="post" class="m-2">
-                        <input type="hidden" name="id" value="<?php echo $templateParams["squad"]->getId() ?>">
-                        <input class="btn btn-secondary w-100" type="submit" name="invite_user" value="Invite User to Event">
-                    </form>
+                    <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalEditSquad">edit squad</button>
+                    <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalAddUserToSquad">add user</button>
+                    <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalInviteUserToEvent">invite user to event</button>
                 </div>
             <?php } ?>
         <?php } ?>
     </div>
+
 </aside>
