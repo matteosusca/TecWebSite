@@ -4,6 +4,7 @@ require_once 'class/comment.php';
 require_once 'class/user.php';
 require_once 'class/squad.php';
 require_once 'class/event.php';
+require_once 'class/notification.php';
 
 class DatabaseHelper
 {
@@ -97,6 +98,27 @@ class DatabaseHelper
         }
     }
 
+    public function getNotifications($username) {
+        $query = "SELECT * FROM notification WHERE recipient = ? ORDER BY notification_id DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        //foreach row in result create a notification object
+        $notifications = [];
+        foreach ($result as $row) {
+            $notifications[] = new Notification($row['notification_id'], $row['recipient'], $row['sender'], $row['type'], $row['isread'], $row['date'], $this->getMediaUrl($this->getProfilePicture($row['sender'])), $row['post_id']);
+        }
+        return $notifications;
+        
+    }
+
+    public function createNotification($recipient, $sender, $type, $post_id=null) {
+        $stmt = $this->db->prepare("INSERT INTO notification (recipient, sender, type, post_id) VALUES (?,?,?,?)");
+        $stmt->bind_param('sssi', $recipient, $sender, $type, $post_id);
+        $stmt->execute();
+    }
+
     public function checkSquadExists($name)
     {
         $stmt = $this->db->prepare("SELECT * FROM compagnia WHERE nome=?");
@@ -135,6 +157,15 @@ class DatabaseHelper
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
         return new Squad($result['id_compagnia'], $result['nome'], $result['descrizione'], $this->getMediaUrl($result['profile_pic']), $result['creatore'], explode(",", $result['membri']));
+    }
+
+    public function getSquadImg($id)
+    {
+        $stmt = $this->db->prepare("SELECT profile_pic FROM compagnia WHERE id_compagnia=?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        return $this->getMediaUrl($result['profile_pic']);
     }
 
     public function getSquads($name)
@@ -215,6 +246,14 @@ class DatabaseHelper
             return true;
         }
         return false;
+    }
+
+    public function getProfilePicture($username){
+        $stmt = $this->db->prepare("SELECT profile_pic FROM utente WHERE username=?");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        return $result['profile_pic'];
     }
 
     public function setSquadPicture($id_squad, $file)
@@ -457,6 +496,13 @@ class DatabaseHelper
             $stmt->bind_param('iss', $id, $text, $username);
             $stmt->execute();
             $stmt->close();
+            //get the id of the post
+            $id = $this->db->insert_id;
+            //send a notification to all friends
+            $friends = $this->getFriendsUsername($username);
+            foreach ($friends as $friend) {
+                $this->createNotification($friend, $username, "post", $id);
+            }
             return true;
         }
         return false;
@@ -468,6 +514,13 @@ class DatabaseHelper
         $stmt->bind_param('iss', $post_id, $username, $body);
         $stmt->execute();
         $stmt->close();
+        //get the username of the post owner
+        $post = $this->getPost($post_id);
+        $postOwner = $post->getUsername();
+        //if i'm not the owner send a notification to the post owner
+        if ($postOwner != $username) {
+            $this->createNotification($postOwner, $username, "comment", $post_id);
+        }
         return true;
     }
 

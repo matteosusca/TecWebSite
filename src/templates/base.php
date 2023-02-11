@@ -76,16 +76,7 @@ if (checkSession()) {
             <label class="visually-hidden" for="closebtn">Close</label>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" id="closebtn"></button>
         </div>
-        <div class="list-group list-group-flush offcanvas-body">
-            <?php foreach ($templateParams["squads"] as $squad) { ?>
-                <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
-                    <div class="d-flex align-items-start position-relative">
-                        <span class="position-absolute top-100 start-100 translate-middle" id="<?php echo $user->getUsername() ?>-span">time</span>
-                        <img src=<?php echo $squad->getPicture() ?> alt="<?php echo $squad->getName() ?> picture" width="64" height="64" class="rounded-circle">
-                        <?php echo $squad->getName() ?> ha creato l'evento x
-                    </div>
-                </a>
-            <?php } ?>
+        <div id="notifications" class="list-group list-group-flush offcanvas-body">          
         </div>
     </div>
     <?php if (isset($templateParams["body"])) {
@@ -110,6 +101,8 @@ if (checkSession()) {
     endif; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="js/set_active_user.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/get_notification.js"></script>
 </body>
 
 
