@@ -5,26 +5,17 @@ showAllLikes();
 
 // aggiornamento numero like di uno specifico post, al click del bottone like
 like_btn.forEach(btn => {
-    btn.addEventListener("click", () => {
-        // aggiornamento db like
+    btn.addEventListener("click", async () => {
         let id_post = btn.value;
-        axios.post("api_get_session_user.php").then(response => {
-            let user = response.data;
-            axios.post("api_get_post_likes.php", { id_post: id_post }).then(response => {
-                let likes = response.data;
-                console.log(likes);
-                axios.post("api_handle_like.php", { id_post: id_post, alreadyLiked: userAlreadyLiked(likes, user) }); // potrei anche mettere l'update dei like qua
-            });
-        });
-
-        // aggiornamento interfaccia 
+        let user = await axios.post("api_get_session_user.php").then(response => response.data);
+        let likes = await axios.post("api_get_post_likes.php", { id_post: id_post }).then(response => response.data);
+        await axios.post("api_handle_like.php", { id_post: id_post, alreadyLiked: userAlreadyLiked(likes, user) });
         showCurrentLikes(id_post);
     });
 });
 
-function userAlreadyLiked(likes, username) {
-    console.log(likes.some(like => like.username === username));
-    return likes.some(like => like.username === username);
+function userAlreadyLiked(likes, user) {
+    return likes.some(like => like.username === user.username);
 }
 
 function showCurrentLikes(id_post) {
@@ -39,6 +30,4 @@ function showAllLikes() {
         showCurrentLikes(id_post);
     });
 }
-
-setInterval(() => { showAllLikes() }, 1000); // get user status once every 5 seconds
 
