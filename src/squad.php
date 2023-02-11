@@ -10,6 +10,14 @@ if (isset($_GET['squad_id'])) {
     header("Location: squad.php?error=2");
 }
 
+if (!empty($_POST['submit-event'])) {
+    $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['event-description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $user->getUsername());
+}
+
+if (!empty($_POST['submit-post'])) {
+    $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
+}
+
 $templateParams["title"] = $title;
 $templateParams["squad"] = $squad;
 $templateParams["userCanEdit"] = $dbh->checkUserPermissionsForSquad($_SESSION["username"], $squad->getId());

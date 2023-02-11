@@ -12,6 +12,25 @@
     background: transparent;
 }
 
+h1 {
+    font-size: 1.5em; /* Reduce font size of h1 */
+}
+
+h2 {
+    font-size: 1.3em; /* Reduce font size of h2 */
+}
+
+h3 {
+    font-size: 1.15em; /* Reduce font size of h3 */
+}
+
+h4, h5, h6 {
+    font-size: 1em; /* Reduce font size of h4, h5, h6 */
+}
+
 em {
     font-size: 1rem;
 }
+
+
+  

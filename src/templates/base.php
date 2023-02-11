@@ -22,7 +22,7 @@ checkSession();
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand col-lg-4 m-0 px-2 d-flex justify-content-end" href="index.php">SquadUp</a>
+            <a class="navbar-brand col-lg-4 m-0 px-2 d-flex justify-content-end" href="index.php"><h1>SquadUp</h1></a>
             <?php if (isset($_SESSION['username'])) { ?>
                 <div class="dropdown order-lg-1 col-lg-2 d-flex justify-content-start px-2">
                     <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
