@@ -397,6 +397,17 @@ class DatabaseHelper
         return $friends;
     }
 
+    public function addFriendRequest($username, $friend)
+    {
+        $stmt = $this->db->prepare("INSERT INTO richiesta_amicizia (richiedente, destinatario) VALUES (?, ?)");
+        $stmt->bind_param('ss', $username, $friend);
+        $stmt->execute();
+        $stmt->close();
+        //send notification to friend
+        $this->createNotification($friend, $username, 'friend_request');
+        return true;
+    }
+
     public function addFriend($username, $friend)
     {
         $stmt = $this->db->prepare("INSERT INTO amicizia (richiedente, accettante) VALUES (?, ?)");

@@ -85,7 +85,7 @@
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" tabindex="0">
                 <?php if (!empty($_POST['submit-event'])) {
-                    $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['event-description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $user);
+                    $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['event-description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $user->getUsername());
                 }
                 //da aggiungere controllo per creare evento anche se si è su user.php
                 if (basename($_SERVER['PHP_SELF']) == "squad.php") { ?>

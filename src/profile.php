@@ -6,18 +6,18 @@ if (isset($_GET['user'])) {
     $userProfile = $dbh->getUser($userProfile);
     if (!$userProfile) {
         $title = "Profile not found";
-        header("location: 404.php");
+        //header("location: 404.php");
     } else {
         $title = $userProfile->getUsername() . "'s profile";
     }
     if (isset($_POST['aggiungi'])) {
-        $dbh->addFriend($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
+        $dbh->addFriendRequest($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
     } else if (isset($_POST['rimuovi'])) {
         $dbh->removeFriend($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
     }
 } else {
     $title = "Profile not found";
-    header("location: 404.php");
+    //header("location: 404.php");
 }
 
 $templateParams["title"] = $title;

@@ -197,8 +197,8 @@
                         <select name="user" class="col form-select bg-body mt-2  me-2" id="user">
                             <option value="" disabled selected>Seleziona un utente</option>
                             <?php
-                            foreach ($templateParams["squad"]->getMembers() as $user) {
-                                echo "<option value='" . $user . "' >" . $user . "</option>";
+                            foreach ($templateParams["squad"]->getMembers() as $member) {
+                                echo "<option value='" . $member . "' >" . $member . "</option>";
                             }
                             ?>
                         </select>
@@ -234,8 +234,8 @@
                     <select name="user" class="col mt-2 form-select bg-body" id="user" required>
                         <option value="" disabled selected>utente</option>
                         <?php
-                        foreach ($templateParams["squad"]->getMembers() as $user) {
-                            echo "<option value='" . $user . "' >" . $user . "</option>";
+                        foreach ($templateParams["squad"]->getMembers() as $member) {
+                            echo "<option value='" . $member . "' >" . $member . "</option>";
                         }
                         ?>
                     </select>

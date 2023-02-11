@@ -1,8 +1,7 @@
 <?php
 require_once 'utils/functions.php';
-if (checkSession()) {
-    $user = $dbh->getUser($_SESSION['username']);
-}
+require_once 'bootstrap.php';
+checkSession();
 ?>
 
 <!DOCTYPE html>

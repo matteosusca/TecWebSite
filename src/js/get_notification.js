@@ -84,7 +84,7 @@ function createNotification(notification) {
             contentElement.innerHTML += notification.sender + " commented on your post";
             break;
         case "follow":
-            notificationElement.href = "profile.php?id=" + notification.sender_id;
+            notificationElement.href = "profile.php?user=" + notification.sender;
             contentElement.innerHTML += notification.sender + " started following you";
             break;
         case "event":
@@ -94,6 +94,10 @@ function createNotification(notification) {
         case "post":
             notificationElement.href = "post.php?id=" + notification.post_id;
             contentElement.innerHTML += notification.sender + " posted something";
+            break;
+        case "friend_request":
+            notificationElement.href = "profile.php?user=" + notification.sender;
+            contentElement.innerHTML += notification.sender + " sent you a friend request";
             break;
     }
   
