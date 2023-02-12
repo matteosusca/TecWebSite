@@ -64,7 +64,7 @@ class DatabaseHelper
         $stmt->bind_param('sissss', $username, $id, $date_of_birth, $name, $surname, $mail);
         $stmt->execute();
         $stmt = $this->db->prepare("INSERT INTO login (username, password, salt) VALUES (?,?,?)");
-        $stmt->bind_param('ss', $username, $password, $salt);
+        $stmt->bind_param('sss', $username, $password, $salt);
         $stmt->execute();
         $stmt = $this->db->prepare("INSERT INTO posizione (utente) VALUES (?)");
         $stmt->bind_param('s', $username);
