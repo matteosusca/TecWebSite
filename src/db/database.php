@@ -26,6 +26,12 @@ class DatabaseHelper
 
     public function checkLogin($username, $password)
     {
+        $stmt = $this->db->prepare("SELECT salt FROM login WHERE username=?");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        $salt = $result['salt'];
+        $password = hash('sha512', $password . $salt);
         $stmt = $this->db->prepare("SELECT * FROM login WHERE username=? AND password=?");
         $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
@@ -50,12 +56,15 @@ class DatabaseHelper
         if ($this->checkUserExists($username)) {
             return false;
         }
+        //generate random salt using sha512
+        $salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
+        $password = hash('sha512', $password . $salt);
         $id = $this->uploadMedia($file);
         $stmt = $this->db->prepare("INSERT INTO utente (username, profile_pic, data_nascita, nome, cognome, email) VALUES (?,?,?,?,?,?)");
         $stmt->bind_param('sissss', $username, $id, $date_of_birth, $name, $surname, $mail);
         $stmt->execute();
-        $stmt = $this->db->prepare("INSERT INTO login (username, password) VALUES (?,?)");
-        $stmt->bind_param('ss', $username, $password);
+        $stmt = $this->db->prepare("INSERT INTO login (username, password, salt) VALUES (?,?,?)");
+        $stmt->bind_param('ss', $username, $password, $salt);
         $stmt->execute();
         $stmt = $this->db->prepare("INSERT INTO posizione (utente) VALUES (?)");
         $stmt->bind_param('s', $username);

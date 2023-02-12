@@ -3,8 +3,7 @@
 require_once 'bootstrap.php';
 
 if (!empty($_POST['submit'])) {
-    $enc_passw = md5($_POST['password'] . $salt);
-    if ($dbh->checkLogin($_POST['user'], $enc_passw)) {
+    if ($dbh->checkLogin($_POST['user'], $_POST['password'])) {
         $_SESSION['username'] = $_POST['user'];
         $dbh->setLastActivity($_POST['user'], date("Y-m-d H:i:s", time()));
         header("Location: index.php");
