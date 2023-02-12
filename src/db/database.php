@@ -440,6 +440,14 @@ class DatabaseHelper
             }
         }
         return $friends;
+    } 
+
+    public function isFriendRequestPending($sender, $recipient) {
+        $stmt = $this->db->prepare("SELECT * FROM richiesta_amicizia WHERE richiedente=? AND destinatario=?");
+        $stmt->bind_param('ss', $sender, $recipient);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        return count($result) > 0;
     }
 
     public function addFriendRequest($username, $friend)

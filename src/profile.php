@@ -47,6 +47,7 @@ if($update) {
 $templateParams["title"] = $title;
 $templateParams["user"] = $userProfile;
 $templateParams["friends"] = $dbh->getFriends($userProfile->getUsername());
+$templateParams["isPendingRequest"] = $dbh->isFriendRequestPending($_SESSION['username'], $userProfile->getUsername());
 $templateParams["squads"] = $dbh->getSquadsByUser($userProfile->getUsername());
 $templateParams["post"] = $dbh->getUserPosts($userProfile->getUsername());
 $templateParams["event"] = $dbh->getUserEvents($userProfile->getUsername());
@@ -58,5 +59,4 @@ $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "http
 
 
 require 'templates/base.php';
-
 ?>

@@ -23,13 +23,14 @@
             <?php if ($templateParams["user"]->getUsername() == $_SESSION["username"]) { ?>
                 <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalEditProfile">edit profile</button>
                 <button class="btn btn-secondary m-2 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">friends/squads</button>
-            <?php } else { ?>
+            <?php } else if (!$templateParams["isPendingRequest"]) { ?>
                 <form action="profile.php?user=<?php echo $templateParams["user"]->getUsername() ?>" method="post" class="m-2">
-                    <input class="btn btn-secondary w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?> />
+                    <input class="btn btn-secondary w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' ?>>
                 </form>
-            <?php } ?>
+            <?php } else { ?>
+                <input class="btn btn-secondary w-100" type="submit" name="FriendRequestPending" value="Friend Request Pending" disabled>
         </div>
-    <?php }
+    <?php }} 
     if (isset($templateParams['squad'])) { ?>
         <div class="d-flex flex-md-row flex-lg-column align-items-lg-center">
             <img src=<?php echo $templateParams["squad"]->getPicture(); ?> class="object-fit-contain rounded-circle" alt="<?php echo $templateParams["squad"]->getName() ?> picture" width="64" height="64">
