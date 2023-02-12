@@ -1,9 +1,3 @@
-<?php
-require_once 'utils/functions.php';
-require_once 'bootstrap.php';
-checkSession();
-?>
-
 <!DOCTYPE html>
 <html lang="it">
 

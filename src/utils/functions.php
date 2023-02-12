@@ -19,3 +19,4 @@ function checkSession()
     }
     return false;
 }
+?>

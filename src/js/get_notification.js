@@ -42,7 +42,6 @@ function createNotification(notification) {
     // Create a new <a> element for the notification
     let notificationElement = document.createElement("a");
     notificationElement.classList.add("list-group-item", "list-group-item-action");
-    notificationElement.setAttribute("data-bs-toggle", "modal");
   
     // Create a new <div> element for the notification content
     let contentElement = document.createElement("div");
@@ -70,15 +69,29 @@ function createNotification(notification) {
     //switch per tipo di notifica
     switch(notification.type) {
         case "like":
-            notificationElement.href = "post.php?id=" + notification.post_id;
+            notificationElement.setAttribute("data-bs-toggle", "modal");
+            notificationElement.setAttribute("data-bs-target", "#modalNotificationPost");
+            notificationElement.onclick = function() {
+                // Effettua una richiesta HTTP asincrona con Axios
+                axios.post("modal_content.php", {
+                  params: { postId: notification.postId }
+                });
+            }
             contentElement.innerHTML += notification.sender + " liked your post";
             break;
         case "comment":
-            notificationElement.href = "post.php?id=" + notification.post_id;
+            notificationElement.setAttribute("data-bs-toggle", "modal");
+            notificationElement.setAttribute("data-bs-target", "#modalNotificationPost");
+            notificationElement.onclick = function() {
+                // Effettua una richiesta HTTP asincrona con Axios
+                axios.post("modal_content.php", {
+                  params: { postId: notification.postId }
+                });
+            }
             contentElement.innerHTML += notification.sender + " commented on your post";
             break;
         case "follow":
-            //notificationElement.href = "profile.php?user=" + notification.sender;
+            notificationElement.setAttribute("href", "profile.php?user=" + notification.sender);
             contentElement.innerHTML += notification.sender + " started following you";
             break;
         case "event":
@@ -86,10 +99,18 @@ function createNotification(notification) {
             contentElement.innerHTML += notification.sender + " invited you to an event";
             break;
         case "post":
-            notificationElement.href = "post.php?id=" + notification.post_id;
+            notificationElement.setAttribute("data-bs-toggle", "modal");
+            notificationElement.setAttribute("data-bs-target", "#modalNotificationPost");
+            notificationElement.onclick = function() {
+                // Effettua una richiesta HTTP asincrona con Axios
+                axios.post("modal_content.php", {
+                  params: { postId: notification.postId }
+                });
+            }
             contentElement.innerHTML += notification.sender + " posted something";
             break;
         case "friend_request":
+            notificationElement.setAttribute("data-bs-toggle", "modal");
             notificationElement.setAttribute("data-bs-target", "#modalNotification");
             //onclick, when the user clicks on the modal, change value of the hidden input with the sender username
             notificationElement.onclick = function() {
