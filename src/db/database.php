@@ -193,6 +193,21 @@ class DatabaseHelper
         return $this->getMediaUrl($result['profile_pic']);
     }
 
+    public function removeSquad($id)
+    {
+        $stmt = $this->db->prepare("DELETE FROM compagnia WHERE id_compagnia=?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        //delete all row with id from partecipazione
+        $stmt = $this->db->prepare("DELETE FROM partecipazione WHERE id_compagnia=?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        //delete from evento
+        $stmt = $this->db->prepare("DELETE FROM evento WHERE id_compagnia=?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+    }
+
     public function searchSquads($name)
     {
         $stmt = $this->db->prepare("SELECT c.id_compagnia 
@@ -212,9 +227,6 @@ class DatabaseHelper
         foreach ($result as $row) {
             array_push($squads, $this->getSquad($row['id_compagnia']));
         }
-        
-        
-        
         return $squads;
     }
 
