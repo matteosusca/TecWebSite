@@ -230,6 +230,15 @@ class DatabaseHelper
         return $squads;
     }
 
+    public function getSquadOwner($id)
+    {
+        $stmt = $this->db->prepare("SELECT creatore FROM compagnia WHERE id_compagnia=?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        return $result['creatore'];
+    }
+
     public function getSquadsCreatedByUser($username)
     {
         if (!$this->checkUserExists($username)) {
