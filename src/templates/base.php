@@ -1,8 +1,7 @@
 <?php
 require_once 'utils/functions.php';
-if (checkSession()) {
-    $user = $dbh->getUser($_SESSION['username']);
-}
+require_once 'bootstrap.php';
+checkSession();
 ?>
 
 <!DOCTYPE html>
@@ -105,6 +104,8 @@ if (checkSession()) {
     endif; ?>
     <script src="js/set_active_user.js"></script>
     <script src="js/get_notification.js"></script>
+    <script src="js/accept.js"></script>
+    <script src="js/decline.js"></script>
     
 </body>
 
