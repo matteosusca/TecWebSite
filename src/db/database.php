@@ -770,4 +770,12 @@ class DatabaseHelper
         return $likes;
     }
 
+    public function isLiked($postId, $username) {
+        $stmt = $this->db->prepare("SELECT * FROM likes WHERE id_post=? AND username=?");
+        $stmt->bind_param('is', $postId, $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        return count($result) > 0 ? true : false;
+    }    
+
 }

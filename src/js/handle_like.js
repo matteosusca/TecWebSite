@@ -11,6 +11,14 @@ like_btn.forEach(btn => {
         let likes = await axios.post("api_get_post_likes.php", { id_post: id_post }).then(response => response.data);
         await axios.post("api_handle_like.php", { id_post: id_post, alreadyLiked: userAlreadyLiked(likes, user) });
         showCurrentLikes(id_post);
+        let icon = btn.querySelector('em');
+        if (icon.classList.contains('bi-hand-thumbs-up')) {
+          icon.classList.remove('bi-hand-thumbs-up');
+          icon.classList.add('bi-hand-thumbs-up-fill');
+        } else {
+          icon.classList.remove('bi-hand-thumbs-up-fill');
+          icon.classList.add('bi-hand-thumbs-up');
+        }
     });
 });
 
