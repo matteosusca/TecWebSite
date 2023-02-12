@@ -53,9 +53,6 @@ checkSession();
                         <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><em class="bi bi-house d-block"></em>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><em class="bi bi-info-lg d-block"></em>Contacts</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link <?php isActive("map.php"); ?>" href="map.php"><em class="bi bi-map d-block"></em>Map</a>
                     </li>
                 </ul>
