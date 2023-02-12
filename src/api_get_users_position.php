@@ -3,7 +3,10 @@ require_once 'bootstrap.php';
 
 checkSession();
 
-$positions = $dbh->getUsersPosition($dbh->getFriendsUsername($user->getUsername()));
+
+$usernames = $dbh->getFriendsUsername($user->getUsername());
+array_push($usernames, $user->getUsername());
+$positions = $dbh->getUsersPosition($usernames);
 
 header('Content-Type: application/json');
 
