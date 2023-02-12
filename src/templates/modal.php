@@ -9,10 +9,9 @@
                     <!-- Two buttons to accept or decline the friend request -->
                     <div class="d-flex justify-content-between">
                         
-                        <button type="button" id="accept" class="btn btn-outline-success">Accept</button>
-                        <button type="button" id="decline" class="btn btn-outline-danger">Decline</button>
-                        <input type="hidden" id="sender_accept">
-                        <input type="hidden" id="sender_decline">
+                        <button type="button" id="accept" class="btn btn-outline-success" data-bs-dismiss="modal">Accept</button>
+                        <button type="button" id="decline" class="btn btn-outline-danger" data-bs-dismiss="modal">Decline</button>
+                        <input type="hidden" id="sender">
                 </div>
             </div>
         </div>

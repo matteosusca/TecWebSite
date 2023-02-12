@@ -4,6 +4,7 @@ require_once 'class/comment.php';
 require_once 'class/user.php';
 require_once 'class/squad.php';
 require_once 'class/event.php';
+require_once 'class/like.php';
 require_once 'class/notification.php';
 
 class DatabaseHelper
@@ -417,7 +418,6 @@ class DatabaseHelper
     }
 
     public function acceptRequest($recipient, $sender){
-        error_log("\naccept.php\n", 3, "/var/log/nginx/console.log");
         $stmt = $this->db->prepare("DELETE FROM richiesta_amicizia WHERE richiedente=? AND destinatario=?");
         $stmt->bind_param('ss', $sender, $recipient);
         $stmt->execute();
@@ -427,7 +427,7 @@ class DatabaseHelper
         return true;
     }
 
-    public function declineRequest ($recipient, $sender){
+    public function declineRequest($recipient, $sender){
         $stmt = $this->db->prepare("DELETE FROM richiesta_amicizia WHERE richiedente=? AND destinatario=?");
         $stmt->bind_param('ss', $sender, $recipient);
         $stmt->execute();
@@ -785,6 +785,35 @@ class DatabaseHelper
             $users[$row['utente']] = $row['last_access'];
         }
         return $users;
+    }
+
+    public function likePost($postId, $username) {
+        $date = date("Y-m-d");
+        $stmt = $this->db->prepare("INSERT INTO likes (username, id_post, data) VALUES (?, ?, ?)");
+        $stmt->bind_param('sis', $username, $postId, $date);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    public function unlikePost($postId, $username) {
+        $stmt = $this->db->prepare("DELETE FROM likes WHERE username=? AND id_post=?");
+        $stmt->bind_param('si', $username, $postId);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    public function getPostLikes($postId) {
+        $stmt = $this->db->prepare("SELECT * FROM likes WHERE id_post=?");
+        $stmt->bind_param('i', $postId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $likes = array();
+        foreach ($result as $row) {
+            array_push($likes, new Like($row['id_post'], $row['username'], $row['data']));
+        }
+        return $likes;
     }
 
 }

@@ -17,29 +17,24 @@ async function getNotifications() {
     }
 }
 
-getNotifications().then(notifications => {
-  // Clear the existing notifications
-    document.getElementById("notifications").innerHTML = "";
-    document.getElementById("notification_counter").innerHTML = notifications.length;
-
-    // Add the new notifications
-    notifications.forEach(notification => {
-            document.getElementById("notifications").appendChild(createNotification(notification));
-    });
-});
-
-// Example usage: get the notifications and log them to the console
-setInterval(() => {
+function showNotifications() {
     getNotifications().then(notifications => {
-        // Clear the existing notifications
+    // Clear the existing notifications
         document.getElementById("notifications").innerHTML = "";
         document.getElementById("notification_counter").innerHTML = notifications.length;
 
         // Add the new notifications
         notifications.forEach(notification => {
-            document.getElementById("notifications").appendChild(createNotification(notification));
+                document.getElementById("notifications").appendChild(createNotification(notification));
         });
     });
+}
+
+showNotifications();
+
+// Example usage: get the notifications and log them to the console
+setInterval(() => {
+    showNotifications();
 }, 10000); // 30 seconds
 
 
@@ -55,7 +50,7 @@ function createNotification(notification) {
   
     // Create a new <span> element for the timestamp
     let timestampElement = document.createElement("span");
-    timestampElement.classList.add("position-absolute", "top-100", "start-100", "translate-middle");
+    timestampElement.classList.add("position-absolute", "top-100", "end-0", "translate-middle-y");
     timestampElement.innerText = notification.date;
   
     // Create a new <img> element for the image
@@ -99,8 +94,7 @@ function createNotification(notification) {
             //onclick, when the user clicks on the modal, change value of the hidden input with the sender username
             notificationElement.onclick = function() {
                 //set sender_accept and sender_decline to the sender username
-                document.getElementById("sender_accept").value = notification.sender;
-                document.getElementById("sender_decline").value = notification.sender;
+                document.getElementById("sender").value = notification.sender;
             }
             contentElement.innerHTML += notification.sender + " sent you a friend request";
             break;

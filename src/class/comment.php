@@ -33,19 +33,5 @@ Class Comment{
     public function getDate(){
         return $this->date;
     }
-
-    public function showComment(){
-        return '
-        <div class="card m-2">
-            <div class="card-header">
-                <p class="card-text">'.$this->getUsername().'</p>
-                <p class="card-text">'.$this->getDate().'</p>
-            </div>
-            <div class="card card-body">
-                <p class="card-text">'.$this->getBody().'</p>
-            </div>
-        </div>
-    ';
-    }
 }
 ?>
