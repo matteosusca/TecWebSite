@@ -753,6 +753,8 @@ class DatabaseHelper
         return $events;
     }
 
+    
+
     public function getUserEvents($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM evento WHERE username=?");
@@ -778,6 +780,18 @@ class DatabaseHelper
     {
         $stmt = $this->db->prepare("SELECT * FROM evento WHERE username=? ORDER BY data_evento DESC");
         $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $events = array();
+        foreach ($result as $row) {
+            array_push($events, new Event($row['id_evento'], $row['nome'], $row['descrizione'], $row['data_creazione'], $row['data_evento'], $row['data_fine'], $row['id_tipo'], $row['username'], $row['id_compagnia']));
+        }
+        return $events;
+    }
+
+    public function getPublicEventsOrderByDate()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM evento WHERE id_tipo=1 ORDER BY data_evento DESC");
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $events = array();

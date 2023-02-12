@@ -18,6 +18,7 @@ $templateParams["main"] = "main.php";
 $templateParams["right-aside"] = "right-aside.php";
 $templateParams["post"] = $dbh->getPostOrderByDate($_SESSION["username"]);
 $templateParams["event"] = $dbh->getEventsOrderByDate($_SESSION["username"]);
+$templateParams["pub-events"] = $dbh->getPublicEventsOrderByDate();
 $templateParams["friends"] = $dbh->getFriends($_SESSION["username"]);
 $templateParams["squads"] = $dbh->getSquadsByUser($_SESSION["username"]);
 
