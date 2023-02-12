@@ -9,7 +9,7 @@
                 <div class="flex-fill overflow-auto">
                     <h2 class="offcanvas-title">Friends</h2>
                     <div class="list-group list-group-flush offcanvas-body">
-                        <?php foreach ($templateParams["friends"] as $user) { 
+                        <?php foreach ($templateParams["friends"] as $user_pic) { 
                             require "user-icon.php";    
                         } ?>
                     </div>
@@ -32,7 +32,7 @@
                 <div class="flex-fill overflow-auto">
                     <h2 class="offcanvas-title">Members</h2>
                     <div class="list-group list-group-flush offcanvas-body">
-                        <?php foreach ($templateParams["members"] as $user) { 
+                        <?php foreach ($templateParams["members"] as $user_pic) { 
                             require "user-icon.php";
                         } ?>
                     </div>

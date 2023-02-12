@@ -24,21 +24,6 @@
                 <a class="btn btn-outline-secondary text-bg-dark w-100" href="signup.php" type="button">sign up</a>
             </div>
         </div>
-    <?php } else if (basename($_SERVER['PHP_SELF']) == "contacts.php") { ?>
-        <div class="card">
-            <div class="card-header">
-                <h5>Contatti</h5>
-            </div>
-            <div class="card-body">
-                <p class="card-text">nome</p>
-                <p class="card-text">cognome</p>
-                <p class="card-text">tel</p>
-                <p class="card-text">via</p>
-            </div>
-            <div class="card-footer">
-                <p class="card-text">grazie</p>
-            </div>
-        </div>
     <?php } else if (basename($_SERVER['PHP_SELF']) == "signup.php") { ?>
         <div class="card">
             <div class="card-header">
@@ -79,6 +64,6 @@
                 </form>
             </div>
         </div>
-     <?php } ?>
+    <?php } ?>
     </div>
 <?php } ?>

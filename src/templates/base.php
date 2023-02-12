@@ -1,8 +1,7 @@
 <?php
 require_once 'utils/functions.php';
-if (checkSession()) {
-    $user = $dbh->getUser($_SESSION['username']);
-}
+require_once 'bootstrap.php';
+checkSession();
 ?>
 
 <!DOCTYPE html>
@@ -54,9 +53,6 @@ if (checkSession()) {
                         <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><em class="bi bi-house d-block"></em>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php isActive("contacts.php"); ?>" href="contacts.php"><em class="bi bi-info-lg d-block"></em>Contacts</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link <?php isActive("map.php"); ?>" href="map.php"><em class="bi bi-map d-block"></em>Map</a>
                     </li>
                 </ul>
@@ -105,6 +101,8 @@ if (checkSession()) {
     endif; ?>
     <script src="js/set_active_user.js"></script>
     <script src="js/get_notification.js"></script>
+    <script src="js/accept.js"></script>
+    <script src="js/decline.js"></script>
     
 </body>
 

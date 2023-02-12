@@ -6,7 +6,7 @@ async function initialize() {
     });
     //print all other users on map
     await axios.post("api_get_users_position.php").then(response => {
-        console.log(response.data);
+        //console.log(response.data);
         for (var user in response.data) {
             if (!response.data[user]) continue;
             new google.maps.InfoWindow({
