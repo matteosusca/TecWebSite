@@ -6,19 +6,8 @@ showAllLikes();
 // aggiornamento numero like di uno specifico post, al click del bottone like
 like_btn.forEach(btn => {
     btn.addEventListener("click", async () => {
-        let id_post = btn.value;
-        let user = await axios.post("api_get_session_user.php").then(response => response.data);
-        let likes = await axios.post("api_get_post_likes.php", { id_post: id_post }).then(response => response.data);
-        await axios.post("api_like_event.php", { id_post: id_post, alreadyLiked: userAlreadyLiked(likes, user) });
-        showCurrentLikes(id_post);
-        let icon = btn.querySelector('em');
-        if (icon.classList.contains('bi-hand-thumbs-up')) {
-          icon.classList.remove('bi-hand-thumbs-up');
-          icon.classList.add('bi-hand-thumbs-up-fill');
-        } else {
-          icon.classList.remove('bi-hand-thumbs-up-fill');
-          icon.classList.add('bi-hand-thumbs-up');
-        }
+        await updateBackend(btn);
+        updateFrontend(btn);
     });
 });
 
@@ -39,3 +28,16 @@ function showAllLikes() {
     });
 }
 
+async function updateBackend(btn) {
+    let id_post = btn.value;
+    let user = await axios.post("api_get_session_user.php").then(response => response.data);
+    let likes = await axios.post("api_get_post_likes.php", { id_post: id_post }).then(response => response.data);
+    await axios.post("api_like_event.php", { id_post: id_post, alreadyLiked: userAlreadyLiked(likes, user) });
+}
+
+function updateFrontend(btn) {
+    showCurrentLikes(btn.value);
+    let icon = btn.querySelector('em');
+    icon.classList.toggle('bi-hand-thumbs-up');
+    icon.classList.toggle('bi-hand-thumbs-up-fill');
+}

@@ -92,11 +92,7 @@ $templateParams["friends"] = $dbh->getFriends($_SESSION["username"]);
 $templateParams["left-aside"] = "left-aside.php";
 $templateParams["main"] = "main.php";
 $templateParams["right-aside"] = "right-aside.php";
-<<<<<<< HEAD
 $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "https://unpkg.com/@popperjs/core@2", "https://unpkg.com/tippy.js@6", "js/get_active_users.js", "js/handle_like.js");
-=======
-$templateParams["js"] = array("js/get_active_users.js", "js/handle_like.js");
->>>>>>> main
 
 require 'templates/base.php';
 
