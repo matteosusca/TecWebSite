@@ -96,13 +96,13 @@ if (checkSession()) {
     <?php } 
     require_once("modal.php");
     ?>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/axios.min.js"></script>
     <?php if (isset($templateParams["js"])) :
         foreach ($templateParams["js"] as $script) : ?>
             <script src="<?php echo $script; ?>"></script>
     <?php endforeach;
     endif; ?>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="js/set_active_user.js"></script>
     <script src="js/get_notification.js"></script>
     
