@@ -8,6 +8,9 @@ if (!empty($_POST['save'])) {
 if (!empty($_POST['submit-post'])) {
     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
 }
+if (isset($_POST['delete'])) {
+    $dbh->removeSquad($_POST['id']);
+}
 
 $templateParams["title"] = "Home";
 $templateParams["left-aside"] = "left-aside.php";
