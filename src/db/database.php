@@ -199,10 +199,15 @@ class DatabaseHelper
         $stmt = $this->db->prepare("DELETE FROM partecipazione WHERE id_compagnia=?");
         $stmt->bind_param('i', $id);
         $stmt->execute();
-        //delete from evento
-        $stmt = $this->db->prepare("DELETE FROM invito_u WHERE id_compagnia=?");
-        $stmt->bind_param('i', $id);
-        $stmt->execute();
+        //get a list of all events id of the squad
+        $events = $this->getSquadEvents($id);
+        //delete all row from invito_u where id_evento is in the list
+        $stmt = $this->db->prepare("DELETE FROM invito_u WHERE id_evento=?");
+        foreach ($events as $event) {
+            $event_id = $event->getIdEvent();
+            $stmt->bind_param('i', $event_id);
+            $stmt->execute();
+        }
         //delete from evento
         $stmt = $this->db->prepare("DELETE FROM evento WHERE id_compagnia=?");
         $stmt->bind_param('i', $id);
@@ -396,7 +401,7 @@ class DatabaseHelper
         $stmt = $this->db->prepare("SELECT ruolo FROM partecipazione WHERE username=? AND id_compagnia=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
         return !is_null($result) && $result['ruolo'] != 3;
     }
 
