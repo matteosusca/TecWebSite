@@ -22,6 +22,13 @@ async function show() {
     });
     await update(map, infoWindows);
     setInterval(() => { update(map, infoWindows) }, 10000);
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            //update current sessions's user position
+            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.setCenter(pos);
+        });
+    }
 }
 
 async function update(map, infoWindows) {
@@ -47,13 +54,6 @@ async function update(map, infoWindows) {
             }
         }
     });
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            //update current sessions's user position
-            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            map.setCenter(pos);
-        });
-    }
 }
 
 async function setPosition() {
