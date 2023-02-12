@@ -195,15 +195,26 @@ class DatabaseHelper
 
     public function searchSquads($name)
     {
-        $stmt = $this->db->prepare("SELECT compagnia.*, GROUP_CONCAT(partecipazione.username) AS membri FROM compagnia LEFT JOIN partecipazione ON compagnia.id_compagnia = partecipazione.id_compagnia WHERE compagnia.nome LIKE ? GROUP BY compagnia.id_compagnia");
+        $stmt = $this->db->prepare("SELECT c.id_compagnia 
+        FROM compagnia c
+        JOIN partecipazione p 
+        ON c.id_compagnia = p.id_compagnia 
+        WHERE c.nome LIKE ?
+        AND p.username = ?;
+        ");
         $name = '%' . $name . '%';
-        $stmt->bind_param('s', $name);
+        $username = $_SESSION['username'];
+        $stmt->bind_param('ss', $name, $username);
+        error_log(print_r($username, true), 3, "/var/log/nginx/console.log");
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $squads = array();
         foreach ($result as $row) {
-            array_push($squads, new Squad($row['id_compagnia'], $row['nome'], $row['descrizione'], $this->getMediaUrl($row['profile_pic']), $row['creatore'], explode(",", $row['membri'])));
+            array_push($squads, $this->getSquad($row['id_compagnia']));
         }
+        
+        
+        
         return $squads;
     }
 
