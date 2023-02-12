@@ -399,12 +399,48 @@ class DatabaseHelper
 
     public function addFriendRequest($username, $friend)
     {
+        //check if request already exists
+        $stmt = $this->db->prepare("SELECT * FROM richiesta_amicizia WHERE richiedente=? AND destinatario=?");
+        $stmt->bind_param('ss', $username, $friend);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if (count($result->fetch_all(MYSQLI_ASSOC)) > 0) {
+            return false;
+        }
         $stmt = $this->db->prepare("INSERT INTO richiesta_amicizia (richiedente, destinatario) VALUES (?, ?)");
         $stmt->bind_param('ss', $username, $friend);
         $stmt->execute();
         $stmt->close();
         //send notification to friend
         $this->createNotification($friend, $username, 'friend_request');
+        return true;
+    }
+
+    public function acceptRequest($recipient, $sender){
+        error_log("\naccept.php\n", 3, "/var/log/nginx/console.log");
+        $stmt = $this->db->prepare("DELETE FROM richiesta_amicizia WHERE richiedente=? AND destinatario=?");
+        $stmt->bind_param('ss', $sender, $recipient);
+        $stmt->execute();
+        $stmt->close();
+        $this->addFriend($sender, $recipient);
+        $this->removeRequestNotification($recipient, $sender);
+        return true;
+    }
+
+    public function declineRequest ($recipient, $sender){
+        $stmt = $this->db->prepare("DELETE FROM richiesta_amicizia WHERE richiedente=? AND destinatario=?");
+        $stmt->bind_param('ss', $sender, $recipient);
+        $stmt->execute();
+        $stmt->close();
+        $this->removeRequestNotification($recipient, $sender);
+        return true;
+    }
+
+    public function removeRequestNotification($recipient, $sender){
+        $stmt = $this->db->prepare("DELETE FROM notification WHERE recipient=? AND sender=? AND type='friend_request'");
+        $stmt->bind_param('ss', $recipient, $sender);
+        $stmt->execute();
+        $stmt->close();
         return true;
     }
 

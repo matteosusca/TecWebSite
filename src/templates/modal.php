@@ -1,3 +1,24 @@
+<div class="modal fade" id="modalNotification" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Friend Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Two buttons to accept or decline the friend request -->
+                    <div class="d-flex justify-content-between">
+                        
+                        <button type="button" id="accept" class="btn btn-outline-success">Accept</button>
+                        <button type="button" id="decline" class="btn btn-outline-danger">Decline</button>
+                        <input type="hidden" id="sender_accept">
+                        <input type="hidden" id="sender_decline">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php if (basename($_SERVER['PHP_SELF']) == "index.php") { ?>
     <div class="modal fade" id="modalCreateSquad" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -40,7 +61,7 @@
                     <div class="card">
                         <?php if (isset($_GET['error']) && $_GET['error'] == 1) { ?>
                             <p>Mail already in use</p>
-                        <?php } ?>
+                        <?php } ?><div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data">
                             <div>
                                 <label for="profilePicture" class="form-label">Profile Picture</label>

@@ -1,6 +1,6 @@
 function update_user_activity() {
     axios.post("api_set_active_user.php").then(response => {
-        console.log(response);
+        //console.log(response);
     });
 }
 

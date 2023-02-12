@@ -1,47 +1,45 @@
-//import axios from 'axios';
-
 // Define the API endpoint for retrieving notifications
 const API_ENDPOINT = 'api_get_notifications.php';
 
 // Function to get the notifications for the logged in user
 async function getNotifications() {
-  try {
-    // Make a GET request to the API endpoint
-    const response = await axios.get(API_ENDPOINT);
+    try {
+        // Make a GET request to the API endpoint
+        const response = await axios.get(API_ENDPOINT);
 
-    // Extract the notifications from the response data
-    const notifications = response.data;
+        // Extract the notifications from the response data
+        const notifications = response.data;
 
-    // Return the notifications
-    return notifications;
-  } catch (error) {
-    console.error(error);
-  }
+        // Return the notifications
+        return notifications;
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 getNotifications().then(notifications => {
   // Clear the existing notifications
-  document.getElementById("notifications").innerHTML = "";
-  document.getElementById("notification_counter").innerHTML = notifications.length;
-
-  // Add the new notifications
-  notifications.forEach(notification => {
-    document.getElementById("notifications").appendChild(createNotification(notification));
-  });
-});
-
-// Example usage: get the notifications and log them to the console
-setInterval(() => {
-  getNotifications().then(notifications => {
-    // Clear the existing notifications
     document.getElementById("notifications").innerHTML = "";
     document.getElementById("notification_counter").innerHTML = notifications.length;
 
     // Add the new notifications
     notifications.forEach(notification => {
-      document.getElementById("notifications").appendChild(createNotification(notification));
+            document.getElementById("notifications").appendChild(createNotification(notification));
     });
-  });
+});
+
+// Example usage: get the notifications and log them to the console
+setInterval(() => {
+    getNotifications().then(notifications => {
+        // Clear the existing notifications
+        document.getElementById("notifications").innerHTML = "";
+        document.getElementById("notification_counter").innerHTML = notifications.length;
+
+        // Add the new notifications
+        notifications.forEach(notification => {
+            document.getElementById("notifications").appendChild(createNotification(notification));
+        });
+    });
 }, 10000); // 30 seconds
 
 
@@ -49,6 +47,7 @@ function createNotification(notification) {
     // Create a new <a> element for the notification
     let notificationElement = document.createElement("a");
     notificationElement.classList.add("list-group-item", "list-group-item-action");
+    notificationElement.setAttribute("data-bs-toggle", "modal");
   
     // Create a new <div> element for the notification content
     let contentElement = document.createElement("div");
@@ -84,7 +83,7 @@ function createNotification(notification) {
             contentElement.innerHTML += notification.sender + " commented on your post";
             break;
         case "follow":
-            notificationElement.href = "profile.php?user=" + notification.sender;
+            //notificationElement.href = "profile.php?user=" + notification.sender;
             contentElement.innerHTML += notification.sender + " started following you";
             break;
         case "event":
@@ -96,7 +95,13 @@ function createNotification(notification) {
             contentElement.innerHTML += notification.sender + " posted something";
             break;
         case "friend_request":
-            notificationElement.href = "profile.php?user=" + notification.sender;
+            notificationElement.setAttribute("data-bs-target", "#modalNotification");
+            //onclick, when the user clicks on the modal, change value of the hidden input with the sender username
+            notificationElement.onclick = function() {
+                //set sender_accept and sender_decline to the sender username
+                document.getElementById("sender_accept").value = notification.sender;
+                document.getElementById("sender_decline").value = notification.sender;
+            }
             contentElement.innerHTML += notification.sender + " sent you a friend request";
             break;
     }
@@ -105,6 +110,6 @@ function createNotification(notification) {
   
     // Return the created notification element
     return notificationElement;
-  }
+}
   
 
