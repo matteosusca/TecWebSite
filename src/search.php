@@ -4,8 +4,8 @@ require_once 'bootstrap.php';
 
 if(isset($_GET['name'])){
     $name = $_GET['name'];
-    $user_search = $dbh->getUser($name);
-    $squads = $dbh->getSquads($name);
+    $users = $dbh->searchUser($name);
+    $squads = $dbh->searchSquads($name);
     $title = "Results for " . $name;
 } else{
     $title = "Nothing to show here";
@@ -13,7 +13,7 @@ if(isset($_GET['name'])){
 }
 
 $templateParams["title"] = $title;
-$templateParams["user"] = $user_search;
+$templateParams["users"] = $users;
 $templateParams["squads"] = $squads;
 $templateParams["main"] = "main.php";
 

@@ -95,6 +95,21 @@ class DatabaseHelper
         return new User($result['username'], $result['email'], $result['nome'], $result['cognome'], $result['data_nascita'], $this->getMediaUrl($result['profile_pic']), $amici);
     }
 
+    function searchUser($username) {
+        // Prepare the query
+        $stmt = $this->db->prepare("SELECT username FROM utente WHERE username LIKE ? OR nome LIKE ? OR cognome LIKE ?");
+        $username = "%".$username."%";
+        $stmt->bind_param('sss', $username, $username, $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $users = [];
+        foreach ($result as $row) {
+            $users[] = $this->getUser($row['username']);
+        }
+        return $users;
+    }
+    
+
     public function getMediaUrl($idmedia)
     {
         $stmt = $this->db->prepare("SELECT url FROM media WHERE id_media=?");
@@ -178,13 +193,10 @@ class DatabaseHelper
         return $this->getMediaUrl($result['profile_pic']);
     }
 
-    public function getSquads($name)
+    public function searchSquads($name)
     {
-        if (!$this->checkSquadExists($name)) {
-            return null;
-        }
-
-        $stmt = $this->db->prepare("SELECT compagnia.*, GROUP_CONCAT(partecipazione.username) AS membri FROM compagnia LEFT JOIN partecipazione ON compagnia.id_compagnia = partecipazione.id_compagnia WHERE compagnia.nome = ? GROUP BY compagnia.id_compagnia");
+        $stmt = $this->db->prepare("SELECT compagnia.*, GROUP_CONCAT(partecipazione.username) AS membri FROM compagnia LEFT JOIN partecipazione ON compagnia.id_compagnia = partecipazione.id_compagnia WHERE compagnia.nome LIKE ? GROUP BY compagnia.id_compagnia");
+        $name = '%' . $name . '%';
         $stmt->bind_param('s', $name);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

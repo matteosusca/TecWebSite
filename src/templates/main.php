@@ -154,21 +154,23 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-user" role="tabpanel" tabindex="0">
                 <?php
-                if (!is_null($templateParams["user"])) { ?>
-                    <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $templateParams["user"]->getUsername() ?>">
-                        <img src=<?php echo $templateParams["user"]->getprofilePicture() ?> alt="<?php echo $templateParams["user"]->getUsername() ?> width=" 64" height="64" class="rounded-circle">
-                        <?php echo $templateParams["user"]->getUsername() ?></a>
-                <?php } else { ?>
-                    <div class='alert alert-danger col-12' role='alert'>No user found</div>
+                if (!empty($templateParams["users"])) {
+                    foreach ($templateParams["users"] as $user) { ?>
+                        <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $user->getUsername() ?>">
+                            <img src=<?php echo $user->getprofilePicture() ?> alt=<?php echo $user->getUsername() ?> width="64" height="64" class="rounded-circle">
+                            <?php echo $user->getUsername() ?></a>
+                    <?php }
+                } else { ?>
+                    <div class='alert alert-danger col-12' role='alert'>No users found</div>
                 <?php
                 } ?>
-            </div>
+            </div>            
             <div class="tab-pane fade" id="nav-squads" role="tabpanel" tabindex="0">
                 <?php
                 if (!empty($templateParams["squads"])) {
                     foreach ($templateParams["squads"] as $squad) { ?>
                         <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
-                            <img src=<?php echo $squad->getPicture() ?> alt="<?php echo $squad->getName() ?> picture" width="64" height="64" class="rounded-circle">
+                            <img src=<?php echo $squad->getPicture() ?> alt=<?php echo $squad->getName() ?> picture" width="64" height="64" class="rounded-circle">
                             <?php echo $squad->getName() ?></a>
                     <?php }
                 } else { ?>
