@@ -99,6 +99,8 @@ checkSession();
             <script src="<?php echo $script; ?>"></script>
     <?php endforeach;
     endif; ?>
+    <script src="js/localization.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtkgSO0EAakNnErsYTuO1ORfA4QFsnqiw&callback=initialize"></script>
     <script src="js/set_active_user.js"></script>
     <script src="js/get_notification.js"></script>
     <script src="js/accept.js"></script>
