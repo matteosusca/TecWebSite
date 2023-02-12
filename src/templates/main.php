@@ -10,7 +10,7 @@
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" tabindex="0">
                 <?php if (!empty($_POST['submit-post'])) {
                     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
-                }?>
+                } ?>
                 <div class="card my-2">
                     <div class="card-header">
                         <h3 class="card-title">Crea post</h3>
@@ -44,7 +44,12 @@
                         <img src=<?php echo $post->getUrlMedia() ?> class="object-fit-contain" alt="post media" height="455">
                         <div class="card-footer container-fluid d-flex flex-wrap justify-content-evenly">
                             <button type="button" class="btn btn-outline-secondary border-0" name="like-btn" value="<?php echo $post->getId() ?>">
-                                <em class="bi bi-star d-block position-relative"><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="<?php echo $post->getId() ?>-like-count"></span></em>
+                                <?php if ($dbh->isLiked($post->getId(), $user->getUsername())) { ?>
+                                    <em class="bi bi-hand-thumbs-up-fill d-block position-relative">
+                                <?php } else { ?>
+                                    <em class="bi bi-hand-thumbs-up d-block position-relative">
+                                <?php } ?>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="<?php echo $post->getId() ?>-like-count"></span></em>
                                 like
                             </button>
                             <button type="button" class="btn btn-outline-secondary border-0" style="font-size: 1rem;"><em class="bi bi-share d-block"></em>share</button>
@@ -152,7 +157,7 @@
                 <?php
                 if (!is_null($templateParams["user"])) { ?>
                     <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $templateParams["user"]->getUsername() ?>">
-                        <img src=<?php echo $templateParams["user"]->getprofilePicture() ?> alt="<?php echo $templateParams["user"]->getUsername() ?> width="64" height="64" class="rounded-circle">
+                        <img src=<?php echo $templateParams["user"]->getprofilePicture() ?> alt="<?php echo $templateParams["user"]->getUsername() ?> width=" 64" height="64" class="rounded-circle">
                         <?php echo $templateParams["user"]->getUsername() ?></a>
                 <?php } else { ?>
                     <div class='alert alert-danger col-12' role='alert'>No user found</div>
