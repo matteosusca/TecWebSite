@@ -9,7 +9,7 @@ like_btn.forEach(btn => {
         let id_post = btn.value;
         let user = await axios.post("api_get_session_user.php").then(response => response.data);
         let likes = await axios.post("api_get_post_likes.php", { id_post: id_post }).then(response => response.data);
-        await axios.post("api_handle_like.php", { id_post: id_post, alreadyLiked: userAlreadyLiked(likes, user) });
+        await axios.post("api_like_event.php", { id_post: id_post, alreadyLiked: userAlreadyLiked(likes, user) });
         showCurrentLikes(id_post);
     });
 });

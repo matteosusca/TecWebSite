@@ -18,6 +18,6 @@ $templateParams["event"] = $dbh->getEventsOrderByDate($_SESSION["username"]);
 $templateParams["friends"] = $dbh->getFriends($_SESSION["username"]);
 $templateParams["squads"] = $dbh->getSquadsByUser($_SESSION["username"]);
 
-$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "js/get_active_users.js", "js/handle_like.js");
+$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "https://unpkg.com/@popperjs/core@2", "https://unpkg.com/tippy.js@6", "js/get_active_users.js", "js/handle_like.js", "js/like_ui.js");
 require 'templates/base.php';
 ?>
