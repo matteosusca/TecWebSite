@@ -56,7 +56,7 @@ function createNotification(notification) {
   
     // Create a new <span> element for the timestamp
     let timestampElement = document.createElement("span");
-    timestampElement.classList.add("position-absolute", "top-100", "start-100", "translate-middle");
+    timestampElement.classList.add("position-absolute", "top-100", "end-0", "translate-middle-y");
     timestampElement.innerText = notification.date;
   
     // Create a new <img> element for the image
