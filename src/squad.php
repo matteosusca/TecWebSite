@@ -63,7 +63,12 @@ if (!empty($_POST['invita'])) {
     $dbh->inviteUserToEvent($_POST['event'], $squad->getId(), $_POST['user'] );
 }
 if (!empty($_POST['submit-event'])) {
-    $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['event-description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $user->getUsername());
+    //check if event_begin_date is before event_end_date
+    if (strtotime($_POST['event_begin_date']) > strtotime($_POST['event_end_date'])) {
+        alert("Event begin date must be before event end date");
+    } else {
+        $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['event-description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $user->getUsername());
+    }
 }
 if (!empty($_POST['submit-post'])) {
     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
@@ -94,5 +99,3 @@ $templateParams["right-aside"] = "right-aside.php";
 $templateParams["js"] = array("https://unpkg.com/@popperjs/core@2", "https://unpkg.com/tippy.js@6", "js/get_active_users.js", "js/handle_like.js");
 
 require 'templates/base.php';
-
-?>
