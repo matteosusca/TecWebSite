@@ -879,6 +879,15 @@ class DatabaseHelper
         $stmt->bind_param('sis', $username, $postId, $date);
         $stmt->execute();
         $stmt->close();
+        //notificate post owner
+        $stmt = $this->db->prepare("SELECT username FROM post WHERE id_post=?");
+        $stmt->bind_param('i', $postId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        $postOwner = $result['username'];
+        if($postOwner != $username){
+            $this->createNotification($postOwner, $username, "like", $postId);
+        }
         return true;
     }
 
