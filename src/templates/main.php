@@ -4,19 +4,22 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>
 
-                <?php if(basename($_SERVER['PHP_SELF']) != 'profile.php'){
+                <?php if (basename($_SERVER['PHP_SELF']) != 'profile.php') {
                     if (basename($_SERVER['PHP_SELF']) == 'index.php') { ?>
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-reg-event" type="button" role="tab" aria-controls="nav-reg-event" aria-selected="false">registered events</button>
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-reg-event" type="button" role="tab" aria-controls="nav-reg-event" aria-selected="false">registered events</button>
                     <?php } ?>
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-pub-event" type="button" role="tab" aria-controls="nav-pub-event" aria-selected="false">public event</button>
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-priv-event" type="button" role="tab" aria-controls="nav-priv-event" aria-selected="false">private events</button>
+                    <?php if (basename($_SERVER['PHP_SELF']) == 'squad.php') { ?>
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-create-event" type="button" role="tab" aria-controls="nav-create-event" aria-selected="false">create events</button>
+                    <?php } ?>
                 <?php } else { ?>
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-comm-event" type="button" role="tab" aria-controls="nav-comm-event" aria-selected="false"><?php
-                        if($templateParams["user"]->getUsername() == $user->getUsername())
-                            echo "my events";
-                        else
-                            echo "common events";
-                    ?>
+                                                                                                                                                                                    if ($templateParams["user"]->getUsername() == $user->getUsername())
+                                                                                                                                                                                        echo "my events";
+                                                                                                                                                                                    else
+                                                                                                                                                                                        echo "common events";
+                                                                                                                                                                                    ?>
                     </button>
                 <?php } ?>
             </div>
@@ -107,40 +110,6 @@
             </div>
             <div class="tab-pane fade" id="nav-priv-event" role="tabpanel" tabindex="0">
                 <?php
-                //da aggiungere controllo per creare evento anche se si è su user.php
-                if (basename($_SERVER['PHP_SELF']) == "squad.php") { ?>
-                    <div class="card my-2">
-                        <div class="card-header">
-                            <h3 class="card-title">Crea Evento</h3>
-                        </div>
-                        <div class="card-body">
-                            <form action="#" method="post" enctype="multipart/form-data">
-                                <input type="hidden" class="form-control" name="id" value=<?php echo $squad->getID(); ?>>
-                                <div class="form-floating">
-                                    <input type="text" class="form-control bg-body mb-2" id="name" placeholder="Nome evento" name="name" required>
-                                    <label for="name">Nome evento</label>
-                                </div>
-                                <div class="form-floating">                                    
-                                    <input class="form-control bg-body mb-2" id="event-description" placeholder="Descrizione" name="event-description" required>
-                                    <label for="event-description">Descrizione</label>
-                                </div>
-                                <label for="event_begin_date">Data Inizio Evento</label>
-                                <input type="date" class="form-control bg-body mb-2" id="event_begin_date" name="event_begin_date" required>
-                                <label for="event_end_date">Data Fine Evento</label>
-                                <input type="date" class="form-control bg-body mb-2" id="event_end_date" name="event_end_date" required>
-                                <label for="type">Tipo Evento</label>
-                                <select class="form-select bg-body mb-4" id="type" name="type" required>
-                                    <option value="" disabled selected>Seleziona un tipo di evento</option>
-                                    <?php foreach ($dbh->getEventTypes() as $key => $name) {
-                                        echo "<option value='" . $key . "'>" . $name . "</option>";
-                                    } ?>
-                                </select>
-                                <button class="btn btn-outline-secondary w-100" type="submit" value="Crea" name="submit-event">Crea</button>
-                            </form>
-                        </div>
-
-                    </div>
-                <?php }
                 foreach ($templateParams["private-events"] as $event) {
                     $templateParams["event"] = $event;
                     require 'event.php';
@@ -163,6 +132,43 @@
                     $templateParams["event"] = $event;
                     require 'event.php';
                 } ?>
+            </div>
+            <div class="tab-pane fade" id="nav-create-event" role="tabpanel" tabindex="0">
+                <?php
+                //da aggiungere controllo per creare evento anche se si è su user.php
+                if (basename($_SERVER['PHP_SELF']) == "squad.php") { ?>
+                    <div class="card my-2">
+                        <div class="card-header">
+                            <h3 class="card-title">Crea Evento</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="#" method="post" enctype="multipart/form-data">
+                                <input type="hidden" class="form-control" name="id" value=<?php echo $squad->getID(); ?>>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control bg-body mb-2" id="name" placeholder="Nome evento" name="name" required>
+                                    <label for="name">Nome evento</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control bg-body mb-2" id="event-description" placeholder="Descrizione" name="event-description" required>
+                                    <label for="event-description">Descrizione</label>
+                                </div>
+                                <label for="event_begin_date">Data Inizio Evento</label>
+                                <input type="date" class="form-control bg-body mb-2" id="event_begin_date" name="event_begin_date" required>
+                                <label for="event_end_date">Data Fine Evento</label>
+                                <input type="date" class="form-control bg-body mb-2" id="event_end_date" name="event_end_date" required>
+                                <label for="type">Tipo Evento</label>
+                                <select class="form-select bg-body mb-4" id="type" name="type" required>
+                                    <option value="" disabled selected>Seleziona un tipo di evento</option>
+                                    <?php foreach ($dbh->getEventTypes() as $key => $name) {
+                                        echo "<option value='" . $key . "'>" . $name . "</option>";
+                                    } ?>
+                                </select>
+                                <button class="btn btn-outline-secondary w-100" type="submit" value="Crea" name="submit-event">Crea</button>
+                            </form>
+                        </div>
+
+                    </div>
+                <?php } ?>
             </div>
         </div>
     <?php } else if (basename($_SERVER['PHP_SELF']) == "search.php") { ?>
