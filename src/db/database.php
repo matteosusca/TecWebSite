@@ -660,6 +660,50 @@ class DatabaseHelper
         return true;
     }
 
+    public function isRegisteredToEvent($username, $event_id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM iscrizione_u WHERE username=? AND event_id=?");
+        $stmt->bind_param('si', $username, $event_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result != null;
+    }
+
+    public function getEventParticipants($event_id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM iscrizione_u WHERE event_id=?");
+        $stmt->bind_param('i', $event_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $users = array();
+        foreach ($result as $row) {
+            array_push($users, $this->getUser($row['username']));
+        }
+        return $users;
+    }
+
+    public function registerUserToEvent($username, $event_id)
+    {
+        if($this->isRegisteredToEvent($username, $event_id))
+            return false;
+        $stmt = $this->db->prepare("INSERT INTO iscrizione_u (username, event_id) VALUES (?,?)");
+        $stmt->bind_param('si', $username, $event_id);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    public function unregisterUserFromEvent($username, $event_id)
+    {
+        if(!$this->isRegisteredToEvent($username, $event_id))
+            return false;
+        $stmt = $this->db->prepare("DELETE FROM iscrizione_u WHERE username=? AND event_id=?");
+        $stmt->bind_param('si', $username, $event_id);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
     public function getUserPosts($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM posts WHERE username=?");
