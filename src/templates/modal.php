@@ -1,3 +1,16 @@
+<?php
+if (!empty($_POST['registration_action'])) {
+    switch ($_POST['registration_action']) {
+        case 'register':
+            $dbh->registerUserToEvent($user->getUsername(), $_POST['event_id']);
+            break;
+        case 'unregister':
+            $dbh->unregisterUserFromEvent($user->getUsername(), $_POST['event_id']);
+            break;
+    }
+}
+?>
+
 <div class="modal fade" id="modalNotification" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
