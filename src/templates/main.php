@@ -11,7 +11,7 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" tabindex="0">
-                <?php if (isset($_POST['submit-post'])) {
+                <?php if (!empty($_POST['submit-post'])) {
                     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
                 } ?>
                 <div class="card my-2">
@@ -110,7 +110,8 @@
                                 </div>
                                 <div class="form-floating">
                                     <input class="form-control bg-body mb-2" id="event-description" placeholder="Descrizione" name="event-description" required>
-                                    <label for="event-description">Descrizione</label>
+                                    <if (!empty($_POST['submit'])) {
+if (isset($_POST['submit'])) {label for="event-description">Descrizione</label>
                                 </div>
                                 <label for="event_begin_date">Data Inizio Evento</label>
                                 <input type="date" class="form-control bg-body mb-2" id="event_begin_date" name="event_begin_date" required>
@@ -178,7 +179,7 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-user" role="tabpanel" tabindex="0">
                 <?php
-                if (isset($templateParams["users"])) {
+                if (!empty($templateParams["users"])) {
                     foreach ($templateParams["users"] as $profile) { ?>
                         <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $profile->getUsername() ?>">
                             <img src=<?php echo $profile->getprofilePicture() ?> alt=<?php echo $profile->getUsername() ?> width="64" height="64" class="rounded-circle">
@@ -190,7 +191,7 @@
             </div>            
             <div class="tab-pane fade" id="nav-squads" role="tabpanel" tabindex="0">
                 <?php
-                if (isset($templateParams["squads"])) {
+                if (!empty($templateParams["squads"])) {
                     foreach ($templateParams["squads"] as $squad) { ?>
                         <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
                             <img src=<?php echo $squad->getPicture() ?> alt=<?php echo $squad->getName() ?> picture" width="64" height="64" class="rounded-circle">

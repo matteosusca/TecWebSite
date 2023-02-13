@@ -12,7 +12,7 @@ if (isset($_GET['user'])) {
     header("Location: index.php?error=1");
 }
 
-if (isset($_POST['aggiungi'])) {
+if (!empty($_POST['aggiungi'])) {
     $dbh->addFriendRequest($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
 } else if (isset($_POST['rimuovi'])) {
     $dbh->removeFriend($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());

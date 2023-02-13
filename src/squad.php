@@ -2,7 +2,7 @@
 
 require_once 'bootstrap.php';
 
-if (isset($_GET['squad_id'])) {
+if (!empty($_GET['squad_id'])) {
     $squad = $dbh->getSquad($_GET['squad_id']);
     if($squad){
         $title = $squad->getName() . "'s page";
@@ -13,22 +13,22 @@ if (isset($_GET['squad_id'])) {
     header("Location: index.php?error=1");
 }
 
-if (isset($_POST['save'])) {
+if (!empty($_POST['save'])) {
     // change squad picture
     if (isset($_FILES['squadPicture']) && is_uploaded_file($_FILES['squadPicture']['tmp_name']) && $_FILES['squadPicture']['error'] == 0) {
         $dbh->setSquadPicture($squad->getId(), $_FILES['squadPicture']);
     }
     //change name
-    if (isset($_POST['name'])) {
+    if (!empty($_POST['name'])) {
         $dbh->setSquadName($squad->getId(), $_POST['name']);
     }
     //change description
-    if (isset($_POST['description'])) {
+    if (!empty($_POST['description'])) {
         print("Descrizione");
         $dbh->setSquadDescription($squad->getId(), $_POST['description']);
     }
     //change permissions for users
-    if (isset($_POST['user']) && isset($_POST['action'])) {
+    if (!empty($_POST['user']) && isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'admin':
                 if (!$dbh->setUserAdmin($_POST['user'], $squad->getId())) {
@@ -48,7 +48,7 @@ if (isset($_POST['save'])) {
         }
     }
 }
-if (isset($_POST['add'])) {
+if (!empty($_POST['add'])) {
     if (isset($_POST['user_friend']) && isset($_POST['role'])) {
         if (!$dbh->addUserToGroup($squad->getId(), $_SESSION['username'], $_POST['user_friend'], $_POST['role'])) {
             alert("Unable to add " .$_POST['user'] . " to squad");
@@ -59,16 +59,16 @@ if (isset($_POST['add'])) {
         }
     } 
 }
-if (isset($_POST['invita'])) {
+if (!empty($_POST['invita'])) {
     $dbh->inviteUserToEvent($_POST['event'], $squad->getId(), $_POST['user'] );
 }
-if (isset($_POST['submit-event'])) {
+if (!empty($_POST['submit-event'])) {
     $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['event-description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $user->getUsername());
 }
-if (isset($_POST['submit-post'])) {
+if (!empty($_POST['submit-post'])) {
     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
 }
-if (isset($_POST['delete'])) {
+if (!empty($_POST['delete'])) {
     $dbh->removeSquad($_POST['id']);
     header("Location: index.php");
 }

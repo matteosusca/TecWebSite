@@ -1,12 +1,12 @@
 <?php
 require_once 'bootstrap.php';
 
-if (isset($_POST['save'])) {
+if (!empty($_POST['save'])) {
     $squad_id = $dbh->createSquad($_POST['name'], $_POST['description'], $_FILES['squadPicture'], $_SESSION['username']);
     header("Location: squad.php?squad_id=" . $squad_id);
 }
 
-if (isset($_POST['submit-post'])) {
+if (!empty($_POST['submit-post'])) {
     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
 }
 if (isset($_GET["error"]) && ($_GET["error"] == 1)){
