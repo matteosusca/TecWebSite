@@ -111,7 +111,8 @@
                                 </div>
                                 <div class="form-floating">
                                     <input class="form-control bg-body mb-2" id="event-description" placeholder="Descrizione" name="event-description" required>
-                                    <label for="event-description">Descrizione</label>
+                                    <if (!empty($_POST['submit'])) {
+if (isset($_POST['submit'])) {label for="event-description">Descrizione</label>
                                 </div>
                                 <label for="event_begin_date">Data Inizio Evento</label>
                                 <input type="date" class="form-control bg-body mb-2" id="event_begin_date" name="event_begin_date" required>

@@ -9,7 +9,9 @@ if (!empty($_POST['save'])) {
 if (!empty($_POST['submit-post'])) {
     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
 }
-
+if (isset($_GET["error"]) && ($_GET["error"] == 1)){
+    alert("not found");
+}
 $templateParams["title"] = "Home";
 $templateParams["left-aside"] = "left-aside.php";
 $templateParams["main"] = "main.php";

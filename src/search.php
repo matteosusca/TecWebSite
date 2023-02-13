@@ -8,8 +8,7 @@ if(isset($_GET['name'])){
     $squads = $dbh->searchSquads($name);
     $title = "Results for " . $name;
 } else{
-    $title = "Nothing to show here";
-    header("Location: search.php?error=2");
+    header("Location: index.php?error=1");
 }
 
 $templateParams["title"] = $title;
