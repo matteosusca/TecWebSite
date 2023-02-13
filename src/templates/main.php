@@ -3,7 +3,10 @@
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>
-                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">event</button>
+                <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">subs event</button>
+                <?php if (basename($_SERVER['PHP_SELF']) == "index.php"){ ?>
+                <button class="nav-link" id="nav-pub-event-tab" data-bs-toggle="tab" data-bs-target="#nav-pub-event" type="button" role="tab" aria-controls="nav-pub-event" aria-selected="false">public event</button>
+                <?php } ?>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -90,7 +93,7 @@
                     </div>
                 <?php } ?>
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" tabindex="0">
+            <div class="tab-pane fade" id="nav-event" role="tabpanel" tabindex="0">
                 <?php
                 //da aggiungere controllo per creare evento anche se si è su user.php
                 if (basename($_SERVER['PHP_SELF']) == "squad.php") { ?>
@@ -143,6 +146,27 @@
                     </div>
                 <?php } ?>
             </div>
+            <div class="tab-pane fade" id="nav-pub-event" role="tabpanel" tabindex="0">
+                <?php
+
+                
+                    foreach ($templateParams["pub-events"] as $event) { ?>
+                        <div class="card m-2">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center px-2 border-0">
+                                    <img src=<?php echo $dbh->getUser($event->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="event author profile picture" width="32" height="32">
+                                    <div class="d-flex flex-column px-2">
+                                        <p class="card-title"><?php echo $event->getName() ?>(<?php echo $event->getUsername() ?>)</p>
+                                        <p class="card-text">dal <?php echo $event->getDateOfEventStart() ?> al <?php echo $event->getDateOfEventEnd() ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-body">
+                                <p class="card-text"><?php echo $event->getDescription() ?></p>
+                            </div>
+                        </div>
+                    <?php }?>
+            </div>
         </div>
     <?php } else if (basename($_SERVER['PHP_SELF']) == "search.php") { ?>
         <nav>
@@ -155,10 +179,10 @@
             <div class="tab-pane fade show active" id="nav-user" role="tabpanel" tabindex="0">
                 <?php
                 if (!empty($templateParams["users"])) {
-                    foreach ($templateParams["users"] as $user) { ?>
-                        <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $user->getUsername() ?>">
-                            <img src=<?php echo $user->getprofilePicture() ?> alt=<?php echo $user->getUsername() ?> width="64" height="64" class="rounded-circle">
-                            <?php echo $user->getUsername() ?></a>
+                    foreach ($templateParams["users"] as $profile) { ?>
+                        <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $profile->getUsername() ?>">
+                            <img src=<?php echo $profile->getprofilePicture() ?> alt=<?php echo $profile->getUsername() ?> width="64" height="64" class="rounded-circle">
+                            <?php echo $profile->getUsername() ?></a>
                     <?php }
                 } else { ?>
                     <div class='alert alert-danger col-12' role='alert'>No users found</div>
