@@ -61,8 +61,8 @@
                                     <div class="card-body">
                                         <form action="#" method="post" enctype="multipart/form-data">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control bg-body" id="comment_body_post#<?php echo $postNotification->getId() ?>" placeholder="Scrivi un commento" name="body" required>
-                                                <label for="comment_body_post#<?php echo $postNotification->getId() ?>">Scrivi un commento</label>
+                                                <input type="text" class="form-control bg-body" id="notification_comment_body_post#<?php echo $postNotification->getId() ?>" placeholder="Scrivi un commento" name="body" required>
+                                                <label for="notification_comment_body_post#<?php echo $postNotification->getId() ?>">Scrivi un commento</label>
                                             </div>
                                             <button class="btn btn-outline-secondary mt-2 w-100" type="submit" value="Pubblica" name="submitComment<?php echo $postNotification->getId() ?>">Pubblica</button>
                                         </form>
