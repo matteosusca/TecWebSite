@@ -9,6 +9,16 @@ if (!empty($_POST['save'])) {
 if (!empty($_POST['submit-post'])) {
     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
 }
+if (!empty($_POST['registration_action'])) {
+    switch ($_POST['registration_action']) {
+        case 'register':
+            $dbh->registerUserToEvent($user->getUsername(), $_POST['event_id']);
+            break;
+        case 'unregister':
+            $dbh->unregisterUserFromEvent($user->getUsername(), $_POST['event_id']);
+            break;
+    }
+}
 if (isset($_GET["error"]) && ($_GET["error"] == 1)){
     alert("not found");
 }
