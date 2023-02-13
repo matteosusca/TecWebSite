@@ -42,7 +42,7 @@
             ?>
 
             <div class="collapse navbar-collapse flex-grow-0 col-lg-6" id="navbarHeader">
-                <ul class="navbar-nav col-lg-8 text-center d-flex flex-row justify-content-around">
+                <ul class="navbar-nav col-lg-8 text-center d-flex flex-row justify-content-evenly">
                     <li class="nav-item">
                         <a class="nav-link <?php isActive("index.php"); ?>" href="index.php"><em class="bi bi-house d-block"></em>Home</a>
                     </li>
