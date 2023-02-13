@@ -48,9 +48,9 @@
                                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="<?php echo $postNotification->getId() ?>-like-count"></span></em>
                                             like
                                 </button>
-                                <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $postNotification->getId() ?>" aria-expanded="false" aria-controls="<?php echo $postNotification->getId() ?>"><em class="bi bi-pencil-square d-block"></em>comments</button>
+                                <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse" data-bs-target="#notification<?php echo $postNotification->getId() ?>" aria-expanded="false" aria-controls="<?php echo $postNotification->getId() ?>"><em class="bi bi-pencil-square d-block"></em>comments</button>
                             </div>
-                            <div class="collapse multi-collapse" id="<?php echo $postNotification->getId() ?>">
+                            <div class="collapse multi-collapse" id="notification<?php echo $postNotification->getId() ?>">
                                 <?php if (isset($_POST['submitComment' . $postNotification->getId()])) {
                                     $dbh->createComment($user->getUsername(), $postNotification->getId(), $_POST['body']);
                                 } ?>
