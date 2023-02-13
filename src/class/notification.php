@@ -8,8 +8,9 @@ class Notification {
     public $date;
     public $img;
     public $post_id;
+    public $event_id;
 
-    public function __construct($notification_id, $recipient, $sender, $type, $is_read, $date, $img, $post_id) {
+    public function __construct($notification_id, $recipient, $sender, $type, $is_read, $date, $img, $post_id, $event_id) {
         $this->notification_id = $notification_id;
         $this->recipient = $recipient;
         $this->sender = $sender;
@@ -18,6 +19,7 @@ class Notification {
         $this->date = $date;
         $this->img = $img;
         $this->post_id = $post_id;
+        $this->event_id = $event_id;
     }
 }
 
