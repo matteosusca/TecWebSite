@@ -579,7 +579,7 @@ class DatabaseHelper
         $stmt->execute();
 
         //eliminazione dell'utente da tutti gli eventi organizzati dalla squadra 
-        $stmt = $this->db->prepare("DELETE FROM iscrizione_u WHERE username = ? AND event_id IN (SELECT event_id FROM events WHERE squad_id = ?)");
+        $stmt = $this->db->prepare("DELETE FROM u_registration WHERE username = ? AND event_id IN (SELECT event_id FROM events WHERE squad_id = ?)");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
 
@@ -657,7 +657,7 @@ class DatabaseHelper
 
     public function isRegisteredToEvent($username, $event_id)
     {
-        $stmt = $this->db->prepare("SELECT * FROM iscrizione_u WHERE username=? AND event_id=?");
+        $stmt = $this->db->prepare("SELECT * FROM u_registration WHERE username=? AND event_id=?");
         $stmt->bind_param('si', $username, $event_id);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
@@ -666,7 +666,7 @@ class DatabaseHelper
 
     public function getEventParticipants($event_id)
     {
-        $stmt = $this->db->prepare("SELECT * FROM iscrizione_u WHERE event_id=?");
+        $stmt = $this->db->prepare("SELECT * FROM u_registration WHERE event_id=?");
         $stmt->bind_param('i', $event_id);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -681,7 +681,7 @@ class DatabaseHelper
     {
         if($this->isRegisteredToEvent($username, $event_id))
             return false;
-        $stmt = $this->db->prepare("INSERT INTO iscrizione_u (username, event_id) VALUES (?,?)");
+        $stmt = $this->db->prepare("INSERT INTO u_registration (username, event_id) VALUES (?,?)");
         $stmt->bind_param('si', $username, $event_id);
         $stmt->execute();
         $stmt->close();
@@ -692,7 +692,7 @@ class DatabaseHelper
     {
         if(!$this->isRegisteredToEvent($username, $event_id))
             return false;
-        $stmt = $this->db->prepare("DELETE FROM iscrizione_u WHERE username=? AND event_id=?");
+        $stmt = $this->db->prepare("DELETE FROM u_registration WHERE username=? AND event_id=?");
         $stmt->bind_param('si', $username, $event_id);
         $stmt->execute();
         $stmt->close();
@@ -702,7 +702,7 @@ class DatabaseHelper
     public function getRegisteredEventsOrderByDate($username)
     {
         //order by event_date > now(). put the events that are in the future first
-        $stmt = $this->db->prepare("SELECT e.* FROM events e JOIN iscrizione_u i ON e.event_id=i.event_id WHERE i.username=? AND e.event_date > NOW() ORDER BY e.event_date ASC");
+        $stmt = $this->db->prepare("SELECT e.* FROM events e JOIN u_registration i ON e.event_id=i.event_id WHERE i.username=? AND e.event_date > NOW() ORDER BY e.event_date ASC");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -715,7 +715,7 @@ class DatabaseHelper
 
     public function getPrivateEventsOrderByDate($username)
     {
-        $stmt = $this->db->prepare("SELECT event_id FROM events WHERE event_id IN (SELECT event_id FROM iscrizione_u WHERE username=?) AND type_id=2 AND event_date > NOW() ORDER BY event_date DESC");
+        $stmt = $this->db->prepare("SELECT event_id FROM events WHERE event_id IN (SELECT event_id FROM u_registration WHERE username=?) AND type_id=2 AND event_date > NOW() ORDER BY event_date DESC");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -739,7 +739,7 @@ class DatabaseHelper
     }
 
     public function getCommonEvents($username1, $username2){
-        $stmt = $this->db->prepare("SELECT event_id FROM iscrizione_u WHERE username=? AND event_id IN (SELECT event_id FROM iscrizione_u WHERE username=?)");
+        $stmt = $this->db->prepare("SELECT event_id FROM u_registration WHERE username=? AND event_id IN (SELECT event_id FROM u_registration WHERE username=?)");
         $stmt->bind_param('ss', $username1, $username2);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
