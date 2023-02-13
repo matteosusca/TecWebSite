@@ -3,86 +3,69 @@
 require_once 'bootstrap.php';
 
 if (isset($_GET['squad_id'])) {
-    $squad_id = $_GET['squad_id'];
-    $squad = $dbh->getSquad($squad_id);
+    $squad = $dbh->getSquad($_GET['squad_id']);
     if($squad){
         $title = $squad->getName() . "'s page";
     } else {
-        $title = "Squad not found";
-        alert("squad not found");
+        header("Location: index.php?error=1");
     }
-    
+}else {
+    header("Location: index.php?error=1");
 }
 
-if (!empty($_POST['save'])) {
-
+if (isset($_POST['save'])) {
     // change squad picture
     if (isset($_FILES['squadPicture']) && is_uploaded_file($_FILES['squadPicture']['tmp_name']) && $_FILES['squadPicture']['error'] == 0) {
-        print("Immagine");
-        $dbh->setSquadPicture($squad_id, $_FILES['squadPicture']);
+        $dbh->setSquadPicture($squad->getId(), $_FILES['squadPicture']);
     }
-
     //change name
-    if (!empty($_POST['name'])) {
-        $dbh->setSquadName($squad_id, $_POST['name']);
+    if (isset($_POST['name'])) {
+        $dbh->setSquadName($squad->getId(), $_POST['name']);
     }
-
     //change description
-    if (!empty($_POST['description'])) {
+    if (isset($_POST['description'])) {
         print("Descrizione");
-        $dbh->setSquadDescription($squad_id, $_POST['description']);
+        $dbh->setSquadDescription($squad->getId(), $_POST['description']);
     }
-
     //change permissions for users
-    if (!empty($_POST['user']) && !empty($_POST['action'])) {
+    if (isset($_POST['user']) && isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'admin':
-                if ($dbh->setUserAdmin($_POST['user'], $squad_id)) {
-                    print($_POST['user'] . " made admin");
-                } else {
-                    print("Unable to make " . $_POST['user'] . " admin");
+                if (!$dbh->setUserAdmin($_POST['user'], $squad->getId())) {
+                    alert("Unable to make " .$_POST['user'] . " admin");
                 }
                 break;
             case 'member':
-                if ($dbh->setUserMember($_POST['user'], $squad_id)) {
-                    print($_POST['user'] . " made member");
-                } else {
-                    print("Unable to make " . $_POST['user'] . " member");
-                }
+                if (!$dbh->setUserMember($_POST['user'], $squad->getId())) {
+                    alert("Unable to make " .$_POST['user'] . " member");
+                } 
                 break;
             case 'remove':
-                if ($dbh->removeUserFromSquad($_POST['user'], $squad_id)) {
-                    print($_POST['user'] . " removed");
-                } else {
-                    print("Unable to remove " . $_POST['user']);
+                if (!$dbh->removeUserFromSquad($_POST['user'], $squad->getId())) {
+                    alert("Unable to remove " .$_POST['user'] . " member");
                 }
                 break;
         }
     }
 }
-if (!empty($_POST['add'])) {
-    if (!empty($_POST['user_friend']) && !empty($_POST['role'])) {
-        if ($dbh->addUserToGroup($squad_id, $_SESSION['username'], $_POST['user_friend'], $_POST['role'])) {
-            print($_POST['user_friend'] . " added to squad");
-        } else {
-            print("Unable to add " . $_POST['user_friend'] . " to squad");
+if (isset($_POST['add'])) {
+    if (isset($_POST['user_friend']) && isset($_POST['role'])) {
+        if (!$dbh->addUserToGroup($squad->getId(), $_SESSION['username'], $_POST['user_friend'], $_POST['role'])) {
+            alert("Unable to add " .$_POST['user'] . " to squad");
         }
-    } else if (!empty($_POST['searched_user'])  && !empty($_POST['role'])) {
-        if ($dbh->addUserToGroup($squad_id, $_SESSION['username'], $_POST['searched_user'], $_POST['role'])) {
-            print($_POST['searched_user'] . " added to squad");
-        } else {
-            print("Unable to add " . $_POST['searched_user'] . " to squad");
+    } else if (isset($_POST['searched_user'])  && isset($_POST['role'])) {
+        if ($dbh->addUserToGroup($squad->getId(), $_SESSION['username'], $_POST['searched_user'], $_POST['role'])) {
+            alert("Unable to add " .$_POST['user'] . " to squad");
         }
     } 
 }
-if (!empty($_POST['invita'])) {
-    $dbh->inviteUserToEvent($_POST['event'], $squad_id, $_POST['user'] );
+if (isset($_POST['invita'])) {
+    $dbh->inviteUserToEvent($_POST['event'], $squad->getId(), $_POST['user'] );
 }
-if (!empty($_POST['submit-event'])) {
+if (isset($_POST['submit-event'])) {
     $dbh->createEvent($_POST['id'], $_POST['name'], $_POST['event-description'], $_POST['event_begin_date'], $_POST['event_end_date'], $_POST['type'], $user->getUsername());
 }
-
-if (!empty($_POST['submit-post'])) {
+if (isset($_POST['submit-post'])) {
     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
 }
 if (isset($_POST['delete'])) {

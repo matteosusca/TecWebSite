@@ -8,7 +8,7 @@ require_once("db/database.php");
 require_once("utils/functions.php");
 $dbh = new DatabaseHelper("sysosus.win", "gruppoweb", "pass123", "tw_db", 3306);
 //if session user exist define user
-if (!empty($_POST['esci'])) {
+if (isset($_POST['esci'])) {
     session_start();
     session_destroy();
     header("Location: signin.php");

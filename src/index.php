@@ -1,15 +1,17 @@
 <?php
 require_once 'bootstrap.php';
 
-if (!empty($_POST['save'])) {
+if (isset($_POST['save'])) {
     $squad_id = $dbh->createSquad($_POST['name'], $_POST['description'], $_FILES['squadPicture'], $_SESSION['username']);
     header("Location: squad.php?squad_id=" . $squad_id);
 }
 
-if (!empty($_POST['submit-post'])) {
+if (isset($_POST['submit-post'])) {
     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
 }
-
+if (isset($_GET["error"]) && ($_GET["error"] == 1)){
+    alert("not found");
+}
 $templateParams["title"] = "Home";
 $templateParams["left-aside"] = "left-aside.php";
 $templateParams["main"] = "main.php";

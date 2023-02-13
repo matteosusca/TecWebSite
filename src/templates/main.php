@@ -11,7 +11,7 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" tabindex="0">
-                <?php if (!empty($_POST['submit-post'])) {
+                <?php if (isset($_POST['submit-post'])) {
                     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
                 } ?>
                 <div class="card my-2">
@@ -178,7 +178,7 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-user" role="tabpanel" tabindex="0">
                 <?php
-                if (!empty($templateParams["users"])) {
+                if (isset($templateParams["users"])) {
                     foreach ($templateParams["users"] as $profile) { ?>
                         <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $profile->getUsername() ?>">
                             <img src=<?php echo $profile->getprofilePicture() ?> alt=<?php echo $profile->getUsername() ?> width="64" height="64" class="rounded-circle">
@@ -190,7 +190,7 @@
             </div>            
             <div class="tab-pane fade" id="nav-squads" role="tabpanel" tabindex="0">
                 <?php
-                if (!empty($templateParams["squads"])) {
+                if (isset($templateParams["squads"])) {
                     foreach ($templateParams["squads"] as $squad) { ?>
                         <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
                             <img src=<?php echo $squad->getPicture() ?> alt=<?php echo $squad->getName() ?> picture" width="64" height="64" class="rounded-circle">

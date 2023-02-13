@@ -3,26 +3,27 @@ require_once 'bootstrap.php';
 
 if (isset($_GET['user'])) {
     $userProfile = $dbh->getUser($_GET['user']);
-    if (!$userProfile) {
-        $title = "Profile not found";
-        //header("location: 404.php");
-    } else {
+    if ($userProfile) {
         $title = $userProfile->getUsername() . "'s profile";
-    }
-    if (isset($_POST['aggiungi'])) {
-        $dbh->addFriendRequest($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
-    } else if (isset($_POST['rimuovi'])) {
-        $dbh->removeFriend($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
+    } else {
+        header("Location: index.php?error=1");
     }
 } else {
-    $title = "Profile not found";
-    //header("location: 404.php");
+    header("Location: index.php?error=1");
 }
-$update = false;
 
+if (isset($_POST['aggiungi'])) {
+    $dbh->addFriendRequest($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
+} else if (isset($_POST['rimuovi'])) {
+    $dbh->removeFriend($dbh->getUser($_SESSION['username'])->getUsername(), $userProfile->getUsername());
+}
+
+$update = false;
 //check if file is uploaded
 if (isset($_FILES['profilePicture']) && is_uploaded_file($_FILES['profilePicture']['tmp_name']) && $_FILES['profilePicture']['error'] == 0) {
-    $dbh->setProfilePicture($_SESSION['username'], $_FILES['profilePicture']);
+    if (!$dbh->setProfilePicture($_SESSION['username'], $_FILES['profilePicture'])) {
+        alert("Unable to update profile picture");
+    }
     $update = true;
 }
 if (isset($_POST['name'])) {
@@ -34,9 +35,7 @@ if (isset($_POST['surname'])) {
     $update = true;
 }
 if (isset($_POST['email'])) {
-    if (!$dbh->setMail($_SESSION['username'], $_POST['email'])) {
-        header("Location: editprofile.php?error=1");
-    }
+    $dbh->setMail($_SESSION['username'], $_POST['email']);
     $update = true;
 }
 if($update) {
