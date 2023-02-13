@@ -66,29 +66,21 @@ function showUsersHTML(users) {
 }
 
 function createTippy(btn) {
-    let isLoading = true;
-    let dots = ".";
     let id_post = btn.value;
     return tippy(btn, {
-        content: "Loading" + dots,
+        content: getLoadingHTML(),
         onShow(instance) {
-            if (isLoading) {
-                let interval = setInterval(() => {
-                  dots = dots.length >= 3 ? "." : dots + ".";
-                  instance.setContent("Loading" + dots);
-            }, 500);
-            axios.post("api_get_post_likes.php", { id_post: id_post }).then(response => {
-                let likes = response.data;
-                instance.setContent(showUsersHTML(likes));
-                isLoading = false;
-                clearInterval(interval);
-            })
-        }},
+            updateTippyContent(instance, id_post);    
+        },
         allowHTML: true,
         placement: "bottom",
         arrow: true,
         interactive: true
     });
+}
+
+function getLoadingHTML() {
+    return `<div class="spinner-border spinner-border-sm" role="status"></div>`;
 }
 
 function updateTippyContent(tippy, id_post) {
