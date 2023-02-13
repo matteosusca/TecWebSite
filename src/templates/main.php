@@ -2,10 +2,11 @@
     <?php if (isset($templateParams['post']) && isset($templateParams['event'])) { ?>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>
-                <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">subs event</button>
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>                
+                <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">subs events</button>
                 <?php if (basename($_SERVER['PHP_SELF']) == "index.php"){ ?>
                 <button class="nav-link" id="nav-pub-event-tab" data-bs-toggle="tab" data-bs-target="#nav-pub-event" type="button" role="tab" aria-controls="nav-pub-event" aria-selected="false">public event</button>
+                <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">private events</button>
                 <?php } ?>
             </div>
         </nav>

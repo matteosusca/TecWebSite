@@ -136,15 +136,15 @@ class DatabaseHelper
         //foreach row in result create a notification object
         $notifications = [];
         foreach ($result as $row) {
-            $notifications[] = new Notification($row['notification_id'], $row['recipient'], $row['sender'], $row['type'], $row['isread'], $row['date'], $this->getMediaUrl($this->getProfilePicture($row['sender'])), $row['post_id']);
+            $notifications[] = new Notification($row['notification_id'], $row['recipient'], $row['sender'], $row['type'], $row['isread'], $row['date'], $this->getMediaUrl($this->getProfilePicture($row['sender'])), $row['post_id'], $row['event_id']);
         }
         return $notifications;
         
     }
 
-    public function createNotification($recipient, $sender, $type, $post_id=null) {
-        $stmt = $this->db->prepare("INSERT INTO notifications (recipient, sender, type, post_id) VALUES (?,?,?,?)");
-        $stmt->bind_param('sssi', $recipient, $sender, $type, $post_id);
+    public function createNotification($recipient, $sender, $type, $post_id=null, $event_id=null) {
+        $stmt = $this->db->prepare("INSERT INTO notifications (recipient, sender, type, post_id, event_id) VALUES (?,?,?,?,?)");
+        $stmt->bind_param('sssi', $recipient, $sender, $type, $post_id, $event_id);
         $stmt->execute();
     }
 
