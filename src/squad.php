@@ -51,11 +51,11 @@ if (!empty($_POST['save'])) {
 if (!empty($_POST['add'])) {
     if (isset($_POST['user_friend']) && isset($_POST['role'])) {
         if (!$dbh->addUserToGroup($squad->getId(), $_SESSION['username'], $_POST['user_friend'], $_POST['role'])) {
-            alert("Unable to add " .$_POST['user'] . " to squad");
+            alert("Unable to add " .$_POST['user_friend'] . " to squad");
         }
     } else if (isset($_POST['searched_user'])  && isset($_POST['role'])) {
         if ($dbh->addUserToGroup($squad->getId(), $_SESSION['username'], $_POST['searched_user'], $_POST['role'])) {
-            alert("Unable to add " .$_POST['user'] . " to squad");
+            alert("Unable to add " .$_POST['searched_user'] . " to squad");
         }
     } 
 }
@@ -72,6 +72,11 @@ if (!empty($_POST['delete'])) {
     $dbh->removeSquad($_POST['id']);
     header("Location: index.php");
 }
+if(!empty($_POST['leave'])){
+    $dbh->removeUserFromSquad($_SESSION['username'], $squad->getId());
+    header("Location: index.php");
+}
+
 $templateParams["title"] = $title;
 $templateParams["squad"] = $squad;
 $templateParams["userCanEdit"] = $dbh->checkUserPermissionsForSquad($_SESSION["username"], $squad->getId());
@@ -79,6 +84,7 @@ $templateParams["members"] = $dbh->getMembers($squad->getId());
 $templateParams["post"] = $dbh->getSquadPosts($squad->getId());
 $templateParams["event"] = $dbh->getSquadEvents($squad->getId());
 $templateParams["friends"] = $dbh->getFriends($_SESSION["username"]);
+$templateParams["isUserCreator"] = $dbh->checkIsUserCreator($_SESSION["username"], $squad->getId());
 $templateParams["left-aside"] = "left-aside.php";
 $templateParams["main"] = "main.php";
 $templateParams["right-aside"] = "right-aside.php";

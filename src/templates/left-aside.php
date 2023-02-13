@@ -46,11 +46,18 @@
                 <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalAddUserToSquad">add user</button>
                 <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalInviteUserToEvent">invite user to event</button>
                 <form action="" method="post" class="m-2">
-                <input type="hidden" class="form-control" name="id" value=<?php echo $templateParams["squad"]->getID(); ?>>    
-                <input class="btn btn-secondary w-100" type="submit" name="delete" value="delete"/>
+                    <input type="hidden" class="form-control" name="id" value=<?php echo $templateParams["squad"]->getID(); ?>>    
+                    <input class="btn btn-secondary w-100" type="submit" name="delete" value="delete"/>
                 </form>
             </div>
-        <?php } ?>
-    <?php } ?>
+        <?php } 
+        if(!$templateParams["isUserCreator"]) { ?>
+            <form action="#" method="post" class="m-2">
+                <label class="visually-hidden" for="leave">Leave squad</label>
+                <input class="btn btn-secondary w-100" type="submit" id ="leave" name="leave" value="leave"/>
+            </form>    
+        <?php
+        }
+     } ?>
 
 </aside>
