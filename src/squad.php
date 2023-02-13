@@ -81,7 +81,10 @@ if (!empty($_POST['submit-event'])) {
 if (!empty($_POST['submit-post'])) {
     $dbh->createPost($user->getUsername(), $_POST['post-description'], $_FILES['post-file']);
 }
-
+if (isset($_POST['delete'])) {
+    $dbh->removeSquad($_POST['id']);
+    header("Location: index.php");
+}
 $templateParams["title"] = $title;
 $templateParams["squad"] = $squad;
 $templateParams["userCanEdit"] = $dbh->checkUserPermissionsForSquad($_SESSION["username"], $squad->getId());

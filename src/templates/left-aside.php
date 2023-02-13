@@ -45,7 +45,7 @@
                 <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalEditSquad">edit squad</button>
                 <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalAddUserToSquad">add user</button>
                 <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#modalInviteUserToEvent">invite user to event</button>
-                <form action="index.php" method="post" class="m-2">
+                <form action="" method="post" class="m-2">
                 <input type="hidden" class="form-control" name="id" value=<?php echo $templateParams["squad"]->getID(); ?>>    
                 <input class="btn btn-secondary w-100" type="submit" name="delete" value="delete"/>
                 </form>

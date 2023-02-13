@@ -2,8 +2,7 @@
 require_once 'bootstrap.php';
 
 if (isset($_GET['user'])) {
-    $userProfile = $_GET['user'];
-    $userProfile = $dbh->getUser($userProfile);
+    $userProfile = $dbh->getUser($_GET['user']);
     if (!$userProfile) {
         $title = "Profile not found";
         //header("location: 404.php");
