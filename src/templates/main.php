@@ -184,9 +184,9 @@
                             <img src=<?php echo $profile->getprofilePicture() ?> alt=<?php echo $profile->getUsername() ?> width="64" height="64" class="rounded-circle">
                             <?php echo $profile->getUsername() ?></a>
                     <?php }
-                } else { ?>
-                    <div class='alert alert-danger col-12' role='alert'>No users found</div>
-                <?php
+                } else { 
+                    $templateParams["alert"] = "No users found";
+                    require("alert.php");
                 } ?>
             </div>            
             <div class="tab-pane fade" id="nav-squads" role="tabpanel" tabindex="0">
@@ -197,9 +197,9 @@
                             <img src=<?php echo $squad->getPicture() ?> alt=<?php echo $squad->getName() ?> picture" width="64" height="64" class="rounded-circle">
                             <?php echo $squad->getName() ?></a>
                     <?php }
-                } else { ?>
-                    <div class='alert alert-danger col-12' role='alert'>No squads found</div>
-                <?php
+                } else { 
+                    $templateParams["alert"] = "No squads found";
+                    require("alert.php");
                 } ?>
             </div>
         </div>

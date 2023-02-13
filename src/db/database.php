@@ -230,7 +230,6 @@ class DatabaseHelper
         $name = '%' . $name . '%';
         $username = $_SESSION['username'];
         $stmt->bind_param('ss', $name, $username);
-        error_log(print_r($username, true), 3, "/var/log/nginx/console.log");
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $squads = array();
