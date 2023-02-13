@@ -1,3 +1,4 @@
+<a name="readme-top"></a>
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -19,7 +20,7 @@
   </ol>
 </details>
 
-
+<!-- TABLE OF CONTENTS -->
 ## About The Project
 <br/>
 SquadUp is a social networking web service at which it is possible to register as a user, send friend requests (which can be
@@ -66,13 +67,13 @@ Mandatory features:
 - [X] Notifications 
 
 Optional featues:
-- [X] Post likes using [https://atomiks.github.io/tippyjs/](Tippy.js) which is a framework powered by [https://popper.js.org/](Popper.js)
-- [X] [https://developers.google.com/maps/documentation/javascript/overview](Google Map API) for tracking friends position
+- [X] Post likes using [Tippy.js](https://atomiks.github.io/tippyjs/) which is a framework powered by [Popper.js](https://popper.js.org/)
+- [X] [Google Maps API](https://developers.google.com/maps/documentation/javascript/overview) for tracking friends position
 - [X] Users last seen 
 - [X] Groups
 - [X] Search for Users, Posts and Groups
 - [X] Password security and hashing
-- [X] Using HTTP Calls with [https://axios-http.com/](Axios)
+- [X] Using HTTP Calls with [Axios](https://axios-http.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -90,7 +91,7 @@ Mattia Panni - mattia.panni@studio.unibo.it <br/>
 Riccardo Fiorani - riccardo.fiorani2@studio.unibo.it <br/>
 Matteo Susca - matteo.susca@studio.unibo.it <br/>
 
-Project Link: [https://github.com/matteosusca/TecWebSite/](SquadUp)
+Project Link: [SquadUp](https://github.com/matteosusca/TecWebSite/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
