@@ -577,6 +577,7 @@ class DatabaseHelper
         if ($this->checkIsUserCreator($username, $squadId)) {
             return false;
         }
+        $stmt = $this->db->prepare("DELETE FROM u_invitations WHERE username = ? AND event_id IN (SELECT event_id FROM events WHERE squad_id = ?)");
         $stmt = $this->db->prepare("DELETE FROM participations WHERE username=? AND squad_id=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
