@@ -577,13 +577,24 @@ class DatabaseHelper
         if ($this->checkIsUserCreator($username, $squadId)) {
             return false;
         }
+        //eliminazione dell'utente da tutti gli inviti a eventi organizzati dalla squadra 
         $stmt = $this->db->prepare("DELETE FROM u_invitations WHERE username = ? AND event_id IN (SELECT event_id FROM events WHERE squad_id = ?)");
+        $stmt->bind_param('si', $username, $squadId);
+        $stmt->execute();
+
+        //eliminazione dell'utente da tutti gli eventi organizzati dalla squadra 
+        $stmt = $this->db->prepare("DELETE FROM iscrizione_u WHERE username = ? AND event_id IN (SELECT event_id FROM events WHERE squad_id = ?)");
+        $stmt->bind_param('si', $username, $squadId);
+        $stmt->execute();
+
+        //rimozione utente dalla squadra
         $stmt = $this->db->prepare("DELETE FROM participations WHERE username=? AND squad_id=?");
         $stmt->bind_param('si', $username, $squadId);
         $stmt->execute();
         $stmt->close();
         return true;
     }
+
     public function getSquadsByUser($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM participations WHERE username=?");
