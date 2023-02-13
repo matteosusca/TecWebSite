@@ -6,10 +6,8 @@ async function getNotifications() {
     try {
         // Make a GET request to the API endpoint
         const response = await axios.get(API_ENDPOINT);
-
         // Extract the notifications from the response data
         const notifications = response.data;
-
         // Return the notifications
         return notifications;
     } catch (error) {
@@ -70,24 +68,12 @@ function createNotification(notification) {
     switch(notification.type) {
         case "like":
             notificationElement.setAttribute("data-bs-toggle", "modal");
-            notificationElement.setAttribute("data-bs-target", "#modalNotificationPost");
-            notificationElement.onclick = function() {
-                // Effettua una richiesta HTTP asincrona con Axios
-                axios.post("modal_content.php", {
-                  params: { postId: notification.postId }
-                });
-            }
+            notificationElement.setAttribute("data-bs-target", "#modalNotificationPost" + notification.post_id);
             contentElement.innerHTML += notification.sender + " liked your post";
             break;
         case "comment":
             notificationElement.setAttribute("data-bs-toggle", "modal");
-            notificationElement.setAttribute("data-bs-target", "#modalNotificationPost");
-            notificationElement.onclick = function() {
-                // Effettua una richiesta HTTP asincrona con Axios
-                axios.post("modal_content.php", {
-                  params: { postId: notification.postId }
-                });
-            }
+            notificationElement.setAttribute("data-bs-target", "#modalNotificationPost" + notification.post_id);
             contentElement.innerHTML += notification.sender + " commented on your post";
             break;
         case "follow":
@@ -100,13 +86,7 @@ function createNotification(notification) {
             break;
         case "post":
             notificationElement.setAttribute("data-bs-toggle", "modal");
-            notificationElement.setAttribute("data-bs-target", "#modalNotificationPost");
-            notificationElement.onclick = function() {
-                // Effettua una richiesta HTTP asincrona con Axios
-                axios.post("modal_content.php", {
-                  params: { postId: notification.postId }
-                });
-            }
+            notificationElement.setAttribute("data-bs-target", "#modalNotificationPost" + notification.post_id);
             contentElement.innerHTML += notification.sender + " posted something";
             break;
         case "friend_request":
