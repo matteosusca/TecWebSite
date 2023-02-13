@@ -15,9 +15,16 @@
             <div class="flex-fill overflow-auto">
                 <h2 class="offcanvas-title">Partecipants</h2>
                 <div class="list-group list-group-flush offcanvas-body">
-                    <?php foreach ($dbh->getEventParticipants($event->getIdEvent()) as $user_pic) {
-                        require "user-icon.php";
-                    } ?>
+                    <?php foreach ($dbh->getEventParticipants($event->getIdEvent()) as $user_pic) { ?>
+                        <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $user_pic->getUsername() ?>">
+                            <div class="d-flex align-items-center">
+                                <div class="d-inline-flex position-relative">
+                                    <img src=<?php echo $user_pic->getprofilePicture() ?> alt="<?php echo $user_pic->getUsername() ?> profile picture" width="32" height="32" class="rounded-circle">
+                                </div>
+                                <?php echo $user_pic->getUsername() ?>
+                            </div>
+                        </a>
+                    <?php } ?>
                 </div>
             </div>
         <?php } ?>

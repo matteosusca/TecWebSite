@@ -1,12 +1,23 @@
 <main class="col-12 col-lg-4 p-3 shadow">
-    <?php if (isset($templateParams['post']) && isset($templateParams['event'])) { ?>
+    <?php if (isset($templateParams['post'])) { ?>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>
-                <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">subs events</button>
-                <?php if (basename($_SERVER['PHP_SELF']) == "index.php") { ?>
-                    <button class="nav-link" id="nav-pub-event-tab" data-bs-toggle="tab" data-bs-target="#nav-pub-event" type="button" role="tab" aria-controls="nav-pub-event" aria-selected="false">public event</button>
-                    <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">private events</button>
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>
+
+                <?php if(basename($_SERVER['PHP_SELF']) != 'profile.php'){
+                    if (basename($_SERVER['PHP_SELF']) == 'index.php') { ?>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-reg-event" type="button" role="tab" aria-controls="nav-reg-event" aria-selected="false">registered events</button>
+                    <?php } ?>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-pub-event" type="button" role="tab" aria-controls="nav-pub-event" aria-selected="false">public event</button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-priv-event" type="button" role="tab" aria-controls="nav-priv-event" aria-selected="false">private events</button>
+                <?php } else { ?>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-comm-event" type="button" role="tab" aria-controls="nav-comm-event" aria-selected="false"><?php
+                        if($templateParams["user"]->getUsername() == $user->getUsername())
+                            echo "my events";
+                        else
+                            echo "common events";
+                    ?>
+                    </button>
                 <?php } ?>
             </div>
         </nav>
@@ -94,7 +105,7 @@
                     </div>
                 <?php } ?>
             </div>
-            <div class="tab-pane fade" id="nav-event" role="tabpanel" tabindex="0">
+            <div class="tab-pane fade" id="nav-priv-event" role="tabpanel" tabindex="0">
                 <?php
                 //da aggiungere controllo per creare evento anche se si è su user.php
                 if (basename($_SERVER['PHP_SELF']) == "squad.php") { ?>
@@ -109,9 +120,9 @@
                                     <input type="text" class="form-control bg-body mb-2" id="name" placeholder="Nome evento" name="name" required>
                                     <label for="name">Nome evento</label>
                                 </div>
-                                <div class="form-floating">
-                                    <label for="event-description">Descrizione</label>
+                                <div class="form-floating">                                    
                                     <input class="form-control bg-body mb-2" id="event-description" placeholder="Descrizione" name="event-description" required>
+                                    <label for="event-description">Descrizione</label>
                                 </div>
                                 <label for="event_begin_date">Data Inizio Evento</label>
                                 <input type="date" class="form-control bg-body mb-2" id="event_begin_date" name="event_begin_date" required>
@@ -130,25 +141,25 @@
 
                     </div>
                 <?php }
-                foreach ($templateParams["event"] as $event) { ?>
-                    <div class="card m-2">
-                        <div class="card-header">
-                            <div class="d-flex align-items-center px-2 border-0">
-                                <img src=<?php echo $dbh->getUser($event->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="event author profile picture" width="32" height="32">
-                                <div class="d-flex flex-column px-2">
-                                    <p class="card-title"><?php echo $event->getName() ?>(<?php echo $event->getUsername() ?>)</p>
-                                    <p class="card-text">dal <?php echo $event->getDateOfEventStart() ?> al <?php echo $event->getDateOfEventEnd() ?></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card card-body">
-                            <p class="card-text"><?php echo $event->getDescription() ?></p>
-                        </div>
-                    </div>
-                <?php } ?>
+                foreach ($templateParams["private-events"] as $event) {
+                    $templateParams["event"] = $event;
+                    require 'event.php';
+                } ?>
             </div>
             <div class="tab-pane fade" id="nav-pub-event" role="tabpanel" tabindex="0">
-                <?php foreach ($templateParams["pub-events"] as $event) {
+                <?php foreach ($templateParams["public-events"] as $event) {
+                    $templateParams["event"] = $event;
+                    require 'event.php';
+                } ?>
+            </div>
+            <div class="tab-pane fade" id="nav-reg-event" role="tabpanel" tabindex="0">
+                <?php foreach ($templateParams["registered-events"] as $event) {
+                    $templateParams["event"] = $event;
+                    require 'event.php';
+                } ?>
+            </div>
+            <div class="tab-pane fade" id="nav-comm-event" role="tabpanel" tabindex="0">
+                <?php foreach ($templateParams["common-events"] as $event) {
                     $templateParams["event"] = $event;
                     require 'event.php';
                 } ?>

@@ -81,6 +81,9 @@ $templateParams["title"] = $title;
 $templateParams["squad"] = $squad;
 $templateParams["userCanEdit"] = $dbh->checkUserPermissionsForSquad($_SESSION["username"], $squad->getId());
 $templateParams["members"] = $dbh->getMembers($squad->getId());
+
+$templateParams["public-events"] = $dbh->getPublicSquadEventsOrderByDate($squad->getId());
+$templateParams["private-events"] = $dbh->getPrivateSquadEventsOrderByDate($squad->getId());
 $templateParams["post"] = $dbh->getSquadPosts($squad->getId());
 $templateParams["event"] = $dbh->getSquadEvents($squad->getId());
 $templateParams["friends"] = $dbh->getFriends($_SESSION["username"]);

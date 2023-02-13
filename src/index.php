@@ -26,9 +26,10 @@ $templateParams["title"] = "Home";
 $templateParams["left-aside"] = "left-aside.php";
 $templateParams["main"] = "main.php";
 $templateParams["right-aside"] = "right-aside.php";
+$templateParams["registered-events"] = $dbh->getRegisteredEventsOrderByDate($_SESSION["username"]);
+$templateParams["public-events"] = $dbh->getPublicEventsOrderByDate();
+$templateParams["private-events"] = $dbh->getPrivateEventsOrderByDate($_SESSION["username"]);
 $templateParams["post"] = $dbh->getPostOrderByDate($_SESSION["username"]);
-$templateParams["event"] = $dbh->getEventsOrderByDate($_SESSION["username"]);
-$templateParams["pub-events"] = $dbh->getPublicEventsOrderByDate();
 $templateParams["friends"] = $dbh->getFriends($_SESSION["username"]);
 $templateParams["squads"] = $dbh->getSquadsByUser($_SESSION["username"]);
 

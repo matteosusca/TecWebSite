@@ -142,7 +142,7 @@ class DatabaseHelper
 
     public function createNotification($recipient, $sender, $type, $post_id=null, $event_id=null) {
         $stmt = $this->db->prepare("INSERT INTO notifications (recipient, sender, type, post_id, event_id) VALUES (?,?,?,?,?)");
-        $stmt->bind_param('sssi', $recipient, $sender, $type, $post_id, $event_id);
+        $stmt->bind_param('sssii', $recipient, $sender, $type, $post_id, $event_id);
         $stmt->execute();
     }
 
@@ -345,7 +345,7 @@ class DatabaseHelper
         $target_file = $target_dir . $this->generateRandomName() . '.' . pathinfo($file["name"], PATHINFO_EXTENSION);
         $uploadOk = 1;
         // Check if image file is a actual image or fake image
-        if (isset($_POST["submit"])) {
+        if (!empty($_POST["submit"])) {
             $check = getimagesize($file["tmp_name"]);
             if ($check !== false) {
                 $uploadOk = 1;
@@ -699,6 +699,69 @@ class DatabaseHelper
         return true;
     }
 
+    public function getRegisteredEventsOrderByDate($username)
+    {
+        //order by event_date > now(). put the events that are in the future first
+        $stmt = $this->db->prepare("SELECT e.* FROM events e JOIN iscrizione_u i ON e.event_id=i.event_id WHERE i.username=? AND e.event_date > NOW() ORDER BY e.event_date ASC");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $events = array();
+        foreach ($result as $row) {
+            array_push($events, $this->getEvent($row['event_id']));
+        }
+        return $events;
+    }
+
+    public function getPrivateEventsOrderByDate($username)
+    {
+        $stmt = $this->db->prepare("SELECT event_id FROM events WHERE event_id IN (SELECT event_id FROM iscrizione_u WHERE username=?) AND type_id=2 AND event_date > NOW() ORDER BY event_date DESC");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $events = array();
+        foreach ($result as $row) {
+            array_push($events, $this->getEvent($row['event_id']));
+        }
+        return $events;
+    }
+
+    public function getPublicSquadEventsOrderByDate($squad_id){
+        $stmt = $this->db->prepare("SELECT event_id FROM events WHERE squad_id=? AND type_id=1 AND event_date > NOW() ORDER BY event_date DESC");
+        $stmt->bind_param('i', $squad_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $events = array();
+        foreach ($result as $row) {
+            array_push($events, $this->getEvent($row['event_id']));
+        }
+        return $events;
+    }
+
+    public function getCommonEvents($username1, $username2){
+        $stmt = $this->db->prepare("SELECT event_id FROM iscrizione_u WHERE username=? AND event_id IN (SELECT event_id FROM iscrizione_u WHERE username=?)");
+        $stmt->bind_param('ss', $username1, $username2);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $events = array();
+        foreach ($result as $row) {
+            array_push($events, $this->getEvent($row['event_id']));
+        }
+        return $events;
+    }
+
+    public function getPrivateSquadEventsOrderByDate($squad_id){
+        $stmt = $this->db->prepare("SELECT event_id FROM events WHERE squad_id=? AND type_id=2 AND event_date > NOW() ORDER BY event_date DESC");
+        $stmt->bind_param('i', $squad_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $events = array();
+        foreach ($result as $row) {
+            array_push($events, $this->getEvent($row['event_id']));
+        }
+        return $events;
+    }
+
     public function getUserPosts($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM posts WHERE username=?");
@@ -800,7 +863,14 @@ class DatabaseHelper
         $stmt = $this->db->prepare("INSERT INTO events (squad_id, name, description, creation_date, event_date, end_event_date, type_id, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $date_of_creation = date("Y-m-d H:i:s");
         $stmt->bind_param('isssssis', $id_squad, $name, $description, $date_of_creation, $date_of_event_start, $date_of_event_end, $type, $username);
-        $stmt->execute();
+        $stmt->execute();        
+        $event_id = $this->db->insert_id;
+        //for all squad members register them to the event and send them a notification
+        $members = $this->getSquad($id_squad)->getMembers();
+        foreach ($members as $member) {
+            $this->registerUserToEvent($member, $event_id);
+            $this->createNotification($member, $username, "event", null, $event_id);
+        }
         $stmt->close();
         return true;
     }
@@ -854,7 +924,7 @@ class DatabaseHelper
 
     public function getPublicEventsOrderByDate()
     {
-        $stmt = $this->db->prepare("SELECT * FROM events WHERE type_id=1 ORDER BY event_date DESC");
+        $stmt = $this->db->prepare("SELECT * FROM events WHERE type_id=1 AND event_date > NOW() ORDER BY event_date DESC");
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $events = array();
