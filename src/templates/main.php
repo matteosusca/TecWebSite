@@ -197,8 +197,7 @@
                             <?php echo $squad->getName() ?></a>
                     <?php }
                 } else { 
-                    $templateParams["alert"] = "No squads found";
-                    require("alert.php");
+                    alert("No squads found");
                 } ?>
             </div>
         </div>
