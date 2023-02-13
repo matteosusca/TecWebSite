@@ -4,7 +4,7 @@ require_once 'bootstrap.php';
 
 if (!empty($_GET['squad_id'])) {
     $squad = $dbh->getSquad($_GET['squad_id']);
-    if($squad){
+    if($squad && $dbh->isUserMember($_SESSION['username'], $squad->getId())){
         $title = $squad->getName() . "'s page";
     } else {
         header("Location: index.php?error=1");
