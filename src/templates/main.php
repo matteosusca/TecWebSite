@@ -165,6 +165,23 @@ if (isset($_POST['submit'])) {label for="event-description">Descrizione</label>
                             </div>
                             <div class="card card-body">
                                 <p class="card-text"><?php echo $event->getDescription() ?></p>
+                                <?php if (isset($templateParams['friends'])) { ?>
+                                    <div class="flex-fill overflow-auto">
+                                        <h2 class="offcanvas-title">Members</h2>
+                                        <div class="list-group list-group-flush offcanvas-body">
+                                            <?php foreach ($templateParams["friends"] as $user_pic) {
+                                                require "user-icon.php";
+                                            } ?>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <div class="card card-footer">
+                                <!---
+                            <form action="profile.php?user=<?php /*echo $templateParams["user"]->getUsername() ?>" method="post" class="m-2">
+                                    <input class="btn btn-secondary w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' */?>>
+                                </form>
+                                -->
                             </div>
                         </div>
                     <?php }?>
