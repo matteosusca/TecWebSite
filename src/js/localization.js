@@ -1,6 +1,6 @@
 
 
-async function show() {
+function show() {
     google.maps.visualRefresh = true;
     let map = new google.maps.Map(document.getElementById('map'), {
         mapId: "74b0e77f9be9730b",
@@ -12,27 +12,24 @@ async function show() {
     axios.post("api_get_users_position.php").then(response => {
         for (let user in response.data) {
             if (!response.data[user]) continue;
-            var infoWindow = new google.maps.InfoWindow({
+            infoWindows.push(new google.maps.InfoWindow({
                 position: JSON.parse(response.data[user]),
-                map: map,
                 content: user,
-            });
-            infoWindows.push(infoWindow);
+                map: map,
+            }));
+
         }
     });
-    await update(map, infoWindows);
     setInterval(() => { update(map, infoWindows) }, 10000);
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             //update current sessions's user position
-            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            map.setCenter(pos);
+            map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
         });
     }
 }
 
-async function update(map, infoWindows) {
-    console.log("updating");
+function update(map, infoWindows) {
     axios.post("api_get_users_position.php").then(response => {
         for (let user in response.data) {
             if (!response.data[user]) continue;
@@ -45,32 +42,29 @@ async function update(map, infoWindows) {
                 }
             }
             if (!userFound) {
-                let infoWindow = new google.maps.InfoWindow({
+                infoWindows.push(new google.maps.InfoWindow({
                     position: JSON.parse(response.data[user]),
-                    map: map,
                     content: user,
-                });
-                infoWindows.push(infoWindow);
+                    map: map,
+                }));
             }
         }
     });
 }
 
-async function setPosition() {
+function setPosition() {
     //update current sessions's user position
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async function (position) {
-            let pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        navigator.geolocation.getCurrentPosition(function (position) {
             axios.post("api_set_user_position.php", {
-                "data": JSON.stringify(pos)
+                "data": JSON.stringify(new google.maps.LatLng(position.coords.latitude, position.coords.longitude))
             });
         });
     }
 
 }
 
-async function initialize() {
-    await setPosition();
+function initialize() {
     setInterval(() => { setPosition() }, 10000);
     if (document.getElementById("map")) {
         show();
