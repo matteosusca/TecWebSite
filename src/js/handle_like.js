@@ -21,6 +21,7 @@ function userAlreadyLiked(likes, user) {
 function showCurrentLikes(id_post) {
     axios.post("api_get_post_likes.php", { id_post: id_post }).then(response => {
         document.getElementById(id_post+"-like-count").innerHTML = response.data.length;
+        document.getElementById(id_post+"-notification-like-count").innerHTML = response.data.length;
     });
 }
 
