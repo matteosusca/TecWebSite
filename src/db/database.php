@@ -29,17 +29,21 @@ class DatabaseHelper
         $stmt = $this->db->prepare("SELECT salt FROM login WHERE username=?");
         $stmt->bind_param('s', $username);
         $stmt->execute();
-        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
-        $salt = $result['salt'];
+        $result = $stmt->get_result();
+        if ($result->num_rows === 0) {
+            return false;
+        }
+        $row = $result->fetch_assoc();
+        $salt = $row['salt'];
         $password = hash('sha512', $password . $salt);
         $stmt = $this->db->prepare("SELECT * FROM login WHERE username=? AND password=?");
         $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        $result = $result->fetch_all(MYSQLI_ASSOC);
-        return count($result) > 0;
+        return $result->num_rows > 0;
     }
+
 
     public function checkUserExists($username)
     {
@@ -144,10 +148,10 @@ class DatabaseHelper
         $stmt->execute();
     }
 
-    public function checkSquadExists($name)
+    public function checkSquadExists($id)
     {
-        $stmt = $this->db->prepare("SELECT * FROM squads WHERE name=?");
-        $stmt->bind_param('i', $name);
+        $stmt = $this->db->prepare("SELECT * FROM squads WHERE squad_id=?");
+        $stmt->bind_param('i', $id);
         $stmt->execute();
         $result = $stmt->get_result();
         return count($result->fetch_all(MYSQLI_ASSOC)) > 0;
