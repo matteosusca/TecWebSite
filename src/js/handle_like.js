@@ -14,7 +14,7 @@ like_btn.forEach(btn => {
 
 //controlla se un utente ha già messo like ad un post
 function userAlreadyLiked(likes, user) {
-    return likes.some(like => like.username === user.username);
+    return likes.some(like => like.user.username === user.username);
 }
 
 //chiede al server il numero di like di un post

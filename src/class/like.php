@@ -1,14 +1,14 @@
 <?php
 class Like implements JsonSerializable
 {
-    private $user;
+    private $user_like;
     private $id_post;
     private $date;
 
-    public function __construct($id_post, $user, $date)
+    public function __construct($id_post, $user_like, $date)
     {
         $this->id_post = $id_post;
-        $this->user = $user;
+        $this->user_like = $user_like;
         $this->date = $date;
     }
 
@@ -19,7 +19,7 @@ class Like implements JsonSerializable
 
     public function getUser()
     {
-        return $this->user;
+        return $this->user_like;
     }
 
     public function getDate()
@@ -30,7 +30,7 @@ class Like implements JsonSerializable
     public function jsonSerialize() {
         return [
             'id_post' => $this->id_post,
-            'user' => $this->user,
+            'user' => $this->user_like,
             'date' => $this->date
         ];
     }
