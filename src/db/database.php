@@ -176,6 +176,9 @@ class DatabaseHelper
 
     public function getSquad($id)
     {
+        if (!$this->checkSquadExists($id)) {
+            return null;
+        }
         $stmt = $this->db->prepare("SELECT squads.*, GROUP_CONCAT(participations.username) AS membri 
                                     FROM squads 
                                     LEFT JOIN participations 
