@@ -244,36 +244,31 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5>Add user</h5>
+                    <h5>invite user to event</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="" method="post">
-                        <input type="hidden" class="form-control" name="id" value=<?php echo $templateParams["squad"]->getID(); ?>>
-                        <div class="row mx-0">
-                            <label for="user_friend" class="visually-hidden">Select friend to add</label>
-                            <select name="user_friend" class="btn btn-outline-secondary col-12" id="user_friend">
-                                <option value="" disabled selected>Seleziona un amico</option>
-                                <?php foreach ($templateParams["friends"] as $friend) {
-                                    if (!$dbh->isUserMember($friend->getUsername(), $templateParams["squad"]->getId())) {
-                                        echo "<option value='" . $friend->getUsername() . "' >" . $friend->getUsername() . "</option>";
-                                    }
-                                } ?>
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-outline-secondary border-0 disabled col-12">Or search for a user</button>
-                        <div class="form-floating">
-                            <input type="text" class="form-control bg-body" name="searched_user" id="searched_user" placeholder="User">
-                            <label for="searched_user">User</label>
-                        </div>
-                        <button type="button" class="btn btn-outline-secondary border-0 disabled col-12">As</button>
-                        <label for="role" class="visually-hidden">Select a role for the new user</label>
-                        <select name="role" class="btn btn-outline-secondary col-12 mb-2" id="role" required>
-                            <option value="" disabled selected>Seleziona un ruolo</option>
-                            <option value="2">admin</option>
-                            <option value="3">member</option>
+                        <input type="hidden" class="form-control" name="id" value=<?php echo $templateParams["squad"]->getId(); ?>>
+                        <label for="event" class="visually-hidden">Event</label>
+                        <select name="event" class="col form-select bg-body" id="event" required>
+                            <option value="" disabled selected>evento</option>
+                            <?php
+                            foreach ($templateParams["event"] as $event) {
+                                echo "<option value='" . $event->getIdEvent() . "' >" . $event->getName() . "</option>";
+                            }
+                            ?>
                         </select>
-                        <input class="btn btn-outline-secondary w-100" type="submit" name="add" value="Add User">
+                        <label for="user" class="visually-hidden">User to add</label>
+                        <select name="user" class="col mt-2 form-select bg-body" id="user" required>
+                            <option value="" disabled selected>utente</option>
+                            <?php
+                            foreach ($templateParams["squad"]->getMembers() as $user) {
+                                echo "<option value='" . $user . "' >" . $user . "</option>";
+                            }
+                            ?>
+                        </select>
+                        <input class="btn btn-outline-secondary mt-3 w-100" type="submit" name="invita" value="Invite User">
                     </form>
                 </div>
             </div>
