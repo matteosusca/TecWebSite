@@ -7,7 +7,7 @@ if (!empty($_POST['submit'])) {
         $_SESSION['username'] = $_POST['user'];
         header("Location: index.php");
     } else {
-        header("Location: login.php?error=1");
+        alert("error in signin");
     }
 }
 

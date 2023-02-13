@@ -7,7 +7,7 @@ if (isset($_GET['squad_id'])) {
     $squad = $dbh->getSquad($squad_id);
     $title = $squad->getName() . "'s page";
 } else {
-    header("Location: squad.php?error=2");
+    alert("squad not found");
 }
 
 if (!empty($_POST['save'])) {

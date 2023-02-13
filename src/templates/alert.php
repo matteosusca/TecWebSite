@@ -1,1 +1,1 @@
-<div class='alert alert-danger col-12' role='alert'><?php echo $templateParams["alert"] ?></div>
+<div class='alert alert-danger position-fixed bottom-0 end-0 m-5' role='alert'><?php echo $templateParams["alert"] ?></div>

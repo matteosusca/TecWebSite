@@ -9,7 +9,7 @@ if (!empty($_POST['submit'])) {
         $_SESSION['password'] = $enc_passw;
         header("Location: index.php");
     } else {
-        header("Location: signup.php?error=1");
+        alert("error in signup");
     }
 }
 
