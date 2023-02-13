@@ -5,9 +5,13 @@ require_once 'bootstrap.php';
 if (isset($_GET['squad_id'])) {
     $squad_id = $_GET['squad_id'];
     $squad = $dbh->getSquad($squad_id);
-    $title = $squad->getName() . "'s page";
-} else {
-    alert("squad not found");
+    if($squad){
+        $title = $squad->getName() . "'s page";
+    } else {
+        $title = "Squad not found";
+        alert("squad not found");
+    }
+    
 }
 
 if (!empty($_POST['save'])) {
