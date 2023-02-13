@@ -18,8 +18,7 @@
 </div>
 <?php if (checkSession()) {
     foreach ($dbh->getEventsOrderByDate($_SESSION["username"]) as $eventNotification) { ?>
-        $templateParams["event"] = $eventNotification;
-        <div class="modal fade" id="modalNotificationPost<?php echo $eventNotification->getId() ?>" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="modalNotificationEvent<?php echo $eventNotification->getIdEvent() ?>" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -39,6 +38,23 @@
                             </div>
                             <div class="card card-body">
                                 <p class="card-text"><?php echo $eventNotification->getDescription() ?></p>
+                                <?php if (isset($templateParams['friends'])) { ?>
+                                    <div class="flex-fill overflow-auto">
+                                        <h2 class="offcanvas-title">Members</h2>
+                                        <div class="list-group list-group-flush offcanvas-body">
+                                            <?php foreach ($templateParams["friends"] as $user_pic) {
+                                                require "user-icon.php";
+                                            } ?>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <div class="card card-footer">
+                                <!---
+                            <form action="profile.php?user=<?php /*echo $templateParams["user"]->getUsername() ?>" method="post" class="m-2">
+                                    <input class="btn btn-secondary w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' */?>>
+                                </form>
+                                -->
                             </div>
                         </div>
                     </div>
