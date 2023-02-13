@@ -183,10 +183,9 @@
                         <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $profile->getUsername() ?>">
                             <img src=<?php echo $profile->getprofilePicture() ?> alt=<?php echo $profile->getUsername() ?> width="64" height="64" class="rounded-circle">
                             <?php echo $profile->getUsername() ?></a>
-                    <?php }
+                    <?php } 
                 } else { 
-                    $templateParams["alert"] = "No users found";
-                    require("alert.php");
+                    alert("No users found");                    
                 } ?>
             </div>            
             <div class="tab-pane fade" id="nav-squads" role="tabpanel" tabindex="0">

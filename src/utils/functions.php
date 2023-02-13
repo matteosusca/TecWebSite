@@ -19,4 +19,10 @@ function checkSession()
     }
     return false;
 }
+
+function alert($text){
+    $templateParams["alert"] = $text;
+    require 'templates/alert.php';
+}
+
 ?>
