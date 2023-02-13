@@ -50,12 +50,12 @@ if (!empty($_POST['registration_action'])) {
                                 </div>
                             </div>
                             <div class="card card-body">
-                                <p class="card-text"><?php echo $eventNotification->getDescription() ?></p>
+                                <p class="card-text"><?php echo $event->getDescription() ?></p>
                                 <?php if (isset($templateParams['friends'])) { ?>
                                     <div class="flex-fill overflow-auto">
-                                        <h2 class="offcanvas-title">Members</h2>
+                                        <h2 class="offcanvas-title">Partecipants</h2>
                                         <div class="list-group list-group-flush offcanvas-body">
-                                            <?php foreach ($templateParams["friends"] as $user_pic) {
+                                            <?php foreach ($dbh->getEventParticipants($event->getIdEvent()) as $user_pic) {
                                                 require "user-icon.php";
                                             } ?>
                                         </div>
@@ -63,11 +63,23 @@ if (!empty($_POST['registration_action'])) {
                                 <?php } ?>
                             </div>
                             <div class="card card-footer">
-                                <!---
-                            <form action="profile.php?user=<?php /*echo $templateParams["user"]->getUsername() ?>" method="post" class="m-2">
-                                    <input class="btn btn-secondary w-100" type="submit" <?php echo (!in_array($templateParams["user"]->getUsername(), $dbh->getFriendsUsername($_SESSION['username']))) ? ' name="aggiungi" value="Aggiungi"' : ' name="rimuovi" value="Rimuovi"' */?>>
+                                <form action="" method="post" class="m-2">
+                                    <?php $isRegistered = $dbh->isRegisteredToEvent($user->getUsername(), $event->getIdEvent()); ?>
+                                    <input type="hidden" name="registration_action" data-bs-dismiss="modal" value=<?php 
+                                    if($isRegistered){
+                                        echo "unregister";
+                                    } else {
+                                        echo "register";
+                                    } ?>>
+                                    <input type="hidden" name="event_id" value=<?php echo $event->getIdEvent(); ?>>
+                                    <input class="btn btn-secondary w-100" type="submit" <?php 
+                                    if($isRegistered){
+                                        echo "value='Unregister'";
+                                    } else {
+                                        echo "value='Register'";
+                                    } ?>>
                                 </form>
-                                -->
+                                
                             </div>
                         </div>
                     </div>
