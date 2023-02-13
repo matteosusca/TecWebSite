@@ -2,11 +2,11 @@
     <?php if (isset($templateParams['post']) && isset($templateParams['event'])) { ?>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>                
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">post</button>
                 <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">subs events</button>
-                <?php if (basename($_SERVER['PHP_SELF']) == "index.php"){ ?>
-                <button class="nav-link" id="nav-pub-event-tab" data-bs-toggle="tab" data-bs-target="#nav-pub-event" type="button" role="tab" aria-controls="nav-pub-event" aria-selected="false">public event</button>
-                <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">private events</button>
+                <?php if (basename($_SERVER['PHP_SELF']) == "index.php") { ?>
+                    <button class="nav-link" id="nav-pub-event-tab" data-bs-toggle="tab" data-bs-target="#nav-pub-event" type="button" role="tab" aria-controls="nav-pub-event" aria-selected="false">public event</button>
+                    <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">private events</button>
                 <?php } ?>
             </div>
         </nav>
@@ -50,11 +50,11 @@
                             <button type="button" class="btn btn-outline-secondary border-0" name="like-btn" value="<?php echo $post->getId() ?>">
                                 <?php if ($dbh->isLiked($post->getId(), $user->getUsername())) { ?>
                                     <em class="bi bi-hand-thumbs-up-fill d-block position-relative">
-                                <?php } else { ?>
-                                    <em class="bi bi-hand-thumbs-up d-block position-relative">
-                                <?php } ?>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="<?php echo $post->getId() ?>-like-count"></span></em>
-                                like
+                                    <?php } else { ?>
+                                        <em class="bi bi-hand-thumbs-up d-block position-relative">
+                                        <?php } ?>
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="<?php echo $post->getId() ?>-like-count"></span></em>
+                                        like
                             </button>
                             <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $post->getId() ?>" aria-expanded="false" aria-controls="<?php echo $post->getId() ?>"><em class="bi bi-pencil-square d-block"></em>comments</button>
                         </div>
@@ -109,7 +109,7 @@
                                     <input type="text" class="form-control bg-body mb-2" id="name" placeholder="Nome evento" name="name" required>
                                     <label for="name">Nome evento</label>
                                 </div>
-                                <div class="form-floating">                                    
+                                <div class="form-floating">
                                     <label for="event-description">Descrizione</label>
                                     <input class="form-control bg-body mb-2" id="event-description" placeholder="Descrizione" name="event-description" required>
                                 </div>
@@ -148,54 +148,10 @@
                 <?php } ?>
             </div>
             <div class="tab-pane fade" id="nav-pub-event" role="tabpanel" tabindex="0">
-                <?php
-
-                
-                    foreach ($templateParams["pub-events"] as $event) { ?>
-                        <div class="card m-2">
-                            <div class="card-header">
-                                <div class="d-flex align-items-center px-2 border-0">
-                                    <img src=<?php echo $dbh->getUser($event->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="event author profile picture" width="32" height="32">
-                                    <div class="d-flex flex-column px-2">
-                                        <p class="card-title"><?php echo $event->getName() ?>(<?php echo $event->getUsername() ?>)</p>
-                                        <p class="card-text">dal <?php echo $event->getDateOfEventStart() ?> al <?php echo $event->getDateOfEventEnd() ?></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card card-body">
-                                <p class="card-text"><?php echo $event->getDescription() ?></p>
-                                <?php if (isset($templateParams['friends'])) { ?>
-                                    <div class="flex-fill overflow-auto">
-                                        <h2 class="offcanvas-title">Partecipants</h2>
-                                        <div class="list-group list-group-flush offcanvas-body">
-                                            <?php foreach ($dbh->getEventParticipants($event->getIdEvent()) as $user_pic) {
-                                                require "user-icon.php";
-                                            } ?>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            </div>
-                            <div class="card card-footer">
-                                <form action="" method="post" class="m-2">
-                                    <?php $isRegistered = $dbh->isRegisteredToEvent($user->getUsername(), $event->getIdEvent()); ?>
-                                    <input type="hidden" name="registration_action" value=<?php 
-                                    if($isRegistered){
-                                        echo "unregister";
-                                    } else {
-                                        echo "register";
-                                    } ?>>
-                                    <input type="hidden" name="event_id" value=<?php echo $event->getIdEvent(); ?>>
-                                    <input class="btn btn-secondary w-100" type="submit" <?php 
-                                    if($isRegistered){
-                                        echo "value='Unregister'";
-                                    } else {
-                                        echo "value='Register'";
-                                    } ?>>
-                                </form>
-                                
-                            </div>
-                        </div>
-                    <?php }?>
+                <?php foreach ($templateParams["pub-events"] as $event) {
+                    $templateParams["event"] = $event;
+                    require 'event.php';
+                } ?>
             </div>
         </div>
     <?php } else if (basename($_SERVER['PHP_SELF']) == "search.php") { ?>
@@ -213,11 +169,11 @@
                         <a class="list-group-item list-group-item-action" href="profile.php?user=<?php echo $profile->getUsername() ?>">
                             <img src=<?php echo $profile->getprofilePicture() ?> alt=<?php echo $profile->getUsername() ?> width="64" height="64" class="rounded-circle">
                             <?php echo $profile->getUsername() ?></a>
-                    <?php } 
-                } else { 
-                    alert("No users found");                    
+                <?php }
+                } else {
+                    alert("No users found");
                 } ?>
-            </div>            
+            </div>
             <div class="tab-pane fade" id="nav-squads" role="tabpanel" tabindex="0">
                 <?php
                 if (!empty($templateParams["squads"])) {
@@ -225,8 +181,8 @@
                         <a class="list-group-item list-group-item-action" href="squad.php?squad_id=<?php echo $squad->getId() ?>">
                             <img src=<?php echo $squad->getPicture() ?> alt=<?php echo $squad->getName() ?> picture" width="64" height="64" class="rounded-circle">
                             <?php echo $squad->getName() ?></a>
-                    <?php }
-                } else { 
+                <?php }
+                } else {
                     alert("No squads found");
                 } ?>
             </div>
