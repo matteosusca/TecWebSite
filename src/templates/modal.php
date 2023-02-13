@@ -45,7 +45,7 @@
                                         <?php } else { ?>
                                             <em class="bi bi-hand-thumbs-up d-block position-relative">
                                             <?php } ?>
-                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="<?php echo $postNotification->getId() ?>-like-count"></span></em>
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="<?php echo $postNotification->getId() ?>-notification-like-count"></span></em>
                                             like
                                 </button>
                                 <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse" data-bs-target="#notification<?php echo $postNotification->getId() ?>" aria-expanded="false" aria-controls="<?php echo $postNotification->getId() ?>"><em class="bi bi-pencil-square d-block"></em>comments</button>
