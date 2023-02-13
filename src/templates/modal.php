@@ -17,6 +17,37 @@
     </div>
 </div>
 <?php if (checkSession()) {
+    foreach ($dbh->getEventsOrderByDate($_SESSION["username"]) as $eventNotification) { ?>
+        $templateParams["event"] = $eventNotification;
+        <div class="modal fade" id="modalNotificationPost<?php echo $eventNotification->getId() ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>post</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card m-2">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center px-2 border-0">
+                                    <img src=<?php echo $dbh->getUser($eventNotification->getUsername())->getProfilePicture() ?> class="object-fit-contain rounded-circle" alt="event author profile picture" width="32" height="32">
+                                    <div class="d-flex flex-column px-2">
+                                        <p class="card-title"><?php echo $eventNotification->getName() ?>(<?php echo $eventNotification->getUsername() ?>)</p>
+                                        <p class="card-text">dal <?php echo $eventNotification->getDateOfEventStart() ?> al <?php echo $eventNotification->getDateOfEventEnd() ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-body">
+                                <p class="card-text"><?php echo $eventNotification->getDescription() ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<?php }
+} ?>
+<?php if (checkSession()) {
     foreach ($dbh->getPostOrderByDate($_SESSION["username"]) as $postNotification) { ?>
         <div class="modal fade" id="modalNotificationPost<?php echo $postNotification->getId() ?>" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">

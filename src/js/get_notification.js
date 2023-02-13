@@ -81,7 +81,8 @@ function createNotification(notification) {
             contentElement.innerHTML += notification.sender + " started following you";
             break;
         case "event":
-            notificationElement.href = "event.php?id=" + notification.event_id;
+            notificationElement.setAttribute("data-bs-toggle", "modal");
+            notificationElement.setAttribute("data-bs-target", "#modalNotificationEvent" + notification.event_id);
             contentElement.innerHTML += notification.sender + " invited you to an event";
             break;
         case "post":
