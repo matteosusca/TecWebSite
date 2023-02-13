@@ -10,10 +10,6 @@ if (!empty($_POST['submit'])) {
     } else {
         header("Location: login.php?error=1");
     }
-} else if (!empty($_POST['esci'])) {
-    session_start();
-    session_destroy();
-    header("Location: signin.php");
 }
 
 $templateParams["title"] = "Sign in";
