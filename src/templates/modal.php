@@ -183,8 +183,8 @@
                             <label for="user" class="visually-hidden">User</label>
                             <select name="user" class="col form-select bg-body mt-2  me-2" id="user">
                                 <option value="" disabled selected>Seleziona un utente</option>
-                                <?php foreach ($templateParams["squad"]->getMembers() as $user) {
-                                    echo "<option value='" . $user . "' >" . $user . "</option>";
+                                <?php foreach ($templateParams["squad"]->getMembers() as $profile) {
+                                    echo "<option value='" . $profile . "' >" . $profile . "</option>";
                                 } ?>
                             </select>
                             <label for="action" class="visually-hidden">Role for the user</label>
