@@ -51,13 +51,13 @@ function updateFrontend(tippy, btn) {
 }
 
 
-function showUsersHTML(users) {
+function showUsersHTML(likes) {
     let html = `<div class="list-group list-group-flush offcanvas-body">`;
-    users.forEach(user => {
-        html += `<a class="list-group-item list-group-item-action" href="profile.php?user=${user.username}">
+    likes.forEach(like => {
+        html += `<a class="list-group-item list-group-item-action" href="profile.php?user=${like.user.username}">
                     <div class="d-flex align-items-center">
-                        <img src=${user.profile_picture} alt="${user.username} profile picture"  width="16" height="16" class="rounded-circle">
-                        ${user.username}
+                        <img src=${like.user.profile_picture} alt="${like.user.username} profile picture"  width="16" height="16" class="rounded-circle">
+                        ${like.user.username}
                     </div>
                 </a>`;
     });

@@ -44,7 +44,6 @@ class DatabaseHelper
         return $result->num_rows > 0;
     }
 
-
     public function checkUserExists($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM login WHERE username=?");
@@ -111,8 +110,7 @@ class DatabaseHelper
             $users[] = $this->getUser($row['username']);
         }
         return $users;
-    }
-    
+    }    
 
     public function getMediaUrl($idmedia)
     {
@@ -391,7 +389,6 @@ class DatabaseHelper
         return $randomString;
     }
 
-
     public function isUserMember($username, $squadId)
     {
         $stmt = $this->db->prepare("SELECT * FROM participations WHERE username=? AND squad_id=?");
@@ -418,7 +415,6 @@ class DatabaseHelper
         $stmt->close();
         return true;
     }
-
 
     public function setSquadDescription($id, $description)
     {
@@ -623,7 +619,6 @@ class DatabaseHelper
         return true;
     }
 
-
     public function createPost($username, $text, $media_id)
     {
         $id = $this->uploadMedia($media_id);
@@ -681,7 +676,6 @@ class DatabaseHelper
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
         return new Post($result['post_id'], $this->getMediaUrl($result['id_media']), $result['username'], $result['description'], $result['publication_date'], $this->getPostComments($result['post_id']));
     }
-
 
     public function getPostComments($post_id)
     {
@@ -744,6 +738,7 @@ class DatabaseHelper
         }
         return $members;
     }
+
     public function getEventTypes()
     {
         $stmt = $this->db->prepare("SELECT * FROM event_types");
@@ -755,6 +750,7 @@ class DatabaseHelper
         }
         return $types;
     }
+
     public function createEvent($id_squad, $name, $description, $date_of_event_start, $date_of_event_end, $type, $username)
     {
         $stmt = $this->db->prepare("INSERT INTO events (squad_id, name, description, creation_date, event_date, end_event_date, type_id, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -777,8 +773,6 @@ class DatabaseHelper
         }
         return $events;
     }
-
-    
 
     public function getUserEvents($username)
     {
@@ -847,6 +841,7 @@ class DatabaseHelper
         $stmt->close();
         return true;
     }
+
     public function getUsersPosition($friendsusername)
     {
         $placeholders = implode(",", array_fill(0, count($friendsusername), "?"));
@@ -923,7 +918,7 @@ class DatabaseHelper
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $likes = array();
         foreach ($result as $row) {
-            array_push($likes, new Like($row['post_id'], $row['username'], $row['data']));
+            array_push($likes, new Like($row['post_id'], $this->getUser($row['username']), $row['data']));
         }
         return $likes;
     }
