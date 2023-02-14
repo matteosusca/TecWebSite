@@ -10,7 +10,7 @@
                     <?php } ?>
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-pub-event" type="button" role="tab" aria-controls="nav-pub-event" aria-selected="false">public event</button>
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-priv-event" type="button" role="tab" aria-controls="nav-priv-event" aria-selected="false">private events</button>
-                    <?php if (basename($_SERVER['PHP_SELF']) == 'squad.php') { ?>
+                    <?php if (basename($_SERVER['PHP_SELF']) == 'squad.php' && ($dbh->checkUserPermissionsForSquad($user->getUsername(), $squad->getID())==1 || $dbh->checkUserPermissionsForSquad($user->getUsername(), $squad->getID())==2)) { ?>
                         <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-create-event" type="button" role="tab" aria-controls="nav-create-event" aria-selected="false">create events</button>
                     <?php } ?>
                 <?php } else { ?>
@@ -136,7 +136,7 @@
             <div class="tab-pane fade" id="nav-create-event" role="tabpanel" tabindex="0">
                 <?php
                 //da aggiungere controllo per creare evento anche se si è su user.php
-                if (basename($_SERVER['PHP_SELF']) == "squad.php") { ?>
+                if (basename($_SERVER['PHP_SELF']) == "squad.php" && ($dbh->checkUserPermissionsForSquad($user->getUsername(), $squad->getID())==1 || $dbh->checkUserPermissionsForSquad($user->getUsername(), $squad->getID())==2)) { ?>
                     <div class="card my-2">
                         <div class="card-header">
                             <h3 class="card-title">Crea Evento</h3>

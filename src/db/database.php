@@ -517,6 +517,14 @@ class DatabaseHelper
         return true;
     }
 
+    public function removeEventNotification($recipient, $event_id){
+        $stmt = $this->db->prepare("DELETE FROM notifications WHERE recipient=? AND event_id=? AND type='event'");
+        $stmt->bind_param('si', $recipient, $event_id);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
     public function addFriend($username, $friend)
     {
         $stmt = $this->db->prepare("INSERT INTO friendships (sender, recipient) VALUES (?, ?)");
@@ -696,6 +704,8 @@ class DatabaseHelper
         $stmt->bind_param('si', $username, $event_id);
         $stmt->execute();
         $stmt->close();
+        //remove the notification
+        $this->removeEventNotification($username, $event_id);
         return true;
     }
 
@@ -980,11 +990,22 @@ class DatabaseHelper
         return true;
     }
 
-    public function setLastActivity($users, $timestamp) {
-        $stmt = $this->db->prepare("UPDATE access SET last_access=? WHERE username=?");
-        $stmt->bind_param('ss', $timestamp, $users);
+    public function setLastActivity($user, $timestamp) {
+        //if an access record for the user does not exist, create one
+        $stmt = $this->db->prepare("SELECT * FROM access WHERE username=?");
+        $stmt->bind_param('s', $user);
         $stmt->execute();
-        $stmt->close();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        if (count($result) == 0) {
+            $stmt = $this->db->prepare("INSERT INTO access (username, last_access) VALUES (?, ?)");
+            $stmt->bind_param('ss', $user, $timestamp);
+            $stmt->execute();
+        } else {
+            $stmt = $this->db->prepare("UPDATE access SET last_access=? WHERE username=?");
+            $stmt->bind_param('ss', $timestamp, $user);
+            $stmt->execute();
+            $stmt->close();
+        }  
         return true;
     }
 

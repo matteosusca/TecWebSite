@@ -20,14 +20,21 @@ function userAlreadyLiked(likes, user) {
 //chiede al server il numero di like di un post
 function showCurrentLikes(id_post) {
     axios.post("api_get_post_likes.php", { id_post: id_post }).then(response => {
-        document.getElementById(id_post+"-like-count").innerHTML = response.data.length;
-        document.getElementById(id_post+"-notification-like-count").innerHTML = response.data.length;
+        //if element with id "id_post-like-count" doesn't exis don't update it
+        if (document.getElementById(id_post+"-like-count") != null){
+            document.getElementById(id_post+"-like-count").innerHTML = response.data.length;
+        }
+        //if element with id "id_post-notification-like-count" doesn't exis don't update it
+        if (document.getElementById(id_post+"-notification-like-count") != null){
+            document.getElementById(id_post+"-notification-like-count").innerHTML = response.data.length;
+        }
     });
 }
 
 //chiede al server il numero di like di tutti i post
 function showAllLikes() {
     like_btn.forEach(btn => {
+        console.log(btn.value);
         let id_post = btn.value;
         showCurrentLikes(id_post);
     });

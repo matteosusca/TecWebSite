@@ -30,7 +30,7 @@ if (!empty($_POST['registration_action'])) {
     </div>
 </div>
 <?php if (checkSession()) {
-    foreach ($dbh->getEventsOrderByDate($_SESSION["username"]) as $eventNotification) { ?>
+    foreach ($dbh->getRegisteredEventsOrderByDate($_SESSION["username"]) as $eventNotification) { ?>
         <div class="modal fade" id="modalNotificationEvent<?php echo $eventNotification->getIdEvent() ?>" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -39,7 +39,7 @@ if (!empty($_POST['registration_action'])) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <?php $templateParams["event"] = $eventNotification;
+                        <?php
                         require 'event.php'; ?>
                     </div>
                 </div>
@@ -82,9 +82,6 @@ if (!empty($_POST['registration_action'])) {
                                 <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="collapse" data-bs-target="#notification<?php echo $postNotification->getId() ?>" aria-expanded="false" aria-controls="<?php echo $postNotification->getId() ?>"><em class="bi bi-pencil-square d-block"></em>comments</button>
                             </div>
                             <div class="collapse multi-collapse" id="notification<?php echo $postNotification->getId() ?>">
-                                <?php if (isset($_POST['submitComment' . $postNotification->getId()])) {
-                                    $dbh->createComment($user->getUsername(), $postNotification->getId(), $_POST['body']);
-                                } ?>
                                 <div class="card m-2">
                                     <div class="card-header ">
                                         <h4 class="card-title">Crea commento</h4>

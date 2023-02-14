@@ -13,6 +13,9 @@ if (!empty($_GET['squad_id'])) {
     header("Location: index.php?error=1");
 }
 
+$templateParams["public-events"] = $dbh->getPublicSquadEventsOrderByDate($squad->getId());
+$templateParams["private-events"] = $dbh->getPrivateSquadEventsOrderByDate($squad->getId());
+
 if (!empty($_POST['save'])) {
     // change squad picture
     if (isset($_FILES['squadPicture']) && is_uploaded_file($_FILES['squadPicture']['tmp_name']) && $_FILES['squadPicture']['error'] == 0) {
@@ -86,9 +89,6 @@ $templateParams["title"] = $title;
 $templateParams["squad"] = $squad;
 $templateParams["userCanEdit"] = $dbh->checkUserPermissionsForSquad($_SESSION["username"], $squad->getId());
 $templateParams["members"] = $dbh->getMembers($squad->getId());
-
-$templateParams["public-events"] = $dbh->getPublicSquadEventsOrderByDate($squad->getId());
-$templateParams["private-events"] = $dbh->getPrivateSquadEventsOrderByDate($squad->getId());
 $templateParams["post"] = $dbh->getSquadPosts($squad->getId());
 $templateParams["event"] = $dbh->getSquadEvents($squad->getId());
 $templateParams["friends"] = $dbh->getFriends($_SESSION["username"]);

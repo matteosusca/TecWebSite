@@ -32,7 +32,5 @@ $templateParams["private-events"] = $dbh->getPrivateEventsOrderByDate($_SESSION[
 $templateParams["post"] = $dbh->getPostOrderByDate($_SESSION["username"]);
 $templateParams["friends"] = $dbh->getFriends($_SESSION["username"]);
 $templateParams["squads"] = $dbh->getSquadsByUser($_SESSION["username"]);
-
-$templateParams["js"] = array("https://unpkg.com/@popperjs/core@2", "https://unpkg.com/tippy.js@6", "js/get_active_users.js", "js/handle_like.js");
 require 'templates/base.php';
 ?>

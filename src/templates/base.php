@@ -99,6 +99,10 @@
     <script src="js/get_notification.js"></script>
     <script src="js/accept.js"></script>
     <script src="js/decline.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script src="js/get_active_users.js"></script>
+    <script src="js/handle_like.js"></script>
     
 </body>
 
