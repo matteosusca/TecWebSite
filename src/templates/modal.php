@@ -40,7 +40,9 @@ if (!empty($_POST['registration_action'])) {
                     </div>
                     <div class="modal-body">
                         <?php
-                        require 'event.php'; ?>
+                        $templateParams["event"] = $eventNotification;
+                        require 'event.php'
+                        ?>
                     </div>
                 </div>
             </div>
