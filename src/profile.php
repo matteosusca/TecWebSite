@@ -38,7 +38,7 @@ if (isset($_POST['email'])) {
     $dbh->setMail($_SESSION['username'], $_POST['email']);
     $update = true;
 }
-if($update) {
+if ($update) {
     header("Location: profile.php?user=" . $_SESSION['username']);
 }
 
@@ -46,7 +46,7 @@ $templateParams["title"] = $title;
 $templateParams["user"] = $userProfile;
 $templateParams["friends"] = $dbh->getFriends($userProfile->getUsername());
 $templateParams["isPendingRequest"] = $dbh->isFriendRequestPending($_SESSION['username'], $userProfile->getUsername());
-if($userProfile->getUsername() == $_SESSION['username']) {
+if ($userProfile->getUsername() == $_SESSION['username']) {
     $templateParams["squads"] = $dbh->getSquadsByUser($userProfile->getUsername());
 }
 $templateParams["post"] = $dbh->getUserPosts($userProfile->getUsername());
@@ -56,8 +56,5 @@ $templateParams["left-aside"] = "left-aside.php";
 $templateParams["main"] = "main.php";
 $templateParams["right-aside"] = "right-aside.php";
 
-$templateParams["js"] = array("https://unpkg.com/@popperjs/core@2", "https://unpkg.com/tippy.js@6", "js/get_active_users.js", "js/handle_like.js");
-
 
 require 'templates/base.php';
-?>

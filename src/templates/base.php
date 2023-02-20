@@ -16,7 +16,9 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand col-lg-4 m-0 px-2 d-flex justify-content-end" href="index.php"><h1>SquadUp</h1></a>
+            <a class="navbar-brand col-lg-4 m-0 px-2 d-flex justify-content-end" href="index.php">
+                <h1>SquadUp</h1>
+            </a>
             <?php if (isset($_SESSION['username'])) { ?>
                 <div class="dropdown order-lg-1 col-lg-2 d-flex justify-content-start px-2">
                     <a href="#" class=" link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,13 +62,13 @@
         </div>
     </nav>
 
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" >
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">Notifications</h5>
             <label class="visually-hidden" for="closebtn">Close</label>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" id="closebtn"></button>
         </div>
-        <div id="notifications" class="list-group list-group-flush offcanvas-body">          
+        <div id="notifications" class="list-group list-group-flush offcanvas-body">
         </div>
     </div>
     <?php if (isset($templateParams["body"])) {
@@ -83,7 +85,7 @@
                 require $templateParams["right-aside"];
             } ?>
         </div>
-    <?php } 
+    <?php }
     require_once("modal.php");
     ?>
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -99,11 +101,12 @@
     <script src="js/get_notification.js"></script>
     <script src="js/accept.js"></script>
     <script src="js/decline.js"></script>
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="js/get_active_users.js"></script>
     <script src="js/handle_like.js"></script>
-    
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+
+
 </body>
 
 
